@@ -28,7 +28,7 @@ if(!$enlace)
 
     }else
     {
-        while ($fila = mysqli_fetch_array($resultado));
+        while ($fila = mysqli_fetch_array($resultado))
         {
         
                 $destino = $fila[0];
