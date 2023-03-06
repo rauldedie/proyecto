@@ -26,7 +26,4 @@ if ($conn->connect_error) {
     // Cerramos la conexión
     $conn->close();
 } 
-
-
-
 ?>
