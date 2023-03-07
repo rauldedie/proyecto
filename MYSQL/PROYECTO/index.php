@@ -32,16 +32,14 @@
             $error="<p>Hubo algun/os error/es en el formulario".$error."</p>";
         }else
         {
-            $servidor="sdb-53.hosting.stackcp.net";
-            $usuario="rauldedie";
-            $passwd="lince123";
-            $bd="bdpruebas-353030355619";
+            include('conexion.php');
     
             $enlace = mysqli_connect($servidor,$usuario,$passwd,$bd);
         
             if(!$enlace)
             {
-                echo "Conexion fallida: ".mysqli_connect_error();
+                //echo "Conexion fallida: ".mysqli_connect_error();
+                die("Conexion fallida: ".mysqli_connect_error());
     
             }else
             { 
@@ -49,7 +47,7 @@
                 $pass = mysqli_real_escape_string($enlace,$_POST["password"]);
         
                 //$query = sprintf("SELECT * FROM usuarios WHERE username='%s' AND password='%s'",$usu,$pass);
-                $query = sprintf("SELECT * FROM tecnicos WHERE usuario='%s'",$usu);
+                $query = sprintf("SELECT * FROM usuarios WHERE usuario='%s'",$usu);
                 $resultado = mysqli_query($enlace,$query);
 
                 if ($resultado)
