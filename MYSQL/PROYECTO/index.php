@@ -32,46 +32,38 @@
         }else
         {
             include('conexion.php');
-    
-            $enlace = mysqli_connect($servidor,$usuario,$passwd,$bd);
+     
+            $usu = mysqli_real_escape_string($enlace,$_POST["usuario"]);
+            $pass = mysqli_real_escape_string($enlace,$_POST["password"]);
         
-            if(!$enlace)
-            {
-                //echo "Conexion fallida: ".mysqli_connect_error();
-                die("Conexion fallida: ".mysqli_connect_error());
-    
-            }else
-            { 
-                $usu = mysqli_real_escape_string($enlace,$_POST["usuario"]);
-                $pass = mysqli_real_escape_string($enlace,$_POST["password"]);
-        
-                //$query = sprintf("SELECT * FROM usuarios WHERE username='%s' AND password='%s'",$usu,$pass);
-                $query = sprintf("SELECT * FROM usuarios WHERE usuario='%s'",$usu);
-                $resultado = mysqli_query($enlace,$query);
+            //$query = sprintf("SELECT * FROM usuarios WHERE username='%s' AND password='%s'",$usu,$pass);
+            $query = sprintf("SELECT * FROM usuarios WHERE username='%s'",$usu);
+            $resultado = mysqli_query($enlace,$query);
 
-                if ($resultado)
+            if ($resultado)
+            {
+                $fila = mysqli_fetch_array ($resultado);
+                $passh= md5(md5($fila["id"]).$pass);
+                  
+                if ($passh==$fila["password"])
                 {
-                    $fila = mysqli_fetch_array ($resultado);
-                    $passh= md5(md5($fila["id"]).$pass);
-                    
-                    if ($passh==$fila["password"])
+                    //echo "Bienvenido ". $fila["usuario"];
+                    $_SESSION['id'] = $fila["id"];
+                    if ($_POST["sesioniciada"]=='1')
                     {
-                        //echo "Bienvenido ". $fila["usuario"];
-                        $_SESSION['id'] = $fila["id"];
-                        if ($_POST["sesioniciada"]=='1')
-                        {
-                            setcookie("id",$fila["id"],time()+60*60*24*60);
-                        }
-                        header("Location: gestion.php");
-                        exit();
-                    }else
-                    {
-                        echo "Lo siento, no eres usuario registrado<br>" . mysqli_error($enlace);
+                        //Tengo que ver si aqui es donde se usa el token
+                        setcookie("id",$fila["id"],time()+60*60*24*60);
                     }
+                    header("Location: gestion.php");
+                    exit();
+                }else
+                {
+                    echo "Lo siento, no eres usuario registrado<br>" . mysqli_error($enlace);
+                }
             
-                }    
-                mysqli_close($enlace); 
-            }
+            }    
+            mysqli_close($enlace); 
+            
         }
     }
 ?>
@@ -107,7 +99,8 @@
                     <label class="form-check-label" for="AyudaCheck">Mantener Sesión</label>
                 </div>
                     <br><button type="submit" name="submit" class="btn btn-primary">Login</button>
-
+                    
+                    <a href="registro.php" onclick="CambiarURL()" name="registro" target="_blank">Registrar usuario nuevo</a>
             </form>
 
         </div>
@@ -115,6 +108,16 @@
 
 <?php
     include("footer.php");
+    //window.location.replace("http://nuevapagina.php/");
+
+   /*<?php
+        header("HTTP/1.1 301 Moved Permanently");
+        header("Location: [http://www.mipaginanueva.com%22) http://www.mipaginanueva.com")];
+    ?>*/
+    /*<?php
+        header("HTTP/1.1 302 Moved Temporarily");;
+        header("Location: [http://www.mipaginanuevatemporal.com%22) http://www.mipaginanuevatemporal.com")];
+    ?>*/
 ?>
 
 
