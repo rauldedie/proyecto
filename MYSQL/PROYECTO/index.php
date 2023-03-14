@@ -1,4 +1,5 @@
 <?php
+
     header("content-type:text/html;charset=utf-8");
     session_start();
     $error="";
@@ -8,17 +9,15 @@
         session_unset();
         setcookie("id","",time()-60*60);
         $_COOKIE["id"]="";
-    }else if ((array_key_exists("id",$_SESSION) AND $_SESSION['id']) OR (array_key_exists("id",$_COOKIE) AND $_COOKIE['id']))
-        {
-            header ("Location: gestion.php");
-        }
-        
-        
 
+    }else if ((array_key_exists("id",$_SESSION) AND $_SESSION['id']) OR (array_key_exists("id",$_COOKIE) AND $_COOKIE['id']))
+    {
+        header ("Location: gestion.php");
+    }
+        
     if (array_key_exists("submit",$_POST))
     //if(isset($_POST["submit"]))
-    {   
-        
+    {       
         if(!$_POST["usuario"])
         {
             $error.="<br>El usuario es requerido.";
@@ -74,8 +73,6 @@
                 mysqli_close($enlace); 
             }
         }
-
-
     }
 ?>
 
