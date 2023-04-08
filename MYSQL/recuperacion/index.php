@@ -4,8 +4,9 @@
     include (cabecera.php);
     if (isset($_POST["registro"]))
     {
+        //¿PODRIA SACARLO DEL IF? EL INCLUDE Y LA TOMA DE DATOS
         include(conectar.php);
-    
+        
         $nombre =mysqli_real_escape_string($enlace,$_POST["nombre"]);
         $apellidos =mysqli_real_escape_string($enlace,$_POST["apellidos"]);
         $mail =mysqli_real_escape_string($enlace,$_POST["mail"]);
@@ -31,6 +32,7 @@
             {
                 echo "Te has dado de alta correcctamente.";
                 include(enviarmail.php);
+                //echo "<script> document.getElementById("aviso").innerHTML="Mail registro enviado"; </script>";
     
             }else
             {
@@ -40,6 +42,7 @@
 
         if (isset($_POST["login"]))
         {
+            //¿PODRIA SACARLO DEL IF? EL INCLUDE Y LA TOMA DE DATOS
             include(conectar.php);
     
             $nombre =mysqli_real_escape_string($enlace,$_POST["nombre"]);
@@ -57,6 +60,7 @@
             if ($resultado)
             {
                 echo "El usuario se ha logado correctamente";
+                //echo "<script> document.getElementById("aviso").innerHTML="Login correcto"; </script>";
 
             }else
             {
