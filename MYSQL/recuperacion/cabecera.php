@@ -11,13 +11,6 @@
 <body>
     <H1>ALTA NUEVO USUARIO</H1>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-    <!--<label for="usuario">Dime nombre de usuario</label>
-    <input type="text" name="usuario"><br><br>
-    <label for="passwd">Dime la contraseña</label>
-    <input type="password" name="passwd"><br><br>
-    <label for="submit">Pincha en Enviar </label>
-    <input type="submit" name="submit"><br><br>-->
-
     <div>
         <label>Nombre (*): </label for="nombre"><input class="form" type="text" id="dato0" required placeholder="Nombre">
         <label class="error" name="nombre" id="error0"></label><br><br>
@@ -34,10 +27,13 @@
         <label>Repetir Contraseña (*): </label for="pass2"><input class="form" type="password" id="dato4" required placeholder="Mínimo 8 caracteres">
         <label class="error" id="error4" name="pass2" ></label><br><br>
 
-        <label>Apellidos (*): </label for="nombreusuario"><input class="form" type="text" id="dato5" required placeholder="Nombre de usuario">
+        <label>Nombre Usuario (*): </label for="nombreusuario"><input class="form" type="text" id="dato5" required placeholder="Nombre de usuario">
         <label class="error" name="apellidos" id="error5" name="nombreusuario"></label><br><br>
             
         <label for="">Los campos marcados con (*) son obligatorios</label><br><br>
     </div>
-    <button onclick="ValidarFormulario()">Validar</button>
+    <button type="submit" name="login" onclick="ValidarFormulario()">Login</button>
+    <button type="submit" name="registro" onclick="ValidarFormulario()">Registrar</button><br><br>
+    <div id=aviso></div>
+
 </form> 

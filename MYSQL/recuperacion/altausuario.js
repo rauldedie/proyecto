@@ -6,7 +6,6 @@ function ValidarFormulario()
     let correctopass = 1;
     let correcto = 1;
     let correctomail = 1;
-    let correctocheck = document.getElementById("dato5").checked;
     let i,id,longitud;
 
     document.getElementById("usuario").innerHTML = " ";
