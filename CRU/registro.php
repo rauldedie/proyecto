@@ -30,7 +30,7 @@
      
             /*$usu = mysqli_real_escape_string($enlace,$_POST["usuario"]);
             $pass = mysqli_real_escape_string($enlace,$_POST["password"]);
-            $email = mysqli_real_escape_string($enlace,)*/ç
+            $email = mysqli_real_escape_string($enlace,)*/
             
             //LEO EL FORMULARIO
             
@@ -62,7 +62,7 @@
             }else
             {
                 //SACAR VENTANA DE ALERTA Y LIMPIAR EL FORMULARIO
-                echo "Lo siento, el usuario ya existe <br>"
+                echo "Lo siento, el usuario ya existe <br>";
                 header("Location: registro.php");
                 exit();
             }
