@@ -8,9 +8,7 @@ function ValidarFormulario()
     let correctomail = 1;
     let i,id,longitud;
 
-    document.getElementById("usuario").innerHTML = " ";
-    document.getElementById("resultado").innerHTML = " ";
-    
+    document.getElementById("aviso").innerHTML = " ";    
     
     for (i=0;i<6; i++)
     {

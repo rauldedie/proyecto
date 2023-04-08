@@ -22,6 +22,7 @@
         if ($resultado)
         {
             echo "El usuario ya existe";
+            //echo "<script> document.getElementById("aviso").innerHTML="El usuario ya existe"; </script>";
 
         }else
         {        
@@ -37,6 +38,7 @@
             }else
             {
                 echo "Lo siento, ha ocurrido un error en el proceso de alta<br>" . mysqli_error($enlace);
+                //echo "<script> document.getElementById("aviso").innerHTML="Lo siento, ha ocurrido un error en el proceso de alta"; </script>";
             }    
         }
 
@@ -65,9 +67,9 @@
             }else
             {
                 echo "Lo siento el usuario no existe";
+                //echo "<script> document.getElementById("aviso").innerHTML="El usuario no existe."; </script>";
             }
         }
-
 
         mysqli_close($enlace);     
     
