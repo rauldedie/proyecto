@@ -1,58 +1,24 @@
 
-<?php   
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="altausuario.js"></script>
+    <link rel="stylesheet" href="altausuario.css">
+    <title>Formuario alta de usuario</title>
+</head>
+<body>
+    <H1>PORTAL DE ENTRADA</H1>
 
-    header("content-type:text/html;charset=utf-8");
+    <div>
+        <button name="login" id="login" onclick="location.href='login.php'">Iniciar Sesion</button><br><br>
+    </div>
 
-    include ("cabecera.php");
-    include("conectar.php");
+    <div>
+        <button name="registro" id="registro" onclick="location.href='registro.php'">Registro</button><br><br>
+    </div>
     
-    ob_end_clean();
-
-    $nombre =mysqli_real_escape_string($enlace,$_POST["nombre"]);
-    $apellidos =mysqli_real_escape_string($enlace,$_POST["apellidos"]);
-    $mail =mysqli_real_escape_string($enlace,$_POST["mail"]);
-
-    $usuario = mysqli_real_escape_string($enlace,$_POST["nombreusuario"]);
-    $pass = mysqli_real_escape_string($enlace,$_POST["pass1"]);
-
-    if (isset($_POST["registro"]))
-    {  
-        //VERIFICAR QUE NO EXISTE EL USUARIO
-        $query = sprintf("SELECT nombreusuario FROM usuarios2 WHERE nombreusuario='%s'",$usuario);
-        $resultado = mysqli_query($enlace,$query);
-
-        if ($resultado!=$usuario)
-        {
-            $query = "SELECT last_insert_id();";
-            $id = mysqli_query($enlace,$query);
-            $id+=1;
-            $passh= md5(md5($id).$nuevopass);
-            $query = "insert into usuarios2 (idusuario,nombre,apellidos,mail,password,nombreusuario) values ('','".$nombre."','".$apellidos."','".$mail."','".$passh."','".$usuario."');";
-            $resultado = mysqli_query($enlace,$query);
-
-            if ($resultado)
-            {
-                echo "Te has dado de alta correcctamente. Se te ha enviado un correo con los datos de conexión.";
-                include("enviarmail.php");
-                //echo "<script> document.getElementById("aviso").innerHTML="Mail registro enviado"; </script>";
-    
-            }else
-            {
-                echo "Lo siento, ha ocurrido un error en el proceso de alta<br>" . mysqli_error($enlace);
-                //echo "<script> document.getElementById("aviso").innerHTML="Lo siento, ha ocurrido un error en el proceso de alta"; </script>";
-            } 
-            
-        }else
-        {        
-            echo "El usuario ya existe";
-            //echo "<script> document.getElementById("aviso").innerHTML="El usuario ya existe"; </script>";
-               
-        }
-        
-
-        mysqli_close($enlace);     
-    
-    }
-    ?>
-
-<?php include "pie.php" ?>
+</body>
+</html>

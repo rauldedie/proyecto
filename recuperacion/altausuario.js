@@ -1,6 +1,6 @@
-function ValidarFormulario()
+function ValidarRegistro()
 {
-    document.getElementById("resultado").innerHTML ="";
+    //document.getElementById("resultadoregistro").innerHTML ="";
     //let entradas = document.getElementsByTagName("input");
     let entradas = [];    
     let correctopass = 1;
@@ -8,13 +8,13 @@ function ValidarFormulario()
     let correctomail = 1;
     let i,id,longitud;
 
-    document.getElementById("aviso").innerHTML = " ";    
+    document.getElementById("avisoregistro").innerHTML = " ";    
     
     for (i=0;i<6; i++)
     {
         if (i<6)
         {
-            document.getElementById("error"+i).innerHTML = " ";
+            document.getElementById("errorReg"+i).innerHTML = " ";
                 
         }
     }
@@ -23,7 +23,7 @@ function ValidarFormulario()
     for (i=0; i<5; i++)
     {
     //cargo en el array todos los datos introducidos por el usuario
-        entradas.push(document.getElementById("dato"+i).value);
+        entradas.push(document.getElementById("datoreg"+i).value);
     }
 
     longitud = entradas.length-1;
@@ -33,7 +33,7 @@ function ValidarFormulario()
             
         if (entradas[i]== "")
         {
-            id = "error"+i;
+            id = "errorReg"+i;
             document.getElementById(id).innerHTML = "Este campo es obligatorio";
             correcto = 0; 
 
@@ -49,7 +49,26 @@ function ValidarFormulario()
     } 
 }
 
+function ValidarLogin()
+{
+    document.getElementById("resultadologin").innerHTML ="";
+    //let entradas = document.getElementsByTagName("input");
+    let entradas = [];    
+    let correctopass = 1;
+    let correcto = 1;
+    let correctomail = 1;
+    let i,id,longitud;
 
+    document.getElementById("avisologin").innerHTML = " ";
+    for (i=0;i<6; i++)
+    {
+        if (i<6)
+        {
+            document.getElementById("errorReg"+i).innerHTML = " ";
+                
+        }
+    }
+}
 
 
 
