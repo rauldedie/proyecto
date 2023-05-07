@@ -56,17 +56,39 @@ function ValidarLogin()
     let entradas = [];    
     let correctopass = 1;
     let correcto = 1;
-    let correctomail = 1;
     let i,id,longitud;
 
     document.getElementById("avisologin").innerHTML = " ";
-    for (i=0;i<6; i++)
+    for (i=0;i<2; i++)
     {
-        if (i<6)
+        if (i<2)
         {
-            document.getElementById("errorReg"+i).innerHTML = " ";
+            document.getElementById("error"+i).innerHTML = " ";
                 
         }
+    }
+    for (i=0; i<2; i++)
+    {
+    //cargo en el array todos los datos introducidos por el usuario
+        entradas.push(document.getElementById("dato"+i).value);
+    }
+
+    longitud = entradas.length-1;
+    
+    for (i=0; i<longitud; i++)
+    {
+            
+        if (entradas[i]== "")
+        {
+            id = "error"+i;
+            document.getElementById(id).innerHTML = "Este campo es obligatorio";
+            correcto = 0; 
+
+        }else if (i==2)
+        {
+            correctopass = VerificarPassword (entradas[i],entradas[i],i);
+        }
+        
     }
 }
 

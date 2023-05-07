@@ -9,7 +9,7 @@
     <title>Formuario alta de usuario</title>
 </head>
 <body>
-    <H1>LOGIN USUARIO</H1>
+    <H1>RECUPERACION CONTRASEÑA</H1>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <div>
         <label>Nombre Usuario (*): </label for="nombreusuario"><input name="nombreusuario" class="form" type="text" id="dato0" required placeholder="Nombre de usuario">
@@ -20,8 +20,7 @@
             
         <label for="">Los campos marcados con (*) son obligatorios</label><br><br>
     </div>
-    <button id="btn_login" type="submit" name="btn_login" onclick="ValidarLogin()">Login</button>
-    <button id="btn_recuperacion" type="submit" name="btn_recuperar" onclick="location.href='recuperarpass.php'">Recuperar contraseña</button><br><br>
+    <button id="btn_recuperacion" type="submit" name="btn_recuperacion" onclick="ValidarLogin()">Recuperar contraseña</button><br><br>
     <div id=avisologin></div><br><br>
 
 

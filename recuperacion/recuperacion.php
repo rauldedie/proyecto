@@ -2,7 +2,7 @@
 
     header("content-type:text/html;charset=utf-8");
 
-    include ("cabeceralogin.php");
+    include ("cabecerarecuperacion.php");
     include("conectar.php");
     
     ob_end_clean();
@@ -12,9 +12,8 @@
     $usuario = mysqli_real_escape_string($enlace,$_POST["nombreusuario"]);
     $pass = mysqli_real_escape_string($enlace,$_POST["pass"]);
 
-    while (intentos < 3)
-    {
-        if (isset($_POST["btn_login"]))
+   {
+        if (isset($_POST["btn_recuperacion"]))
         {  
             //VERIFICAR EL USUARIO
             $query = sprintf("SELECT idusuario,nombreusuario,password FROM usuarios2 WHERE nombreusuario='%s'",$usuario);
@@ -34,8 +33,15 @@
                     //echo "<script> document.getElementById("aviso").innerHTML="Mail registro enviado"; </script>";
                 }else
                 {   
-                    echo "Login correcto";
-                    //echo "<script> document.getElementById("aviso").innerHTML="Lo siento, ha ocurrido un error en el proceso de alta"; </script>";
+                    $query = "UPDATE usuarios2 SET password = '{$pass}' WHERE nombreusuario = {$usuario}";
+                    $resultado = mysqli_query($enlace,$query);
+                    if (!$resultado)
+                    {
+                        echo "Se ha producido un error al actualizar su contraseña";
+                    }else
+                    {
+                        echo "Contraseña actualizada correctamente";
+                    }
                 } 
             
             }else
@@ -49,10 +55,6 @@
             mysqli_close($enlace);     
     
         }
-    }
-    if(intentos == 3)
-    {
-        echo "Lo siento superaste el numero de intentos";
     }
 
     
