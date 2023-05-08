@@ -8,12 +8,8 @@
     ob_end_clean();
 
     $mail =mysqli_real_escape_string($enlace,$_POST["mail"]);
-    $intentos = 0;
     $usuario = mysqli_real_escape_string($enlace,$_POST["nombreusuario"]);
     $pass = mysqli_real_escape_string($enlace,$_POST["pass"]);
-
-    while (intentos < 3)
-    {
         if (isset($_POST["btn_login"]))
         {  
             //VERIFICAR EL USUARIO
@@ -49,12 +45,6 @@
             mysqli_close($enlace);     
     
         }
-    }
-    if(intentos == 3)
-    {
-        echo "Lo siento superaste el numero de intentos";
-    }
-
     
     ?>
 
