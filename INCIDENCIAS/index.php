@@ -2,8 +2,15 @@
 
 <?php
     
-
+    include("sesioniniciada.php");
     include("./cabeceras/cabeceraindex.php");
+
+    if (!array_key_exists("id",$_SESSION) || !$_SESSION['id'])
+    {
+        session_start();
+        setcookie("id",$_SESSION['id'],time()+84600,true,true);
+        
+    }
         
     if (array_key_exists("submit",$_POST))
     //if(isset($_POST["submit"]))

@@ -14,7 +14,7 @@
   </head>
   <body>
   <div class="container">
-        <h1>Formulario de Login</h1>
+        <h1>GESTIÓN INCIDENCIAS TÉCNICAS IES A. MACHADO</h1>
         <div id="error">
             <?php
             echo $error;
