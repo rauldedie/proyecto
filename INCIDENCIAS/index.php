@@ -2,15 +2,8 @@
 
 <?php
     
-    include("sesioniniciada.php");
+    //include("sesioniniciada.php");
     include("./cabeceras/cabeceraindex.php");
-
-    if (!array_key_exists("id",$_SESSION) || !$_SESSION['id'])
-    {
-        session_start();
-        setcookie("id",$_SESSION['id'],time()+84600,true,true);
-
-    }
         
     if (array_key_exists("login",$_POST))
     //if(isset($_POST["login"]))
@@ -27,9 +20,11 @@
             if ($resultado)
             {
                 $fila = mysqli_fetch_array ($resultado);
+                echo $fila[password];
+                echo $fila[username];
                 $passh= md5(md5($fila["id"]).$pass);
                   
-                if ($passh==$fila["password"])
+                /*if ($passh==$fila[password])
                 {
                     //echo "Bienvenido ". $fila["usuario"];
                     session_start();
@@ -48,20 +43,13 @@
                         setcookie("usuario",$fila["usuario"],time()+60*60,true,true);
                     }
                     
-                    include(gestion.php);
-                    /*?>
-                    <?php
-                        <script> 
-                        window.location.replace= "gestion.php";
-                        </script>
-                    ?>
-                    <?php*/
-                   
+                    include(gestion.php);                   
                     exit();
+
                 }else
                 {
                     echo "Lo siento, no eres usuario registrado<br>" . mysqli_error($enlace);
-                }
+                }*/
             
             }    
             mysqli_close($enlace); 
