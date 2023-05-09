@@ -9,25 +9,12 @@
     {
         session_start();
         setcookie("id",$_SESSION['id'],time()+84600,true,true);
-        
+
     }
         
-    if (array_key_exists("submit",$_POST))
-    //if(isset($_POST["submit"]))
+    if (array_key_exists("login",$_POST))
+    //if(isset($_POST["login"]))
     {       
-        if(!$_POST["usuario"])
-        {
-            $error.="<br>El usuario es requerido.";
-        }
-        if(!$_POST["password"])
-        {
-            $error.="<br>El password es requerido.";
-        }
-        if ($error!="")
-        {
-            $error="<p>Hubo algun/os error/es en el formulario".$error."</p>";
-        }else
-        {
             include('conexion.php');
      
             $usu = mysqli_real_escape_string($enlace,$_POST["usuario"]);
@@ -45,13 +32,31 @@
                 if ($passh==$fila["password"])
                 {
                     //echo "Bienvenido ". $fila["usuario"];
+                    session_start();
                     $_SESSION['id'] = $fila["id"];
+
                     if ($_POST["sesioniciada"]=='1')
                     {
                         //Tengo que ver si aqui es donde se usa el token
-                        setcookie("id",$fila["id"],time()+60*60*24*60);
+                        setcookie("id",$fila["id"],time()+60*60*24*30,true,true);
+                        setcookie("rol",$fila["rol"],time()+60*60*24*30,true,true);
+                        setcookie("usuario",$fila["usuario"],time()+60*60*24*30,true,true);
+
+                    }else{
+                        setcookie("id",$fila["id"],time()+60*60,true,true);
+                        setcookie("rol",$fila["rol"],time()+60*60,true,true);
+                        setcookie("usuario",$fila["usuario"],time()+60*60,true,true);
                     }
-                    //header("Location: gestion.php"); NO FUNCIONA
+                    
+                    include(gestion.php);
+                    /*?>
+                    <?php
+                        <script> 
+                        window.location.replace= "gestion.php";
+                        </script>
+                    ?>
+                    <?php*/
+                   
                     exit();
                 }else
                 {
@@ -61,7 +66,7 @@
             }    
             mysqli_close($enlace); 
             
-        }
+        
     } 
     include("pie.php");
 

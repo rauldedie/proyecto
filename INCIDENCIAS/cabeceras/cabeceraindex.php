@@ -10,6 +10,7 @@
     <!--No necesito poner ../estilos/incidencias porque al usar include es como sipegara esta parte en index
     y por tanto no me encuentro dentro de cabeceras-->
     <link rel="stylesheet" href="estilos/incidencias.css">
+    <script src="javascript/incidencias.js"></script>
     <title>Portal de entrada</title>
   </head>
   <body>
@@ -27,12 +28,14 @@
                 <div class="form-group">
                     <label for="usuario">Nombre de Usuario
                         <input type="text" name="usuario" class="form-control" id="usuario" aria-describedby="AyudaUsuario" placeholder="Escribe tu usuario">
+                        <label class="error" id="error0" ></label>
                         <small id="AyudaUsuario">Este campo es obligatorio.</small>
                     </label>
                 </div>
                 <div class="form-group">
                     <label for="Password">Password
-                        <input type="password" name="password" aria-describedby="AyudaPasswd" class="form-control" id="Password" placeholder="Escribe tu Password">
+                        <input type="password" name="password" aria-describedby="AyudaPasswd" class="form-control" id="password" placeholder="Escribe tu Password">
+                        <label class="error" id="error1" ></label>
                         <small id="AyudaPasswd" >Este campo es obligatorio.</small>
                     </label>
                 </div>
@@ -40,11 +43,14 @@
                     <input type="checkbox" name="sesioniniciada" value=1 class="form-check-input" id="AyudaCheck">
                     <label class="form-check-label" for="AyudaCheck">Mantener Sesión</label>
                 </div>
-                    <br><button type="submit" name="submit" class="btn btn-primary">Login</button>
+                    <br><button type="submit" onclick="ValidarLogin()" name="login" class="btn btn-primary">Login</button>
                     
-                    <a href="registro.php" onclick="CambiarURL()" name="registro" target="_blank">Registrar usuario nuevo</a>
+                    <a href="registro.php" onclick="location.href='regitro.php'" name="registro" target="_blank">Registrar usuario nuevo</a>
             </form>
 
+            <label class="error" id="aviso" ></label>
+
         </div>
+        <label class="error" id="aviso" ></label>
     </div>  
     </body>
