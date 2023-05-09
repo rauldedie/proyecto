@@ -7,7 +7,9 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="../estilos/incidencias.css">
+    <!--No necesito poner ../estilos/incidencias porque al usar include es como sipegara esta parte en index
+    y por tanto no me encuentro dentro de cabeceras-->
+    <link rel="stylesheet" href="estilos/incidencias.css">
     <title>Portal de entrada</title>
   </head>
   <body>

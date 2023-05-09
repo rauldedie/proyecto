@@ -1,20 +1,7 @@
 
 
 <?php
-    header("content-type:text/html;charset=utf-8");
-    session_start();
-    $error="";
-    if (array_key_exists("Logout",$_GET))
-        {
-            //Viene de sesion iniciada
-            session_unset();
-            setcookie("id","",time()-60*60);
-            $_COOKIE["id"]="";
-
-        }else if ((array_key_exists("id",$_SESSION) AND $_SESSION['id']) OR (array_key_exists("id",$_COOKIE) AND $_COOKIE['id']))
-        {
-            header ("Location: gestion.php");
-        }
+    
 
     include("./cabeceras/cabeceraindex.php");
         
@@ -70,14 +57,5 @@
         }
     } 
     include("pie.php");
-    //window.location.replace("http://nuevapagina.php/");
 
-   /*<?php
-        header("HTTP/1.1 301 Moved Permanently");
-        header("Location: [http://www.mipaginanueva.com%22) http://www.mipaginanueva.com")];
-    ?>*/
-    /*<?php
-        header("HTTP/1.1 302 Moved Temporarily");;
-        header("Location: [http://www.mipaginanuevatemporal.com%22) http://www.mipaginanuevatemporal.com")];
-    ?>*/
 ?>
