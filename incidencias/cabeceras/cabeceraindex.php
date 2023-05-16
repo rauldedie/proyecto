@@ -36,7 +36,8 @@
                     <label for="Password">Password
                         <input type="password" name="password" aria-describedby="AyudaPasswd" class="form-control" id="password" placeholder="Escribe tu Password">
                         <label class="error" id="error1" ></label>
-                        <small id="AyudaPasswd" >Este campo es obligatorio.</small>
+                        <small id="AyudaPasswd" >Este campo es obligatorio.</small><br>
+                        <small id="AyudaPasswd2" >Longitud mínima 8 caracteres, ha de contener al menos un numero y una mayúscula.</small>
                     </label>
                 </div>
                 <div class="form-check">
