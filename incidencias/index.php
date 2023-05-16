@@ -1,28 +1,27 @@
 <?php
     
-    //include("sesioniniciada.php");
+    //include("./cuerpos/sesioniniciada.php");
     include("./cabeceras/cabeceraindex.php");
-        
-    if (array_key_exists("login",$_POST))
-    //if(isset($_POST["login"]))
+     $error=0;   
+    //if (array_key_exists("login",$_POST))
+    if(isset($_POST["login"]))
     {       
-            include('conexion.php');
+            include('./cuerpos/conectar.php');
      
             $usu = mysqli_real_escape_string($enlace,$_POST["usuario"]);
             $pass = mysqli_real_escape_string($enlace,$_POST["password"]);
-        
-            //$query = sprintf("SELECT * FROM usuarios WHERE username='%s' AND password='%s'",$usu,$pass);
+            $error=1;  
             $query = sprintf("SELECT * FROM usuarios WHERE username='%s'",$usu);
             $resultado = mysqli_query($enlace,$query);
-            echo $fila[password];
-            echo $fila["username"];
+            echo $usu;
+            echo $pass;
             if ($resultado)
             {
                 $fila = mysqli_fetch_array ($resultado);
                 echo $fila["password"];
                 echo $fila["username"];
                 $passh= md5(md5($fila["id"]).$pass);
-                  
+                $error=3;   
                 /*if ($passh==$fila[password])
                 {
                     //echo "Bienvenido ". $fila["usuario"];
@@ -55,6 +54,6 @@
             
         
     } 
-    include("pie.php");
+    include("./pie/pie.php");
 
 ?>

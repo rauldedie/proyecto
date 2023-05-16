@@ -17,9 +17,9 @@
   <div class="container">
         <h1>GESTIÓN INCIDENCIAS TÉCNICAS IES A. MACHADO</h1>
         <div id="error">
-            <?php
+            <?php 
             echo $error;
-            ?>
+            ?> 
 
         </div>
         <div>
@@ -27,8 +27,7 @@
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
                 <div class="form-group">
                     <div><img class="iconoayuda" id="ayuda" onclick="Ayuda()" src="recursos/ayuda.png" alt="ayuda"></div>
-                    <label for="usuario">Nombre de Usuario
-                        
+                    <label for="usuario">Nombre de Usuario                        
                         <input type="text" name="usuario" class="form-control" id="usuario" aria-describedby="AyudaUsuario" placeholder="Escribe tu usuario">
                         <label class="error" id="errorusuario" ></label>
                         <small id="AyudaUsuario">Este campo es obligatorio.</small>
@@ -48,7 +47,7 @@
                 </div>
                     <br><button type="submit" onclick="ValidarLogin()" name="login" class="btn btn-primary">Login</button>
                     
-                    <a href="recuperar.php" onclick="location.href='recuperar.php'" name="recuperar" target="_blank">Recuperar contraseña</a>
+                    <a href="cuerpos/recuperar.php" onclick="location.href='cuerpos/recuperar.php'" name="recuperar" target="_blank">Recuperar contraseña</a>
             </form>
 
             <label class="error" id="aviso" ></label>
