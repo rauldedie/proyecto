@@ -36,17 +36,17 @@
                     <label for="Password">Password
                         <input type="password" name="password" aria-describedby="AyudaPasswd" class="form-control" id="password" placeholder="Escribe tu Password">
                         <label class="error" id="error1" ></label>
-                        <small id="AyudaPasswd" >Este campo es obligatorio.</small><br>
-                        <small id="AyudaPasswd2" >Longitud mínima 8 caracteres, ha de contener al menos un numero y una mayúscula.</small>
-                    </label>
+                        <small id="AyudaPasswd" >Este campo es obligatorio.</small>
+                    </label><br>
+                    <small id="AyudaPasswd2" >Longitud mínima 8 caracteres, ha de contener al menos un numero y una mayúscula.</small>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" name="sesioniniciada" value=1 class="form-check-input" id="AyudaCheck">
-                    <label class="form-check-label" for="AyudaCheck">Mantener Sesión</label>
+                    <label class="form-check-label" for="AyudaCheck">Mantener Sesión (la sesion durará 24 horas)</label>
                 </div>
                     <br><button type="submit" onclick="ValidarLogin()" name="login" class="btn btn-primary">Login</button>
                     
-                    <a href="registro.php" onclick="location.href='regitro.php'" name="registro" target="_blank">Registrar usuario nuevo</a>
+                    <a href="registro.php" onclick="location.href='registro.php'" name="registro" target="_blank">Registrar usuario nuevo</a>
             </form>
 
             <label class="error" id="aviso" ></label>
