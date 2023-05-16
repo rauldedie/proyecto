@@ -1,3 +1,113 @@
+function Ayuda()
+{
+    $mensaje ="No dejes los campos vacios.\nEl usuario y contraseña no pueden contener tildes ni espacios.\nLa contraseña ha de tener mínimo 8 caracteres entre números y letras";
+    alert($mensaje);
+}
+
+//VERIFICACION DEL LOGIN
+
+function ValidarLogin()
+{
+    let entradas = [];
+    let longitud;   
+    let correctousu = 1;
+    let correctopass=1;
+    let valores = /^[a-zA-z0-9]+$/;
+
+    //Limpiamos los errores previos
+    document.getElementById("aviso").innerHTML = "";
+    document.getElementById("errorusuario").innerHTML = " ";
+    document.getElementById("errorpasswd").innerHTML = " ";
+
+    //obtenemos el usuario y contraseña introducido por el usuario
+    entradas.push(document.getElementById("usuario").value);
+    entradas.push(document.getElementById("password").value);
+
+    //verificmaos que los campos no esten vacios
+    if (entradas[0]=="")
+    {
+        document.getElementById("errorusuario").innerHTML = "Este campo es obligatorio.";
+        correctousu = 0;
+    }
+    if (entradas[1]=="")
+    {
+        document.getElementById("errorpasswd").innerHTML = "Este campo es obligatorio.";
+        correctopass = 0;
+    }
+    //si los campos no estan vacios controlamos que no tengan espacios,
+    //tildes o que la contraseña tenga menos de 8 caracteres o contenga caracteres no permitidos.
+    if (correctousu == 1 && correctopass == 1)
+    {
+        longitud = entradas[1].length;
+        if (longitud<8)
+        {
+            document.getElementById("errorpasswd").innerHTML = "la contraseña ha de tener mínimo 8 caracteres";
+            correctopass=0;
+
+        }else if(!entradas[1].match(valores))
+        {
+            document.getElementById("errorpasswd").innerHTML = "solo números y letras";
+            correctopass=0;
+        } else
+        {
+            entradas[0] = SinTildes(entradas[0]);
+            entradas[1] = SinTildes(entradas[1]);
+            entradas[0] = SinEspacios(entradas[0]);
+            entradas[1] = SinEspacios(entradas[1]);
+        }
+    }
+}
+
+function SinTildes (usuario)
+{
+    usuario = Array.from(usuario);
+    let tamano = usuario.length;
+    for(let i=0;i<tamano;i++)
+    {
+        if(usuario[i]=='á')
+        {
+            usuario[i] = 'a';
+        }else if (usuario [i] == 'é')
+            {
+                usuario[i] = 'e';
+            }else if (usuario[i] == 'í')
+                {
+                    usuario[i] = 'i';
+                }else if (usuario[i] == 'ó')
+                    {
+                        usuario[i] = 'o';
+                    }else if (usuario[i] == 'ú')
+                        {
+                            usuario[i] = 'u';
+                        }
+    }
+
+    usuario = usuario.join("");
+
+    return(usuario);
+}
+
+function SinEspacios (nombre)
+{
+    let i,j,long1;
+    j = 0;
+    let aux=[];
+    long1=nombre.length;
+
+    for (i=0;i<long1;i++)
+    {
+        if(nombre[i]!=" ")
+        {
+            aux[j] = nombre[i];
+            j++;
+        }
+    }
+    aux = aux.join("");
+    return (aux);
+}
+
+//VERIFICAR REGISTRO
+
 function ValidarRegistro()
 {
     //document.getElementById("resultadoregistro").innerHTML ="";
@@ -48,45 +158,6 @@ function ValidarRegistro()
         
     } 
 }
-
-function ValidarLogin()
-{
-    let entradas = [];    
-    let correcto = 1;
-    let i,id,longitud;
-    document.getElementById("aviso").innerHTML = "";
-
-    for (i=0;i<2; i++)
-    {
-        if (i<2)
-        {
-            document.getElementById("error"+i).innerHTML = " ";
-                
-        }
-    }
-    entradas.push(document.getElementById("usuario").value);
-    entradas.push(document.getElementById("password").value);
-
-    longitud = entradas.length;
-    
-    for (i=0; i<longitud; i++)
-    {
-            
-        if (entradas[i]== "")
-        {
-            id = "error"+i;
-            document.getElementById(id).innerHTML = "Este campo es obligatorio.";
-            correcto = 0; 
-
-        }        
-    }
-    if (!correcto)
-    {
-        document.getElementById("aviso").innerHTML = "Los campos no pueden quedar vacios."; 
-    }
-}
-
-
 
 function VerificarPassword (pass1,pass2,i)
 {

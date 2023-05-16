@@ -26,16 +26,18 @@
             <p><h3>Introduce tu usuario y contraseña para entrar al sistema</h3></p>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
                 <div class="form-group">
+                    <div><img class="iconoayuda" id="ayuda" onclick="Ayuda()" src="recursos/ayuda.png" alt="ayuda"></div>
                     <label for="usuario">Nombre de Usuario
+                        
                         <input type="text" name="usuario" class="form-control" id="usuario" aria-describedby="AyudaUsuario" placeholder="Escribe tu usuario">
-                        <label class="error" id="error0" ></label>
+                        <label class="error" id="errorusuario" ></label>
                         <small id="AyudaUsuario">Este campo es obligatorio.</small>
                     </label>
                 </div>
                 <div class="form-group">
                     <label for="Password">Password
                         <input type="password" name="password" aria-describedby="AyudaPasswd" class="form-control" id="password" placeholder="Escribe tu Password">
-                        <label class="error" id="error1" ></label>
+                        <label class="error" id="errorpasswd" ></label>
                         <small id="AyudaPasswd" >Este campo es obligatorio.</small>
                     </label><br>
                     <small id="AyudaPasswd2" >Longitud mínima 8 caracteres, ha de contener al menos un numero y una mayúscula.</small>
@@ -46,12 +48,12 @@
                 </div>
                     <br><button type="submit" onclick="ValidarLogin()" name="login" class="btn btn-primary">Login</button>
                     
-                    <a href="registro.php" onclick="location.href='registro.php'" name="registro" target="_blank">Registrar usuario nuevo</a>
+                    <a href="recuperar.php" onclick="location.href='recuperar.php'" name="recuperar" target="_blank">Recuperar contraseña</a>
             </form>
 
             <label class="error" id="aviso" ></label>
 
         </div>
-        <label class="error" id="aviso" ></label>
+        <label class="error" id="aviso2" ></label>
     </div>  
     </body>

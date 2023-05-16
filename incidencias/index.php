@@ -14,12 +14,13 @@
             //$query = sprintf("SELECT * FROM usuarios WHERE username='%s' AND password='%s'",$usu,$pass);
             $query = sprintf("SELECT * FROM usuarios WHERE username='%s'",$usu);
             $resultado = mysqli_query($enlace,$query);
-
+            echo $fila[password];
+            echo $fila["username"];
             if ($resultado)
             {
                 $fila = mysqli_fetch_array ($resultado);
-                echo $fila[password];
-                echo $fila[username];
+                echo $fila["password"];
+                echo $fila["username"];
                 $passh= md5(md5($fila["id"]).$pass);
                   
                 /*if ($passh==$fila[password])

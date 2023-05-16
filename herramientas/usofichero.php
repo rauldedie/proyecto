@@ -1,15 +1,15 @@
 <?php
 
 include ("conectar2.php");
-
 // Cremos la conexión con el servidor de datos
 $conn = new mysqli($servidor, $usuario, $passwd, $bd);
 // Verificamos la conexión con el servidor MySQL
-if ($conn->connect_error) {
+if ($conn->connect_error) 
+{
     die("la conexión ha fallado: " . $conn->connect_error);
 }else
 {
-    $creo_tabla = file_get_contents("insertar.sql");
+    $creo_tabla = file_get_contents("insertardatos.sql");
 
     // Condicional PHP que creará la tabla
     if (mysqli_query($conn, $creo_tabla)) {
@@ -20,9 +20,6 @@ if ($conn->connect_error) {
             echo "Error al crear la tabla: " . mysqli_error($conn);
         }
 } 
-
-
-
 // Cerramos la conexión
 $conn->close();
 
