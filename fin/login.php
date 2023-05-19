@@ -39,9 +39,20 @@ if (isset($_POST["submit"]))
                         setcookie("id",$id,time()+60*10,true,true);
                         setcookie("rol",$fila['rol'],time()+60*10,true,true);
                     }
+                    //redireccionamos a la pagina que le corresponde por rol
+                    if ($_COOKIE['rol']=="administrador")
+                    {
+                        header("Location:paneladmin.php");
+                    }
+                    if ($_COOKIE['rol']=="direccion")
+                    {
+                        header("Location:paneldirec.php");
+                    }
+                    if ($_COOKIE['rol']=="profesorado")
+                    {
+                        header("Location:panelprofe.php");
+                    }
 
-                    header("Location:include/sesioniniciada.php");
-                    
                 }else
                 {
                     echo "Lo siento, contraseña incorrecta<br>" . mysqli_error($enlace);
