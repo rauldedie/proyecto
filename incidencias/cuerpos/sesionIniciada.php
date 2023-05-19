@@ -13,7 +13,22 @@ if (array_key_exists("id",$_COOKIE) && $_COOKIE['id'])
 if (array_key_exists("id",$_SESSION) && $_SESSION['id'])
 {
     
-    include ("gestion.php");
+    if(isset($_COOKIE["rol"]) && $_COOKIE["rol"]=="administrador")
+    {
+        include ("gestionadmin.php");
+    }
+
+    if(isset($_COOKIE["rol"]) && $_COOKIE["rol"]=="direccion")
+    {
+        include ("gestiondireccion.php");
+
+    }
+
+    if(isset($_COOKIE["rol"]) && $_COOKIE["rol"]=="profesorado")
+    {
+        include ("gestioprofesorado.php");
+    }
+    exit();
 }
 
 ?>

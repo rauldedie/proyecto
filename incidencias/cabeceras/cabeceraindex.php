@@ -16,12 +16,7 @@
   <body>
   <div class="container">
         <h1>GESTIÓN INCIDENCIAS TÉCNICAS IES A. MACHADO</h1>
-        <div id="error">
-            <?php 
-            echo $error;
-            ?> 
-
-        </div>
+        
         <div>
             <p><h3>Introduce tu usuario y contraseña para entrar al sistema</h3></p>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">

@@ -36,7 +36,7 @@ $rola = md5(md5($id5).$rol3);
 
 $passhchoc = md5(md5($id6).$pass6);
 $rolchoc = md5(md5($id6).$rol3);
-
+//sldk368.piensasolutions.com
 
 echo "Contraseña Jose Luis: ".$passhjl."<br>";
 echo $roljl."<br>";
