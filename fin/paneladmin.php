@@ -6,7 +6,8 @@
         <table class="table table-striped table-bordered table-hover">
           <thead class="table-dark">
             <tr>
-              <th  scope="col">ID</th>
+              <!--<th  scope="col">ID</th>-->
+              <th  scope="col">Usuario</th>
               <th  scope="col">Planta</th>
               <th  scope="col">Aula</th>
               <th  scope="col">Descripción</th>
@@ -21,20 +22,25 @@
               <tr>
  
           <?php
-            $query="SELECT * FROM incidencias2";               
-            $vista_incidencias= mysqli_query($conn,$query);
+            $query = "SELECT * FROM incidencias2";               
+            $vista_incidencias = mysqli_query($enlace,$query);
 
-            while($row= mysqli_fetch_assoc($vista_incidencias)){
-              $id = $row['id'];                
-              $planta = $row['planta'];        
-              $aula = $row['aula'];         
+            while($row = mysqli_fetch_assoc($vista_incidencias))
+            {
+              $queryIncidencia = printf("SELECT nombre FROM usuarios2 WHERE idnombre='%s'",$row['idusuario']);
+              $usuario_incidencia = mysqli_query($enlace,$queryIncidencia);
+              $queryIncidencia = printf("SELECT idplanta, aula FROM aulas2 WHERE idaula='%s'",$row['idaula']);
+              $consultaAula =  mysqli_fetch_array(mysqli_query($enlace,$queryIncidencia));
+              $queryIncidencia = printf("SELECT planta FROM plantas2 WHERE idplanta='%s'",$consultaAula['idplanta']);               
+              $planta = mysqli_query($enlace,$queryIncidencia);    
+              $aula = $consultaAula['aula'];      
               $descripcion = $row['descripcion'];        
               $fecha_alta = $row['fecha_alta'];        
               $fecha_rev = $row['fecha_mod'];        
               $fecha_sol = $row['fecha_sol'];        
               $comentario = $row['comentario']; 
               echo "<tr >";
-              echo " <th scope='row' >{$id}</th>";
+              echo " <th scope='row' >{$usuario_incidencia}</th>";
               echo " <td > {$planta}</td>";
               echo " <td > {$aula}</td>";
               echo " <td >{$descripcion} </td>";
