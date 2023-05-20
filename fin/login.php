@@ -50,11 +50,11 @@ if (isset($_POST["submit"]))
                         //header("Location:paneladmin.php");
                         include('paneladmin.php');exit();
                     }
-                    if ($_COOKIE['rol']=="direccion")
+                    if ($_fila['rol']=="direccion")
                     {
                         //header("Location:paneldirec.php");
                     }
-                    if ($_COOKIE['rol']=="profesorado")
+                    if ($_fila['rol']=="profesorado")
                     {
                         //header("Location:panelprofe.php");
                     }
