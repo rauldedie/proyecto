@@ -12,10 +12,12 @@
         echo "Conexion fallida: ".mysqli_connect_error();
 
     }
+
     ?>
 
     <div class="container">
         <h1 class="text-center" >Gestión de incidencias (CRUD)</h1>
+        <div>
         <a href="create.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Añadir incidencia</a>
         <table class="table table-striped table-bordered table-hover">
             <thead class="table-dark">
@@ -56,7 +58,7 @@
 
                             $aula_inc = $aula['aula'];
                             $planta_inc = $planta['planta'];
-                            $usuario_inc = $usuario['mnombre'];      
+                            $usuario_inc = $usuario['nombre'];      
                             $descripcion = $row['descripcion'];        
                             $fecha_alta = $row['fecha_alta'];        
                             $fecha_rev = $row['fecha_mod'];        

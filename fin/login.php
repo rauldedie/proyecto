@@ -28,6 +28,7 @@ if (isset($_POST["submit"]))
                     //establecemos inicion de session
                     //necsitamos session_star(); ??????
                     $_SESSION["id"]=$fila['idusuario'];
+                    session_set_cookie_params("usuario",$usu,time()+60*10,true,true);
                     if ($_POST['sesioniniciada']==1)
                     {
                         //si esta marcada la casilla de mantener la sesion abierta le metemos cookie por 1 dia de tiempo.
