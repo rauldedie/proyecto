@@ -25,6 +25,7 @@ if (isset($_POST["submit"]))
                 if($fila['pass']==$pass)
                 {
                     //establecemos inicion de session
+                    //necsitamos session_star(); ??????
                     $_SESSION["id"]=$fila['idusuario'];
                     if ($_POST['sesioniniciada']==1)
                     {
@@ -52,6 +53,8 @@ if (isset($_POST["submit"]))
                     {
                         header("Location:panelprofe.php");
                     }
+                    //seria posible include(panelprofe.php);exit(); ??????
+                    //si es posible podria solucionar el orden
 
                 }else
                 {
