@@ -7,5 +7,5 @@
     <input type="password" name="passwd"><br><br>
     <input type="submit" name="submit"><br><br>
 </form>  
-
+<?php include ('login.php'); ?>
 <?php include('pie.php');?>

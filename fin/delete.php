@@ -1,4 +1,4 @@
-<?php include "header.php" ?>
+<?php include "cabecerpanel.php" ?>
 <?php 
     if(isset($_GET['eliminar']))
     {
@@ -9,4 +9,4 @@
         echo "<script>window.location='paneladmin.php';</script>";
     }
 ?>
-<?php include "pie.php" ?>
+<?php include "piepanel.php" ?>

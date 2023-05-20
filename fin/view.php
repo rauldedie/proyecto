@@ -1,4 +1,4 @@
-<?php  include 'header.php'?>
+<?php  include 'cabecerapanel.php'?>
 
 <h1 class="text-center">Detalles de incidencia</h1>
 <div class="container">
@@ -58,4 +58,4 @@
     <a href="paneladmin.php" class="btn btn-warning mt-5"> Volver </a>
 </div>
 
-<?php include "pie.php" ?>
+<?php include "piepanel.php" ?>

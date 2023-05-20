@@ -1,4 +1,4 @@
-<?php include('versesion.php');
+<?php 
 
 if (isset($_POST["submit"]))
 {
@@ -16,12 +16,13 @@ if (isset($_POST["submit"]))
         $usu = mysqli_real_escape_string($enlace,$_POST["usuario"]);
         $pass = mysqli_real_escape_string($enlace,$_POST["passwd"]);
 
-        $query = sprintf("SELECT nombreusuario,pass,idusuario,rol FROM usuarios2 WHERE nombreusuario='%s'",$usu);
+        $query = sprintf("SELECT * FROM usuarios2 WHERE nombreusuario='%s'",$usu);
         $resultado = mysqli_query($enlace,$query);
 
             if (mysqli_num_rows($resultado)>0)
             {
                 $fila = mysqli_fetch_array ($resultado);
+
                 if($fila['pass']==$pass)
                 {
                     //establecemos inicion de session
@@ -40,18 +41,22 @@ if (isset($_POST["submit"]))
                         setcookie("id",$fila['idusuario'],time()+60*10,true,true);
                         setcookie("rol",$fila['rol'],time()+60*10,true,true);
                     }
+                    echo $_COOKIE['id']."<br>";
+                    echo $_COOKIE['rol']."<br>";
+                    echo $_SESSION['id']."<br>";
                     //redireccionamos a la pagina que le corresponde por rol
-                    if ($_COOKIE['rol']=="administrador")
+                    if ($fila['rol']=="administrador")
                     {
-                        header("Location:paneladmin.php");
+                        //header("Location:paneladmin.php");
+                        include('paneladmin.php');exit();
                     }
                     if ($_COOKIE['rol']=="direccion")
                     {
-                        header("Location:paneldirec.php");
+                        //header("Location:paneldirec.php");
                     }
                     if ($_COOKIE['rol']=="profesorado")
                     {
-                        header("Location:panelprofe.php");
+                        //header("Location:panelprofe.php");
                     }
                     //seria posible include(panelprofe.php);exit(); ??????
                     //si es posible podria solucionar el orden

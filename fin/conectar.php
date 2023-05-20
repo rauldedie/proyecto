@@ -5,5 +5,6 @@
     $passwd = "1smer1l10N"; 
     $bd = "qahx080"; 
 
-    include ('login.php');
+    include('versesion.php')
+    
 ?>

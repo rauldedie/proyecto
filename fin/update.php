@@ -1,4 +1,4 @@
-<?php include "header.php"?>
+<?php include "cabecerapanel.php"?>
 
 <?php
     if(isset($_GET['incidencia_id']))
@@ -83,4 +83,4 @@
       <a href="paneladmin.php" class="btn btn-warning mt-5"> Volver </a>
     </div>
 
-<?php include "pie.php" ?>
+<?php include "piepanel.php" ?>
