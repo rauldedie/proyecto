@@ -45,11 +45,13 @@ if (isset($_POST["submit"]))
                     echo $_COOKIE['id']."<br>";
                     echo $_COOKIE['rol']."<br>";
                     echo $_SESSION['id']."<br>";
+                    echo $fila['rol'];
                     //redireccionamos a la pagina que le corresponde por rol
                     if ($fila['rol']=="administrador")
                     {
-                        //header("Location:paneladmin.php");
-                        include('paneladmin.php');exit();
+                        
+                        include('paneladmin.php');
+                        exit();
                     }
                     if ($_fila['rol']=="direccion")
                     {
@@ -59,8 +61,6 @@ if (isset($_POST["submit"]))
                     {
                         //header("Location:panelprofe.php");
                     }
-                    //seria posible include(panelprofe.php);exit(); ??????
-                    //si es posible podria solucionar el orden
 
                 }else
                 {
