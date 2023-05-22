@@ -34,7 +34,7 @@ echo $_COOKIE['usuario_nombre']."<br>";*/
                 <tr>
  
                     <?php
-                        $query = "SELECT * FROM incidencias2";               
+                        $query = "SELECT * FROM incidencias";               
                         $vista_incidencias = mysqli_query($enlace,$query);                        
                         while($row = mysqli_fetch_assoc($vista_incidencias))
                         {
@@ -44,10 +44,10 @@ echo $_COOKIE['usuario_nombre']."<br>";*/
                             $query = "SELECT * FROM usuarios2 WHERE idusuario =".$row['idusuario'];
                             $usuario_inci = mysqli_fetch_array(mysqli_query($enlace,$query));                  
                             
-                            $query = "SELECT * FROM aulas2 WHERE idaula =".$row['idaula'];
+                            $query = "SELECT * FROM aulas WHERE idaula =".$row['idaula'];
                             $aula_inci =  mysqli_fetch_array(mysqli_query($enlace,$query));
                             
-                            $query = "SELECT * FROM plantas2 WHERE idplanta =".$aula_inci['idplanta'];
+                            $query = "SELECT * FROM planta WHERE idplanta =".$aula_inci['idplanta'];
                             $planta_inci = mysqli_fetch_array(mysqli_query($enlace,$query));
 
                             $usuario = $usuario_inci['nombre']." ".$usuario_inci['apellidos'];
@@ -81,5 +81,5 @@ echo $_COOKIE['usuario_nombre']."<br>";*/
     </div>
     <div class="container text-center mt-5">
       <a href="../index.php?Logout=1" class="btn btn-warning mt-5"> Salir </a>
-    <div>
+    </div>
 <?php include "footer.php" ?>
