@@ -1,6 +1,6 @@
 <?php
 //session_start();
-include "versesion.php";
+//include "versesion.php";
 include 'conexion.php';
 include "encriptar.php";
 
@@ -8,9 +8,6 @@ $usuario = mysqli_real_escape_string($bdcon, $_POST['usuario']);
 $pass = mysqli_real_escape_string($bdcon, $_POST['password']);
 $pass2 = md5(mysqli_real_escape_string($bdcon, $_POST['password']));
 
-echo $usuario."<br>";
-echo $pass."<br>";
-echo $pass2."<br>";
 $usuarioc = openssl_encrypt($usuario, $metodo,$key, $options, $vectorcript);
 
 $sql = "SELECT * FROM usuarios WHERE nombreusuario = '$usuarioc'";
@@ -19,15 +16,10 @@ $resultado = mysqli_query($bdcon, $sql);
 
 if (mysqli_num_rows($result) > 0) 
 {
-    $row = mysqli_fetch_array($resultado);
-    echo "llego tras el if de rows)<br>";
-    echo $""
-
+    $row = mysqli_fetch_assoc($resultado);
     $passh = md5(md5($row["idusuario"]).$pass);
 
-    
-    echo $passh."<br>";
-    if ($passh == $row['idusuario'])
+    if ($passh == row['idusuario'])
     {
         //echo "Usuario iniciado con éxito...";
         $_SESSION['usuario_id'] = $row['id'];
@@ -52,8 +44,7 @@ if (mysqli_num_rows($result) > 0)
         {
             case 'administrador':
                 {
-                    echo "<script>window.location='/include/paneladmin.php';</scrip>";
-                    //header("Location: panelgestionadmin.php");
+                    header("Location: panelgestionadmin.php");
                     break;
                 }
             case 'direccion':

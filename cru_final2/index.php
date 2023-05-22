@@ -1,13 +1,11 @@
-<?php include ("include/verificarlogin.php") ?>
 <?php include ("include/cabecera.php") ?>
-
 
 <div class="container">
     <h1>GESTIÓN INCIDENCIAS TÉCNICAS IES A. MACHADO</h1>
         
     <div>
         <p><h3>Introduce tu usuario y contraseña para entrar al sistema</h3></p>
-        <form action="" method="POST">
+        <form action="verificarlogin.php" method="POST">
             <div class="form-group">
                 <div>
                     <img class="iconoayuda" id="ayuda" onclick="Ayuda()" src="iconos/ayuda.png" alt="ayuda">

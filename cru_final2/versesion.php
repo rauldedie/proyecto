@@ -9,7 +9,6 @@
         setcookie("usuario_id", '', time() - 86400,true,true, "/"); // 86400 = 1 día
         setcookie("usuario_nombre", '', time() - 86400,true,true, "/");
         setcookie("rol", '', time() - 86400,true,true, "/");
-
     }
     else if ((array_key_exists('usuario_id',$_SESSION) AND $_SESSION['usuario_id']) OR (array_key_exists('usuario_id',$_COOKIE) AND $_COOKIE['usuario_id']))
     {
@@ -19,8 +18,7 @@
         {
             case 'administrador':
                 {
-                    echo "<script>window.location='/include/paneladmin.php';</scrip>";
-                    //header("Location: panelgestionadmin.php");
+                    header("Location: panelgestionadmin.php");
                     break;
                 }
             case 'direccion':
