@@ -19,7 +19,7 @@
 
         //while($row = mysqli_fetch_assoc($vista_incidencias))
         //{
-        $id = $fila['id']; 
+        $id = $fila['idincidencias']; 
           
         $query = "SELECT * FROM usuarios2 WHERE idusuario =".$fila['idusuario'];
         $usuario_inci = mysqli_fetch_array(mysqli_query($enlace,$query)); 
@@ -40,11 +40,6 @@
         $fecha_sol = $fila['fecha_resol'];        
         $comentario = $fila['comentario'];
 
-        echo $fila['descripcion']."<br>";
-        echo $aula_inci['aula']."<br>";
-        echo $planta_inci['planta']."<br>";
-        echo $usuario."<br>";
-
         //}
  
       if(isset($_POST['editar'])) 
@@ -56,7 +51,8 @@
         $fecha_rev = $hoy;
         $fecha_sol = $hoy;
         $comentario = htmlspecialchars($_POST['comentario']);
-        $query = "UPDATE incidencias2 SET descripcion = '{$descripcion}',comentario = '{$comentario}', aula = '{$aula_inc['idaula']}' , idusuario = {$usuario_inci['idusuario']} WHERE idincidencias = {$idincidencias}";
+        $query = "UPDATE incidencias2 SET descripcion = '{$descripcion}',comentario = '{$comentario}', aula = '{$aula_inc['idaula']}' , idusuario = '{$usuario_inci['idusuario']}' WHERE idincidencias = {$idincidencias}";
+        //$query = "UPDATE incidencias2 SET descripcion=".$descripcion.", comentario=".$comentario.", aula=".$aula_inc['idaula'].", idusuario=".$usuario_inci['idusuario']." WHERE idincidencias =".$idincidencias;
         $incidencia_actualizada = mysqli_query($enlace, $query);
         if (!$incidencia_actualizada)
           echo "Se ha producido un error al actualizar la incidencia.";
