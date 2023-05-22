@@ -1,4 +1,3 @@
-<?php include ("include/verificarlogin.php") ?>
 <?php include ("include/cabecera.php") ?>
 
 
