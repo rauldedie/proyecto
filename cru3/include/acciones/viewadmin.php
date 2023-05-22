@@ -21,7 +21,7 @@
             <?php
               if (isset($_GET['incidencia_id'])) {
                   $incidenciaid = htmlspecialchars($_GET['incidencia_id']); 
-                  $query="SELECT * FROM incidencias WHERE id = {$incidenciaid} LIMIT 1";  
+                  $query="SELECT * FROM incidencias2 WHERE idincidencias = {$incidenciaid} LIMIT 1";  
                   $vista_incidencias= mysqli_query($enlace,$query);            
 
                   while($row = mysqli_fetch_assoc($vista_incidencias))
@@ -66,7 +66,7 @@
   </div>
 
   <div class="container text-center mt-5">
-    <a href="Location:../paneladmin.php?rol={$usuario_inci['rol']}" class="btn btn-warning mt-5"> Volver </a>
+    <a href="../administrador.php" class="btn btn-warning mt-5"> Volver </a>
   <div>
 
 <?php include "../footer.php" ?>

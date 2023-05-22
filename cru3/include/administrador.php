@@ -69,7 +69,7 @@ echo $_COOKIE['usuario_nombre']."<br>";*/
                                 echo " <td >{$fecha_rev} </td>";
                                 echo " <td >{$fecha_sol} </td>";
                                 echo " <td >{$comentario} </td>";
-                                echo " <td class='text-center'> <a href='./acciones/view.php?incidencia_id={$id}' class='btn btn-primary'> <i class='bi bi-eye'></i> Ver</a> </td>";
+                                echo " <td class='text-center'> <a href='./acciones/viewadmin.php?incidencia_id={$id}' class='btn btn-primary'> <i class='bi bi-eye'></i> Ver</a> </td>";
                                 echo " <td class='text-center' > <a href='./acciones/update.php?editar&incidencia_id={$id}' class='btn btn-secondary'><i class='bi bi-pencil'></i> Editar</a> </td>";
                                 echo " <td class='text-center'>  <a href='./acciones/delete.php?eliminar={$id}' class='btn btn-danger'> <i class='bi bi-trash'></i> Eliminar</a> </td>";
                             echo " </tr> ";
