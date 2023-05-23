@@ -10,9 +10,10 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <!--No necesito poner ../estilos/incidencias porque al usar include es como sipegara esta parte en index
+    <!--No necesito poner ../estilos/incidencias porque al usar include es como si pegara esta parte en index
     y por tanto no me encuentro dentro de cabeceras
-    <script src="js/incidencias.js"></script>
+
+    ESTO ERA PARA  LA VENTANA EMERGENTE PERO NO ME SALIA Y CON TODO LO DEMAS NO ME HE PUESTO
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <script>
       $(document).ready(function(){

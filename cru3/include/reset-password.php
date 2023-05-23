@@ -1,5 +1,5 @@
 <?php
-include('conexion.php');
+include('conexion.php');//SIN PROBAR
 
 if (isset($_GET["key"]) && isset($_GET["email"]) && isset($_GET["action"]) 
 && ($_GET["action"]=="reset") && !isset($_POST["action"]))

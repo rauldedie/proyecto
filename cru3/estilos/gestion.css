@@ -25,6 +25,7 @@ body
     text-align:center;
     width:550px;
     font-weight:bold;
+    /*display: flex;*/
     /*margin-top:100px;*/
 }
 
@@ -36,6 +37,8 @@ body
 
 .etiqueta{
     color:blue;
+    text-align: center;
+    
 }
 .final{
     margin-top: 20px;

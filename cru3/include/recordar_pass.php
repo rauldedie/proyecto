@@ -5,13 +5,14 @@
 <input type="email" id="email" name="email" required>
 <br>
 <input type="submit" onclick="VerificarMail()" value="Enviar recordatorio">
-</form>-->
+</form>
+No lo he modificado ya que con lo demas tena bastante una vez funcione lo demas termino esta parte-->
 
 <div class="container">
     <h1>GESTIÓN INCIDENCIAS TÉCNICAS IES A. MACHADO</h1>
         
     <div>
-        <p><h3>Introduce tu usuario y contraseña para entrar al sistema</h3></p>
+        <p><h3>IRecuperar contraseña. Para ello introduce el email asociado a tu usuario</h3></p>
         <form action="enviar_recordatorio.php" method="POST">
             <div class="form-group">
                 <div>

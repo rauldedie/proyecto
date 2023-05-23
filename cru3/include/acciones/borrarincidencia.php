@@ -1,5 +1,5 @@
 <?php include "header.php" ?>
-<?php 
+<?php //no funciona ???????
      if(isset($_GET['eliminar']))
      { 
         $id= htmlspecialchars($_GET['eliminar']);

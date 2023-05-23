@@ -38,7 +38,7 @@ echo $error;
             </div>
 
             <br><button type="submit" name="login" class="btn btn-primary">Login</button>
-            <p><a href="include/recordar_contraseña.php" target="_blank">Recordar contraseña</a></p>               
+            <p><a href="include/recordar_pass.php" target="_blank">Recordar contraseña</a></p>               
         </form>
     </div>
 

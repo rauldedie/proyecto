@@ -1,6 +1,7 @@
 <?php include "header.php"?>
 
 <?php
+//LOS DATOS ESTAN PERO NO HACE EL UPDATE.
     $hoy = date("Y-m-d");
     //$hoy = date("Y-m-d H:i:s")
 
@@ -68,9 +69,9 @@
           //fecha_erv = $hoy->format('Y-m-d');
           //y entonces creo que el udate valdria.
 
-          //$query = "UPDATE incidencias2 SET fecha_mod = '{$fecha_rev}' WHERE idincidencias = {$incidenciaid}";
+          $query = "UPDATE incidencias2 SET fecha_mod = '{$fecha_rev}' WHERE idincidencias = {$incidenciaid}";
           //echo $query."<br>";
-          //$fecha_revision_actualizada = msqli_query($enlace,$query);
+          $fecha_revision_actualizada = msqli_query($enlace,$query);
 
           if (!$fecha_revision_actualizada)
             echo "Se ha producido un error al actualizar la fecha de revision.";
@@ -80,16 +81,16 @@
         if(isset($_POST['fecha_resolucion']))
         {
           $fecha_sol = $hoy;
-          //IDEM QUE EL ANTERIOR
-          //$query = "UPDATE incidencias2 SET fecha_resol = {$fecha_sol} WHERE idincidencias = {$incidenciaid}";
+          //IDEM QUE EL ANTERIOR AQUI NO PONGO COMILLAS Y TAMPOCO VA
+          $query = "UPDATE incidencias2 SET fecha_resol = {$fecha_sol} WHERE idincidencias = {$incidenciaid}";
           //echo $query."<br>";
-          //$fecha_solucion_actualizada = msqli_query($enlace,$query);
+          $fecha_solucion_actualizada = msqli_query($enlace,$query);
 
           if (!$incidencia_solucion_actualizada)
             echo "Se ha producido un error al actualizar la fecha de solcion.";
           else
             echo "<script type='text/javascript'>alert('¡Fecha solución actualizada!')</script><br>";
-          //enviar un mail indicando resolucion incideencia al usuario que dio de lta la misma
+          //enviar un mail indicando resolucion incidencia al usuario que dio de lta la misma
         }else
 
         $query = "SELECT * FROM aulas WHERE aula ='{$aula}'";
@@ -126,10 +127,11 @@
             echo "<script type='text/javascript'>alert('¡Datos de la incidencia actualizados!')</script>";
         }
 
-      }           
+      }
+      mysqli_close($enlace);          
       ?>
 
-<h1 class="text-center">Actualizar incidencia</h1>
+<h1 class="text-center">Panel Gestión (CRU) - Actualizar incidencia</h1>
   <div class="container ">
     <form action="" method="post">
       <div>

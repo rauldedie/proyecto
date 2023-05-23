@@ -1,9 +1,11 @@
 <?php
 include "conexion.php";
 //echo $error="";
+echo $enlace."<br>";
 if(isset($_POST['registro']))
 {
-    echo $error="";
+    $error="";
+    echo "Se ha realizado submit <br>";
 
     //USAR FILTER_SANITIZE_FULL_SPECIAL_CHARS????
     //$nombre = filter_var(mysqli_real_escape_string($enlace, $_POST['nombre']),FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -16,6 +18,8 @@ if(isset($_POST['registro']))
     $email = filter_var(mysqli_real_escape_string($enlace, $_POST['email']), FILTER_SANITIZE_EMAIL);
     $telefono = mysqli_real_escape_string($enlace, $_POST['telefono']);
     $rol = mysqli_real_escape_string($enlace, $_POST['rol']);
+    
+    echo "He reogido datos formulario<br>";
 
     if (empty($nombre))
     {
@@ -41,31 +45,44 @@ if(isset($_POST['registro']))
         $error.="Dirección inválida de correo. Introduzca una válida.";
 
     }
+    echo $error."Escribo en registro <br>";
 
-    if($error="")
+    if($error="") //no funcionan los insert ???????
     {
-        //SI TODO CORRECTO PREPARO EL INSERT INTO
-        $query = "INSERT INTO usuarios2 (nombre,apellidos,mail,telefono,nombreusuario,pass,rol) VALUES ('{$nombre}','{$apellidos}','{$email}','{$telefono}','{$usuario}','{$rol}')";
+        //PRIMERO VEMOS QUE EL USUARIO NO ESTA YA REGISTRADO.
+        $query = "SELECT * FROM usuarios2 WHERE nombreusuario='{$usuario}'";
         $resultado = mysqli_query($enlace,$query);
-        if(!$resultado)
+        
+        if(mysqli_num_rows($resultado)>0)
         {
-            echo "Se ha generado un error al insertar ell usuario. Proceso abortado";
+            echo "Lo siento este usuario ya está dado de alta";
 
-        }else{
-            //encriptar contraseña usando el id introducido
-            $ultimo_id = mysql_insert_id($enlace);
-            $passh = md5(md5($ultimoid).$pass);
-            $query = "UPDATE usuarios2 SET pass={$passh} WHERE idusuario = {$ultimo_id}";
-            $reultado = mysqli_query($nelace,$query);
-            if (!$resultado)
+        }else
+        {
+            //SI TODO CORRECTO PREPARO EL INSERT INTO
+            $query = "INSERT INTO usuarios2 (nombre,apellidos,mail,telefono,nombreusuario,pass,rol) VALUES ('{$nombre}','{$apellidos}','{$email}','{$telefono}','{$usuario}','{$pass}','{$rol}')";
+            $resultado = mysqli_query($enlace,$query);
+            if(!$resultado)
             {
-                echo "Se ha generado un error al insertar ell usuario. Revise integridad en BD";
-            }else
-            {
-                echo "<script type='text/javascript'>alert('¡Usuario dado de alta con éxito!')</script>";
+                echo "Se ha generado un error al insertar el usuario. Proceso abortado";
+
+            }else{
+                //encriptar contraseña usando el id introducido
+                $ultimo_id = mysql_insert_id($enlace);
+                $passh = md5(md5($ultimoid).$pass);
+                $query = "UPDATE usuarios2 SET pass={$passh} WHERE idusuario = {$ultimo_id}";
+                $reultado = mysqli_query($nelace,$query);
+                if (!$resultado)
+                {
+                    echo "Se ha generado un error al insertar ell usuario. Revise integridad en BD";
+                }else
+                {
+                    //enviar mail con los datos  de login del usuario a la cuenta de correo facilitada
+                    echo "<script type='text/javascript'>alert('¡Usuario dado de alta con éxito!')</script>";
+                }
             }
-            
         }
     }
+    mysqli_close($enlace);
 }
 ?>

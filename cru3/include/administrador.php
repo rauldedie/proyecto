@@ -10,12 +10,14 @@ echo $_COOKIE['usuario_nombre']."<br>";*/
 
 
 <!--NECESITO SESION O COOCKIE PARA SABER EL USUARIO PARA QUE CREAR LA INCIDENCIA CON EL ID DE USUARIO 
-PARA INDICAR EL USUARIO QUE ESTA EN SESION Y PARA TIEMPO DESDE LA ULTIMA CONEXION-->
+PARA INDICAR EL USUARIO QUE ESTA EN SESION Y PARA TIEMPO DESDE LA ULTIMA CONEXION
+ADEMAS PARA NO REPTIR CODIGO YA QUE AL VOLVER TENDRIA QUE INDICAR A QUE PANEL VUELVE AL ADMIN, AL DIRECCION O AL PROFESORADO-->
     <div class="form-group">
-        <h1 class="text-center" >Gestión de incidencias (CRUD)</h1>
+        <h1 class="text-center" >Gestión de incidencias (CRUD). Panel General.</h1>
         <a href="./acciones/createadmin.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Añadir Incidencia</a>
         <a href="./acciones/altausuario.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Añadir Usuario</a>
-        <a href="baja.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Eliminar Usuario</a>
+        <a href="./acciones/bajausuario.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Eliminar Usuario</a>
+        <a href="./acciones/gestionaraulas.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Gestionar Aulas y Plantas</a>
         <table class="table table-striped table-bordered table-hover">
             <thead class="table table-striped">
                 <tr>
@@ -79,10 +81,11 @@ PARA INDICAR EL USUARIO QUE ESTA EN SESION Y PARA TIEMPO DESDE LA ULTIMA CONEXIO
                                 echo " <td >{$comentario} </td>";
                                 echo " <td class='text-center'> <a href='./acciones/viewadmin.php?incidencia_id={$id}' class='btn btn-primary'> <i class='bi bi-eye'></i> Ver</a> </td>";
                                 echo " <td class='text-center' > <a href='./acciones/update.php?editar&incidencia_id={$id}' class='btn btn-secondary' ><i class='bi bi-pencil'></i> Editar</a> </td>";
-                                echo " <td class='text-center'>  <a href='./acciones/borrar.php?eliminar={$id}' class='btn btn-danger' > <i class='bi bi-trash'></i> Eliminar</a> </td>";
+                                echo " <td class='text-center'>  <a href='./acciones/borrarincidencia.php?eliminar={$id}' class='btn btn-danger' > <i class='bi bi-trash'></i> Eliminar</a> </td>";
                             echo " </tr> ";
+                            
                         }
-                    ?>
+                    //CIERRO CONEXION ?? mysqli_close($enlace);?>
                 </tr>  
             </tbody>
         </table>

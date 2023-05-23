@@ -1,4 +1,6 @@
 <?php //include "./acciones/header.php";
+//SEGUN EL ROL QUE ME ENVIA EN EL LOCATION CARGAMOS UNA U OTRO PANEL
+//SE QUE SERIA MEJOR HABILITAR O DESHABILITAR ELTOS PERO TENDRIA QUE BUSCAR Y TARDO MAS
 
 if (isset($_GET['rol']))
 {
@@ -11,18 +13,18 @@ if (isset($_GET['rol']))
             include "administrador.php";
             break;
         }
-        case "administrador":
+        case "direccion"://NO ESTAN HECHOS SIN SESIONS NI COOKIES TENDRIA QUE REPTIR MUCHO CODIGO
         {
             include "direccion.php";
             break;
         }
-        case "administrador":
+        case "profesorado":
         {
             include "profesorado.php";
             break;
         }
     } 
-}
+}//NO LAS IMPRIME
 echo $_SESSION['rol']."<br>";
 echo $_SESSION['usuario_id']."<br>";
 echo $_SESSION['usuario_nombre']."<br>";
