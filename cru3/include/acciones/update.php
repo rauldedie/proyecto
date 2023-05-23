@@ -1,4 +1,4 @@
-<?php include "../header.php"?>
+<?php include "header.php"?>
 
 <?php
     $hoy = date("Y-m-d");
@@ -121,4 +121,4 @@
     <a href="../administrador.php" class="btn btn-warning mt-5"> Volver </a>
   </div>
 
-<?php include "../footer.php" ?>
+<?php include "footer.php" ?>

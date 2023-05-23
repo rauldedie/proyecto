@@ -1,4 +1,4 @@
-<?php //include "header.php";
+<?php //include "./acciones/header.php";
 
 if (isset($_GET['rol']))
 {
@@ -31,7 +31,7 @@ echo $_COOKIE['usuario_id']."<br>";
 echo $_COOKIE['usuario_nombre']."<br>";      
 
 
-//include "footer.php"; ?>
+//include "./acciones/footer.php"; ?>
 
 
 

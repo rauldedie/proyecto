@@ -1,4 +1,4 @@
-<?php include "header.php";
+<?php include "./acciones/header.php";
 
 /*echo $_SESSION['rol']."<br>";
 echo $_SESSION['usuario_id']."<br>";
@@ -9,10 +9,11 @@ echo $_COOKIE['usuario_nombre']."<br>";*/
 ?>
 
 
-
+<!--NECESITO SESION O COOCKIE PARA SABER EL USUARIO PARA QUE CREAR LA INCIDENCIA CON EL ID DE USUARIO 
+PARA INDICAR EL USUARIO QUE ESTA EN SESION Y PARA TIEMPO DESDE LA ULTIMA CONEXION-->
     <div class="container">
         <h1 class="text-center" >Gestión de incidencias (CRUD)</h1>
-        <a href="create.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Añadir Incidencia</a>
+        <a href="create.php}" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Añadir Incidencia</a>
         <a href="altausuario.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Añadir Usuario</a>
         <a href="baja.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Eliminar Usuario</a>
         <table class="table table-striped table-bordered table-hover">
@@ -70,8 +71,8 @@ echo $_COOKIE['usuario_nombre']."<br>";*/
                                 echo " <td >{$fecha_sol} </td>";
                                 echo " <td >{$comentario} </td>";
                                 echo " <td class='text-center'> <a href='./acciones/viewadmin.php?incidencia_id={$id}' class='btn btn-primary'> <i class='bi bi-eye'></i> Ver</a> </td>";
-                                echo " <td class='text-center' > <a href='./acciones/update.php?editar&incidencia_id={$id}' class='btn btn-secondary'><i class='bi bi-pencil'></i> Editar</a> </td>";
-                                echo " <td class='text-center'>  <a href='./acciones/borrar.php?eliminar={$id}' class='btn btn-danger'> <i class='bi bi-trash'></i> Eliminar</a> </td>";
+                                echo " <td class='text-center' > <a href='./acciones/update.php?editar&incidencia_id={$id}' class='btn btn-secondary' ><i class='bi bi-pencil'></i> Editar</a> </td>";
+                                echo " <td class='text-center'>  <a href='./acciones/borrar.php?eliminar={$id}' class='btn btn-danger' > <i class='bi bi-trash'></i> Eliminar</a> </td>";
                             echo " </tr> ";
                         }
                     ?>
@@ -82,4 +83,4 @@ echo $_COOKIE['usuario_nombre']."<br>";*/
     <div class="container text-center mt-5">
       <a href="../index.php?Logout=1" class="btn btn-warning mt-5"> Salir </a>
     </div>
-<?php include "footer.php" ?>
+<?php include "./acciones/footer.php" ?>

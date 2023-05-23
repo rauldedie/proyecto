@@ -68,7 +68,7 @@ if (isset($_POST["login"]))
                 echo $_SESSION['usuario_nombre']."<br>";*/
 
                 if (isset($_POST['recuerdame'])) 
-                {
+                {//NO FUNCIONAN LAS SESIONES NI LAS COOKIES
                     setcookie("usuario_id", $row['idusuario'], time() + 86400,true,true, "/"); // 86400 = 1 día
                     setcookie("usuario_nombre", $usuario, time() + 86400,true,true, "/");
                     setcookie("rol", $rol, time() + 86400,true,true, "/");

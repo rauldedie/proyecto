@@ -1,4 +1,4 @@
-<?php  include '../header.php'?>
+<?php  include 'header.php'?>
 
 <h1 class="text-center">Detalles de incidencia</h1>
   <div class="container">
@@ -19,20 +19,25 @@
           <tr>
                
             <?php
-              if (isset($_GET['incidencia_id'])) {
+            echo "hola";
+              if (isset($_GET['incidencia_id'])) 
+              {
                   $incidenciaid = htmlspecialchars($_GET['incidencia_id']); 
-                  $query="SELECT * FROM incidencias WHERE idincidencias = {$incidenciaid} LIMIT 1";  
-                  $vista_incidencias= mysqli_query($enlace,$query);            
+                  $query="SELECT * FROM incidencias2 WHERE idincidencias = $incidenciaid LIMIT 1";  
+                  $vista_incidencias= mysqli_query($enlace,$query);
+                  echo $incidenciaid;
+                  print_r($vista_incidencias);
+                  $fila=mysqli_fetch_array($vista_incidencias);            
 
-                  while($row = mysqli_fetch_assoc($vista_incidencias))
-                  {
+                  //while($row = mysqli_fetch_assoc($vista_incidencias))
+                  //{
 
-                    $id = $row['id'];
-                    
-                    $query = "SELECT * FROM usuarios2 WHERE idusuario =".$row['idusuario'];
+                    $id = $fila['idincidencias'];
+                    echo $id;
+                    $query = "SELECT * FROM usuarios2 WHERE idusuario =".$id;
                     $usuario_inci = mysqli_fetch_array(mysqli_query($enlace,$query));                  
                     
-                    $query = "SELECT * FROM aulas WHERE idaula =".$row['idaula'];
+                    $query = "SELECT * FROM aulas WHERE idaula =".$fila['idaula'];
                     $aula_inci =  mysqli_fetch_array(mysqli_query($enlace,$query));
                     
                     $query = "SELECT * FROM planta WHERE idplanta =".$aula_inci['idplanta'];
@@ -41,11 +46,11 @@
                     $usuario = $usuario_inci['nombre']." ".$usuario_inci['apellidos'];
                     $aula = $aula_inci['aula'];
                     $planta = $planta_inci['planta'];      
-                    $descripcion = $row['descripcion'];        
-                    $fecha_alta = $row['fecha_alta'];        
-                    $fecha_rev = $row['fecha_mod'];        
-                    $fecha_sol = $row['fecha_sol'];        
-                    $comentario = $row['comentario'];
+                    $descripcion = $fila['descripcion'];        
+                    $fecha_alta = $fila['fecha_alta'];        
+                    $fecha_rev = $fila['fecha_mod'];        
+                    $fecha_sol = $fila['fecha_resol'];        
+                    $comentario = $fila['comentario'];
 
                         echo "<tr >";
                         echo " <td >{$usuario}</td>";
@@ -57,7 +62,7 @@
                         echo " <td >{$fecha_sol} </td>";
                         echo " <td >{$comentario} </td>";
                         echo " </tr> ";
-                  }
+                    //}
                 }
             ?>
           </tr>  
@@ -69,4 +74,4 @@
     <a href="../administrador.php" class="btn btn-warning mt-5"> Volver </a>
   </div>
 
-<?php include "../footer.php" ?>
+<?php include "footer.php" ?>
