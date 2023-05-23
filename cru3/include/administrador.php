@@ -1,4 +1,4 @@
-<?php include "./acciones/header.php";
+<?php include "header.php";
 
 /*echo $_SESSION['rol']."<br>";
 echo $_SESSION['usuario_id']."<br>";
@@ -13,7 +13,7 @@ echo $_COOKIE['usuario_nombre']."<br>";*/
 PARA INDICAR EL USUARIO QUE ESTA EN SESION Y PARA TIEMPO DESDE LA ULTIMA CONEXION-->
     <div class="container">
         <h1 class="text-center" >Gestión de incidencias (CRUD)</h1>
-        <a href="create.php}" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Añadir Incidencia</a>
+        <a href="./acciones/createadmin.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Añadir Incidencia</a>
         <a href="altausuario.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Añadir Usuario</a>
         <a href="baja.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Eliminar Usuario</a>
         <table class="table table-striped table-bordered table-hover">
@@ -35,20 +35,27 @@ PARA INDICAR EL USUARIO QUE ESTA EN SESION Y PARA TIEMPO DESDE LA ULTIMA CONEXIO
                 <tr>
  
                     <?php
+                        //echo "Hola";
                         $query = "SELECT * FROM incidencias";               
-                        $vista_incidencias = mysqli_query($enlace,$query);                        
+                        $vista_incidencias = mysqli_query($enlace,$query);
+
+                        //print_r($vista_incidencias);
+
                         while($row = mysqli_fetch_assoc($vista_incidencias))
                         {
 
                             $id = $row['idincidencias'];
                            
                             $query = "SELECT * FROM usuarios2 WHERE idusuario =".$row['idusuario'];
+                            //$query = sprintf("SELECT * FROM usuarios2 WHERE idusuario ='%i'",$row['idusuario']);
                             $usuario_inci = mysqli_fetch_array(mysqli_query($enlace,$query));                  
                             
                             $query = "SELECT * FROM aulas WHERE idaula =".$row['idaula'];
+                            //$query = sprintf("SELECT * FROM aulas2 WHERE idaula ='%i'".$row['idaula']);
                             $aula_inci =  mysqli_fetch_array(mysqli_query($enlace,$query));
                             
-                            $query = "SELECT * FROM planta WHERE idplanta =".$aula_inci['idplanta'];
+                            $query = "SELECT * FROM plantas2 WHERE idplanta =".$aula_inci['idplanta'];
+                            //$query = sprintf ("SELECT * FROM plantas2 WHERE idplanta ='%i'".$aula_inci['idplanta']);
                             $planta_inci = mysqli_fetch_array(mysqli_query($enlace,$query));
 
                             $usuario = $usuario_inci['nombre']." ".$usuario_inci['apellidos'];
@@ -57,7 +64,7 @@ PARA INDICAR EL USUARIO QUE ESTA EN SESION Y PARA TIEMPO DESDE LA ULTIMA CONEXIO
                             $descripcion = $row['descripcion'];        
                             $fecha_alta = $row['fecha_alta'];        
                             $fecha_rev = $row['fecha_mod'];        
-                            $fecha_sol = $row['fecha_sol'];        
+                            $fecha_sol = $row['fecha_resol'];        
                             $comentario = $row['comentario']; 
                   
 
@@ -83,4 +90,4 @@ PARA INDICAR EL USUARIO QUE ESTA EN SESION Y PARA TIEMPO DESDE LA ULTIMA CONEXIO
     <div class="container text-center mt-5">
       <a href="../index.php?Logout=1" class="btn btn-warning mt-5"> Salir </a>
     </div>
-<?php include "./acciones/footer.php" ?>
+<?php include "footer.php" ?>

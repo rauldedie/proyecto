@@ -1,4 +1,4 @@
-<?php  include 'header.php'?>
+<?php  include 'header.php';?>
 
 <h1 class="text-center">Detalles de incidencia</h1>
   <div class="container">
@@ -19,14 +19,16 @@
           <tr>
                
             <?php
-            echo "hola";
+            
               if (isset($_GET['incidencia_id'])) 
               {
-                  $incidenciaid = htmlspecialchars($_GET['incidencia_id']); 
-                  $query="SELECT * FROM incidencias2 WHERE idincidencias = $incidenciaid LIMIT 1";  
+                  $incidenciaid = htmlspecialchars($_GET['incidencia_id']);
+
+                  //$query="SELECT * FROM incidencias2 WHERE idincidencias =". $incidenciaid;
+                  $query="SELECT * FROM incidencias2 WHERE idincidencias =".$incidenciaid;  
                   $vista_incidencias= mysqli_query($enlace,$query);
-                  echo $incidenciaid;
-                  print_r($vista_incidencias);
+                  //echo $incidenciaid;
+                  //print_r($vista_incidencias);
                   $fila=mysqli_fetch_array($vista_incidencias);            
 
                   //while($row = mysqli_fetch_assoc($vista_incidencias))

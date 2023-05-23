@@ -1,6 +1,5 @@
 <?php  include "header.php" ?>
 <?php
-    $hoy = date("Y-m-d");
   if(isset($_POST['crear'])) 
     {
         $planta = htmlspecialchars($_POST['planta']);
@@ -8,10 +7,19 @@
         $descripcion = htmlspecialchars($_POST['descripcion']);
         $comentario = htmlspecialchars($_POST['comentario']);
         $fecha_alta = htmlspecialchars($_POST['fecha_alta']);
-        $fecha_rev = "";
-        $fecha_sol = "";
-      
-        $query= "INSERT INTO incidencias(descripcion, comentario, idaula, idusuario, fecha_alta, fecha_mod, fecha_resol ) VALUES('{$descripcion}','{$comentario}','{$idaula}','{$idusuario}','{$fecha_alta}','{$fecha_rev}','{$fecha_sol}')";
+        
+        if (isset($_POST['fecha_revision']))
+        {
+            $fecha_rev = date('Y-m-d');
+        }else $fecha_rev="";
+
+        if (isset($_POST['fecha_revision']))
+        {
+            $fecha_sol = date('Y-m-d');
+        }else $fecha_resol="";
+        
+      //NECESITO SESION O COOKIE PARA PONER IDUSUARIO
+        $query= "INSERT INTO incidencias(descripcion, comentario, idaula, idusuario, fecha_alta, fecha_mod, fecha_resol ) VALUES('{$descripcion}','{$comentario}','{$idaula}','{$idusuario}','{$fecha_alta}','{$fecha_rev}','{$fecha_resol}')";
         $resultado = mysqli_query($enlace,$query);
     
           if (!$resultado) {
@@ -52,8 +60,10 @@
       </div>
       <div class="form-group">
         <label for="fecha_alta" class="form-label">Fecha Alta</label>
-        <input type="date" name="fecha_alta" disable class="form-control" value="<?php $hoy ?>">
-      </div>
+        <input type="date"  name="fecha_alta" class="form-control" 
+        value="<?php echo $hoy = date('Y-m-d'); ?>" min="<?php echo $hoy = date('Y-m-d'); ?>" 
+        max="<?php echo $hoy = date('Y-m-d'); ?>">
+      </div><br>
       <!--<div class="form-group">
         <label for="fecha_rev" class="form-label">Fecha Revisión</label>
         <input type="date" name="fecha_rev"  class="form-control">
@@ -62,16 +72,24 @@
         <label for="fecha_sol" class="form-label">Fecha Solución</label>
         <input type="date" name="fecha_sol"  class="form-control">
       </div>-->
-      <div class="form-group">
-        <label for="comentario" class="form-label">Comentario</label>
-        <input type="text" name="comentario"  class="form-control">
-      </div>
-      <div class="form-group">
-        <input type="submit"  name="crear" class="btn btn-primary mt-2" value="Añadir">
-      </div>
+      <div class="form-group" >
+                <input class="form-group" type="checkbox" name="fecha_revision" value=1 id="fecha_revision">
+                <label class="form-group">Establecer fecha de revisión de la incidencia</label><br>
+        </div><br>
+        <div class="form-group" >
+                <input class="form-group" type="checkbox" name="fecha_resolucion" value=1 id="fecha_resolucion">
+                <label class="form-group">Establecer fecha de resolución de la incidencia</label><br>
+        </div><br>
+        <div class="form-group">
+            <label for="comentario" class="form-label">Comentario</label>
+            <input type="text" name="comentario"  class="form-control">
+        </div>
+        <div class="form-group">
+            <input type="submit"  name="crear" class="btn btn-primary mt-2" value="Añadir">
+        </div>
     </form> 
   </div>
   <div class="container text-center mt-5">
-    <a href="home.php" class="btn btn-warning mt-5"> Volver </a>
-  <div>
+    <a href="../administrador.php" class="btn btn-warning mt-5"> Volver </a>
+  </div>
 <?php include "footer.php" ?>
