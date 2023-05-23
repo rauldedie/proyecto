@@ -9,6 +9,7 @@ echo $error;
         
     <div>
         <p><h3>Introduce tu usuario y contraseña para entrar al sistema</h3></p>
+
         <form action="" method="POST">
             <div class="form-group">
                 <div>

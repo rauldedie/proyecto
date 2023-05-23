@@ -11,9 +11,28 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!--No necesito poner ../estilos/incidencias porque al usar include es como sipegara esta parte en index
-    y por tanto no me encuentro dentro de cabeceras-->
-    <link rel="stylesheet" href="estilos/incidencias.css">
+    y por tanto no me encuentro dentro de cabeceras
     <script src="js/incidencias.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('#open').on('mouseover', function(){
+          $('#popup').fadeIn('slow');
+          $('.popup-overlay').fadeIn('slow');
+          $('.popup-overlay').height($(window).height());
+        return false;
+      });
+ 
+      $('#close').on('click', function(){
+        $('#popup').fadeOut('slow');
+        $('.popup-overlay').fadeOut('slow');
+        return false;
+      });
+      });
+    </script>-->
+    <script src="js/incidencias.js"></script>
+    <link rel="stylesheet" href="estilos/gestion.css">
+    <link rel="stylesheet" href="estilos/incidencias.css">
     <title>Portal de entrada</title>
   </head>
   <body>

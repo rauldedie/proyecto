@@ -11,10 +11,10 @@ echo $_COOKIE['usuario_nombre']."<br>";*/
 
 <!--NECESITO SESION O COOCKIE PARA SABER EL USUARIO PARA QUE CREAR LA INCIDENCIA CON EL ID DE USUARIO 
 PARA INDICAR EL USUARIO QUE ESTA EN SESION Y PARA TIEMPO DESDE LA ULTIMA CONEXION-->
-    <div class="container">
+    <div class="form-group">
         <h1 class="text-center" >Gestión de incidencias (CRUD)</h1>
         <a href="./acciones/createadmin.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Añadir Incidencia</a>
-        <a href="altausuario.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Añadir Usuario</a>
+        <a href="./acciones/altausuario.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Añadir Usuario</a>
         <a href="baja.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Eliminar Usuario</a>
         <table class="table table-striped table-bordered table-hover">
             <thead class="table table-striped">
