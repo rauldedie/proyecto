@@ -1,9 +1,17 @@
 <?php
 include 'include/conexion.php';
+/*$servername = "217.76.150.73";
+$username = "qahx080";
+$passwordServer = "1smer1l10N";
+$dbname = "qahx080";
+$enlace = mysqli_connect($servername, $username, $passwordServer, $dbname);
+if (!$enlace) {
+    die("Conexión fallida: " . mysqli_connect_error());
+}
 if ((array_key_exists("usuario_id",$_SESSION) AND $_SESSION['usuario_id']) OR (array_key_exists("usuario_id",$_COOKIE) AND $_COOKIE['usuario_id'])){
     // Si ya tenia la sesion iniciada
     header("Location: include/paneladmin.php?rol=" . $_COOKIE["rol"]);
-}
+}*/
 session_start();
 if (isset($_POST["login"]))
 {
