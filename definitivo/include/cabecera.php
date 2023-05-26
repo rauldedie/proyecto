@@ -29,8 +29,8 @@
       });
     </script>-->
     <script src="js/incidencias.js"></script>
-    <link rel="stylesheet" href="estilos/gestion.css">
-    <link rel="stylesheet" href="estilos/incidencias.css">
+    <link rel="stylesheet" href="../estilos/gestion.css">
+    <link rel="stylesheet" href="../estilos/incidencias.css">
     <title>Portal de entrada</title>
   </head>
   <body>

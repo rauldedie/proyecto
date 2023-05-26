@@ -6,3 +6,5 @@
     <footer class="blockquote-footer fixed-bottom">Gestión de incidencias del <a href="https://iesamachado.org" target="_blank" color="yellow">IES Antonio Machado</a>. Desarrollado por Raúl de Diego</footer>
   </body>
 </html>
+
+    

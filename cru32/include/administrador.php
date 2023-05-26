@@ -6,6 +6,8 @@ echo $_SESSION['usuario_nombre']."<br>";
 echo $_COOKIE['rol']."<br>";
 echo $_COOKIE['usuario_id']."<br>";
 echo $_COOKIE['usuario_nombre']."<br>";*/
+/* Es importante que controlemos si el usuario tiene o no la sesión iniciada y es el administrador o No.
+¡cuidado con esto Raul */
 ?>
 
 
@@ -91,6 +93,6 @@ ADEMAS PARA NO REPTIR CODIGO YA QUE AL VOLVER TENDRIA QUE INDICAR A QUE PANEL VU
         </table>
     </div>
     <div class="container text-center mt-5">
-      <a href="../index.php?Logout=1" class="btn btn-warning mt-5"> Salir </a>
+      <a href="logout.php" class="btn btn-warning mt-5"> Salir </a>
     </div>
 <?php include "footer.php" ?>

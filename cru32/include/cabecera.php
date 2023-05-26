@@ -1,6 +1,3 @@
-
-
-<?php include ("include/login.php") ?>
 <!doctype html>
 <html lang="es">
   <head>
