@@ -60,11 +60,11 @@ if (isset($_POST["login"]))
 
                 if ($_POST['recuerdame']=='1')
                 {
-                    setcookie("usuario_id", $row['idusuario'], time() + 86400); // 86400 = 1 día
-                    setcookie("usuario_nombre", $usuario, time() + 86400); // ¿Para que?
+                    setcookie("idusuario", $row['idusuario'], time() + 86400); // 86400 = 1 día
+                    setcookie("nombreusuario", $usuario, time() + 86400); // ¿Para que?
                     setcookie("rol", $rol,time()+86400);  // ¿Para que?
                     $fecha = date('Y-m-d H:i:s');
-                    $idusuario = $row['id'];
+                    $idusuario = $row['idusuario'];
                     //$sql = sprintf ("INSERT INTO accesos (idusuario, fecha) VALUES ('%i','%d')",$idusuario,$fecha);
                     //TIENEN QUE LLEVAR COMILLAS LAS FECHAS???? LO HE PROBADO CON Y SIN Y NO VA
                     $sql = "INSERT INTO accesos (idusuario, fecha) VALUES ({$idusuario}, '{$fecha}')"; // Historial de accesos
