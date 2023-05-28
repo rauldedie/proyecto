@@ -58,17 +58,20 @@ if (isset($_POST["login"]))
                 $_SESSION['nombreusuario'] = $usuario;
                 $_SESSION['rol'] = $rol;
 
+                //echo $_SESSION['rol']."<br>";
+                //echo $_SESSION['idusuario']."<br>";
+                //echo $_SESSION['nombreusuario']."<br>";
+                //echo $_SESSION['timeout']."<br>";
+
                 if ($_POST['recuerdame']=='1')
                 {
-                    setcookie("idusuario", $row['idusuario'], time() + 86400); // 86400 = 1 día
-                    setcookie("nombreusuario", $usuario, time() + 86400); // ¿Para que?
-                    setcookie("rol", $rol,time()+86400);  // ¿Para que?
+
                     $fecha = date('Y-m-d H:i:s');
                     $idusuario = $row['idusuario'];
                     //$sql = sprintf ("INSERT INTO accesos (idusuario, fecha) VALUES ('%i','%d')",$idusuario,$fecha);
                     //TIENEN QUE LLEVAR COMILLAS LAS FECHAS???? LO HE PROBADO CON Y SIN Y NO VA
-                    $sql = "INSERT INTO accesos (idusuario, fecha) VALUES ({$idusuario}, '{$fecha}')"; // Historial de accesos
-                    mysqli_query($enlace, $sql);
+                    //$sql = "INSERT INTO accesos (idusuario, fecha) VALUES ({$idusuario}, '{$fecha}')"; // Historial de accesos
+                    //mysqli_query($enlace, $sql);                    
                 }
             
                 echo "<script>window.location='include/paneladmin.php?rol=". $rol . "';</script>";
