@@ -52,8 +52,8 @@ if (isset($_POST["login"]))
                     //echo $query;
                 }
                 
-                echo "<script>window.location='panelrol.php?usuario=". $row['rol'] . "';</script>";
-                
+                echo "<script>window.location='panelrol.php?usuario=". $row['idusuario'] . "';</script>";
+                //echo $row['idusuario'];
             }
             else {
                 echo "Usuario y/o password erróneo.";
@@ -66,7 +66,7 @@ if (isset($_POST["login"]))
         }  
     }
 }
-include "include/cabecera.php";
+include "cabecera.php";
 ?>
 <div class="container">
     <h1>GESTIÓN INCIDENCIAS TÉCNICAS IES A. MACHADO</h1> 
@@ -111,4 +111,4 @@ include "include/cabecera.php";
         <label class="error" id="aviso2" ></label>
     </div>
 </div>  
-<?php include "include/pie.php"; ?>
+<?php include "pie.php"; ?>
