@@ -4,7 +4,8 @@ if (!array_key_exists("usuario_id",$_SESSION)){
     // Si no tenia la sesion iniciada
     header("Location:logout.php");
 }//DE ESTA FORMA FUNCIONA
-$nombreusuario = $_SESSION['usuario_nombre'];
+$nombreusuario=$_SESSION['usuario_nombre'];
+
 //echo $_SESSION['usuario_id'];
 include "conexion.php";
 if (isset($_GET['usuario']))
@@ -18,7 +19,6 @@ if (isset($_GET['usuario']))
     $resultado=mysqli_query($enlace,$query);   
     $fila = mysqli_fetch_array($resultado);
     
-    //include "identidad.php";
     include "panel".$fila['rol'].".php";
 
     //SELECT DE INCIDENCIAS Y MOSTRARLAS

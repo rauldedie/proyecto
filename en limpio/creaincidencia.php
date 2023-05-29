@@ -7,6 +7,7 @@ if (!array_key_exists("usuario_id",$_SESSION)){
 
 include "conexion.php";
 $idusuario = $_SESSION['usuario_id'];
+$nombreusuario = $_SESSION['usuario_nombre'];
 //echo "id=".$idusuario."<br>";
 //crea una nueva incidencia 
   if(isset($_POST['crear'])) 
@@ -51,6 +52,9 @@ $idusuario = $_SESSION['usuario_id'];
     include "cabeceracrear.php";
 ?>
 <h2 class="text-center">Panel de Gestión (CRU)-Añadir incidencia</h2>
+<div>
+    <p><?php echo "Usuario: ".$nombreusuario?></p>
+</div>
   <div class="container">
     <form action="" method="post">
     <div class="form-group">

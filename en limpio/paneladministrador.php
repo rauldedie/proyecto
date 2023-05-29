@@ -1,10 +1,8 @@
-<?php 
-include "cabecera.php";?>
+<?php include "cabecera.php"?>
 <div class="form-group">
         <h1 class="text-center" >Gestión de incidencias (CRUD). Panel Administrador.</h1>
         <div>
-            <p>Esta al uso: <?php $nombreusuario?></p>
-            
+            <p><?php echo"Usuario: ".$nombreusuario; ?></p>
         </div>
         <a href="creaincidencia.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Añadir Incidencia</a>
         <a href="crearusuario.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Añadir Usuario</a>
