@@ -1,11 +1,10 @@
 <?php
 session_start();
 if (!array_key_exists("usuario_id",$_SESSION)){
-    // Si ya tenia la sesion iniciada
+    // Si no tenia la sesion iniciada
     header("Location:logout.php");
 }//DE ESTA FORMA FUNCIONA
-
-
+$nombreusuario = $_SESSION['usuario_nombre'];
 //echo $_SESSION['usuario_id'];
 include "conexion.php";
 if (isset($_GET['usuario']))
@@ -19,11 +18,11 @@ if (isset($_GET['usuario']))
     $resultado=mysqli_query($enlace,$query);   
     $fila = mysqli_fetch_array($resultado);
     
-
+    //include "identidad.php";
     include "panel".$fila['rol'].".php";
 
     //SELECT DE INCIDENCIAS Y MOSTRARLAS
-    $query = "SELECT * FROM incidencias2";               
+    $query = "SELECT * FROM incidencias2 WHERE fecha_resol is null";               
     $vista_incidencias = mysqli_query($enlace,$query);
 
     while($row = mysqli_fetch_assoc($vista_incidencias))
