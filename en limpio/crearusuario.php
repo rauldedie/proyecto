@@ -1,6 +1,5 @@
 <?php
 session_start();
-session_start();
 if (!array_key_exists("usuario_id",$_SESSION)){
     // Si no tenia la sesion iniciada
     header("Location:logout.php");
