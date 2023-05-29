@@ -1,13 +1,16 @@
 <?php
 session_start();
-include 'conexion.php';
+
 if ((array_key_exists("usuario_id",$_SESSION) AND $_SESSION['usuario_id']) OR (array_key_exists("usuario_id",$_COOKIE) AND $_COOKIE['usuario_id'])){
     // Si ya tenia la sesion iniciada
-    //header("Location: include/paneladmin.php?rol=" . $_COOKIE["rol"]);
+    header("Location:panelrol.php?usuario=" . $_SESSION["usuario_id"]);
 }
+
+
 
 if (isset($_POST["login"]))
 {
+    include 'conexion.php';
     $error="";
     $usuario = mysqli_real_escape_string($enlace, $_POST['usuario']);
     $pass = mysqli_real_escape_string($enlace, $_POST['password']);
@@ -31,16 +34,10 @@ if (isset($_POST["login"]))
            
             if (mysqli_num_rows($result)>0)
             {
-                /*$datos = [];
-                $datos['idusuario'] = $row['idusuario'];
-                $datos['usuario'] = $row['nombreusuario'];
-                $datos['rol'] = $row['rol'];*/
-
                 $_SESSION['usuario_id'] = $row['idusuario'];
                 $_SESSION['usuario_nombre'] = $usuario;
                 $_SESSION['rol'] = $rol;
             
-
                 if ($_POST['recuerdame']=='1')
                 {
 
@@ -51,9 +48,9 @@ if (isset($_POST["login"]))
                     mysqli_query($enlace, $query);
                     //echo $query;
                 }
-                
+                //LA MANDO AL PANEL Y NO CARGA PORQUE NO VAN LAS SESSIONES
                 echo "<script>window.location='panelrol.php?usuario=". $row['idusuario'] . "';</script>";
-                //echo $row['idusuario'];
+
             }
             else {
                 echo "Usuario y/o password erróneo.";
@@ -75,9 +72,6 @@ include "cabecera.php";
 
         <form action="index.php" method="POST">
             <div class="form-group">
-                <div>
-                    <img class="iconoayuda" id="ayuda" onmouseover="Ayuda()" src="iconos/ayuda.png" alt="ayuda">
-                </div>
         
                 <label for="usuario">Nombre de Usuario                        
                     <input type="text" name="usuario" class="form-control" id="usuario" aria-describedby="AyudaUsuario" placeholder="Escribe tu usuario">

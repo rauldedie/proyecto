@@ -1,43 +1,29 @@
 <?php //include "./acciones/header.php";
 //SEGUN EL ROL QUE ME ENVIA EN EL LOCATION CARGAMOS UNA U OTRO PANEL
-include "conexion.php";
+include "../conexion.php";
 if (isset($_GET['usuario']))
 {
+    /*if (array_key_exists($_SESSION))
+    {
+        echo $_SESSION['usuario_id'];
+    }*/
+    
     $idusuario = htmlspecialchars($_GET['usuario']);
     $query="SELECT rol,idusuario from usuarios2 WHERE idusuario={$idusuario}";
-    $resultado=mysqli_query($enlace,$query);
-
-    //$idhass = md5(md5('k$10pe1').$idusuario);
+    $resultado=mysqli_query($enlace,$query);   
     $fila = mysqli_fetch_array($resultado);
+    
+    //$idhass = md5(md5('k$10pe1').$idusuario);
     //$idhass2 = md5(md5('k$10pe1').$fila['idusuario']);
     
     /*if($idhass2!=$idhass)
     {
         include "logout.php";
     }*/
-    
-    switch ($fila['rol'])
-    {
-        case 'administrador' :
-        {
-            include "headadmin.php";
-            
-            break;
-        }
-        case "direccion"://NO ESTAN HECHOS SIN SESIONS NI COOKIES TENDRIA QUE REPTIR MUCHO CODIGO
-        {
-            include "headdireccion.php";
-            break;
-        }
-        case "profesorado":
-        {
-            include "headprofesorado.php";
-            break;
-        }
-    }
+    include "panel".$fila['rol'].".php";
 
     //SELECT DE INCIDENCIAS Y MOSTRARLAS
-    $query = "SELECT * FROM incidencias";               
+    $query = "SELECT * FROM incidencias2";               
     $vista_incidencias = mysqli_query($enlace,$query);
 
     //print_r($vista_incidencias);
@@ -46,7 +32,9 @@ if (isset($_GET['usuario']))
     {
 
         $id = $row['idincidencias'];
-                           
+        
+        //if($row['fecha_resol'==''])
+        //{                   
         $query = "SELECT * FROM usuarios2 WHERE idusuario =".$row['idusuario'];
         $usuario_inci = mysqli_fetch_array(mysqli_query($enlace,$query));                  
                             
@@ -75,34 +63,15 @@ if (isset($_GET['usuario']))
             echo " <td >{$fecha_rev} </td>";
             echo " <td >{$fecha_sol} </td>";
             echo " <td >{$comentario} </td>";
-            echo " <td class='text-center'> <a href='./acciones/viewadmin.php?incidencia_id={$id}' class='btn btn-primary'> <i class='bi bi-eye'></i> Ver</a> </td>";
-            echo " <td class='text-center' > <a href='./acciones/update.php?editar&incidencia_id={$id}' class='btn btn-secondary' ><i class='bi bi-pencil'></i> Editar</a> </td>";
+            echo " <td class='text-center'> <a href='../acciones/verincidencia.php?incidencia_id={$id}' class='btn btn-primary'> <i class='bi bi-eye'></i> Ver</a> </td>";
+            /*echo " <td class='text-center' > <a href='./acciones/update.php?editar&incidencia_id={$id}' class='btn btn-secondary' ><i class='bi bi-pencil'></i> Editar</a> </td>";
             echo " <td class='text-center'>  <a href='./acciones/borrarincidencia.php?eliminar={$id}' class='btn btn-danger' > <i class='bi bi-trash'></i> Eliminar</a> </td>";
-            echo " </tr> ";
-                            
-        }
-}
-switch ($fila['rol'])
-{
-    case 'administrador' :
-    {
-        include "footadmin.php";
-        
-        break;
-    }
-    case "direccion"://NO ESTAN HECHOS SIN SESIONS NI COOKIES TENDRIA QUE REPTIR MUCHO CODIGO
-    {
-        include "footdireccion.php";
-        break;
-    }
-    case "profesorado":
-    {
-        include "footprofesorado.php";
-        break;
+            echo " </tr> ";*/
+            include "botones".$fila['rol'].".php";
+        //}                   
     }
 }
-
-//include "./acciones/footer.php"; ?>
+include "footadmin.php"; ?>
 
 
 

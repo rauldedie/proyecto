@@ -1,9 +1,9 @@
 <?php
 session_start();
-include 'conexion.php';
+include 'include/conexion.php';
 if ((array_key_exists("usuario_id",$_SESSION) AND $_SESSION['usuario_id']) OR (array_key_exists("usuario_id",$_COOKIE) AND $_COOKIE['usuario_id'])){
     // Si ya tenia la sesion iniciada
-    //header("Location: include/paneladmin.php?rol=" . $_COOKIE["rol"]);
+    header("Location:/include/paneles/panelrol.php?rol=" . $_COOKIE["rol"]);
 }
 
 if (isset($_POST["login"]))
@@ -31,16 +31,10 @@ if (isset($_POST["login"]))
            
             if (mysqli_num_rows($result)>0)
             {
-                /*$datos = [];
-                $datos['idusuario'] = $row['idusuario'];
-                $datos['usuario'] = $row['nombreusuario'];
-                $datos['rol'] = $row['rol'];*/
-
                 $_SESSION['usuario_id'] = $row['idusuario'];
                 $_SESSION['usuario_nombre'] = $usuario;
                 $_SESSION['rol'] = $rol;
-            
-
+            //NECESITO COOKIE DE IDUSUARIO O SOLO SESION ?????
                 if ($_POST['recuerdame']=='1')
                 {
 
@@ -52,8 +46,8 @@ if (isset($_POST["login"]))
                     //echo $query;
                 }
                 
-                echo "<script>window.location='panelrol.php?usuario=". $row['idusuario'] . "';</script>";
-                //echo $row['idusuario'];
+                echo "<script>window.location='/include/paneles/panelrol.php?usuario=". $row['idusuario'] . "';</script>";
+
             }
             else {
                 echo "Usuario y/o password erróneo.";
@@ -66,7 +60,7 @@ if (isset($_POST["login"]))
         }  
     }
 }
-include "cabecera.php";
+include "include/cabecera.php";
 ?>
 <div class="container">
     <h1>GESTIÓN INCIDENCIAS TÉCNICAS IES A. MACHADO</h1> 
@@ -75,9 +69,6 @@ include "cabecera.php";
 
         <form action="index.php" method="POST">
             <div class="form-group">
-                <div>
-                    <img class="iconoayuda" id="ayuda" onmouseover="Ayuda()" src="iconos/ayuda.png" alt="ayuda">
-                </div>
         
                 <label for="usuario">Nombre de Usuario                        
                     <input type="text" name="usuario" class="form-control" id="usuario" aria-describedby="AyudaUsuario" placeholder="Escribe tu usuario">
@@ -111,4 +102,4 @@ include "cabecera.php";
         <label class="error" id="aviso2" ></label>
     </div>
 </div>  
-<?php include "pie.php"; ?>
+<?php include "include/pie.php"; ?>
