@@ -43,11 +43,11 @@ $nombreusuario = $_SESSION['usuario_nombre'];
           }     
     }
     //mysqli_close($enlace); ?????
-    include "cabeceracrear.php";
+    include "cabecera.php";
 ?>
 <h1 class="text-center">Panel de Gestión (CRU)-Añadir incidencia</h1>
 <div>
-    <p><?php echo "Usuario: ".$nombreusuario?></p>
+    <p class="usuario"><?php echo "Usuario: ".$nombreusuario?></p>
 </div>
   <div class="container">
     <form action="" method="post">

@@ -8,8 +8,6 @@ if (!array_key_exists("usuario_id",$_SESSION)){
 $nombreusuario = $_SESSION['usuario_nombre'];
 $idenuso = $_SESSION['usuario_id'];
 $rolenuso = $_SESSION['usuario_rol'];
-//echo $_SESSION['usuario_id'];
-
 
 include "conexion.php";
 include "cabecera.php";
@@ -18,19 +16,12 @@ if (isset($_GET['usuario']))
 {
     
     $idusuario = htmlspecialchars($_GET['usuario']);
-
-    //$query="SELECT rol,idusuario from usuarios2 WHERE idusuario={$idusuario}";
-
-    //$resultado=mysqli_query($enlace,$query);   
-    //$fila = mysqli_fetch_array($resultado);
-    
-    //include "panel".$fila['rol'].".php";
     
     echo "<div class='form-group'>";
 
         echo "<h1 class='text-center' >Gestión de incidencias (CRUD). Panel Administrador.</h1>";
         echo "<div>";
-            echo "<p>Usuario: ".$nombreusuario."</p>";
+            echo "<p class='usuario'>Usuario: ".$nombreusuario."</p>";
         echo "</div>";
         echo "<a href='creaincidencia.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Añadir Incidencia</a>";
         if(strcmp($rolenuso,"administrador"))
@@ -57,17 +48,15 @@ if (isset($_GET['usuario']))
             echo "</thead>";
             echo "<tbody>";
                 echo "<tr>";
-                    //SELECT DE INCIDENCIAS Y MOSTRARLAS
+                    //SELECT DE INCIDENCIAS no resueltas Y MOSTRARLAS
                     $query = "SELECT * FROM incidencias2 WHERE fecha_resol is null";               
                     $vista_incidencias = mysqli_query($enlace,$query);
 
                     while($row = mysqli_fetch_assoc($vista_incidencias))
                     {
 
-                        $id = $row['idincidencias'];
-        
-                        //if($row['fecha_resol'==''])
-                        //{                   
+                        $id = $row['idincidencia'];
+                          
                         $query = "SELECT * FROM usuarios2 WHERE idusuario =".$row['idusuario'];
                         $usuario_inci = mysqli_fetch_array(mysqli_query($enlace,$query));                  
                             
@@ -126,14 +115,16 @@ if (isset($_GET['usuario']))
             $resueltas = mysqli_fetch_array($resultado);
             $numresu = count($resueltas);
 
-                echo "<p>Incidencias resueltas: ". $numresu." incidencias </p>";
-                echo "<p>Incidencias pendientes de resolver: ".$numsinres." incidencias </p>";
+                echo "<p class='edicion'>Incidencias resueltas: ". $numresu." incidencias </p>";
+                echo "<p class='edicion'>Incidencias pendientes de resolver: ".$numsinres." incidencias </p>";
         echo "</div>";
     echo "</div>";
+    mysqli_close($enlace);
     echo "<div class='container text-center mt-5'>";
       echo "<a href='logout.php' class='btn btn-warning mt-5'> Salir </a>";
     echo "</div>";
      
 }
+
 include "pie.php";
 ?>
