@@ -16,6 +16,7 @@ if (isset($_GET['usuario']))
 {
     
     $idusuario = htmlspecialchars($_GET['usuario']);
+
     
     echo "<div class='form-group'>";
 
@@ -24,7 +25,7 @@ if (isset($_GET['usuario']))
             echo "<p class='usuario'>Usuario: ".$nombreusuario."</p>";
         echo "</div>";
         echo "<a href='creaincidencia.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Añadir Incidencia</a>";
-        if(strcmp($rolenuso,"administrador"))
+        if(strcmp($rolenuso,"administrador")==0)
         {
             echo " <a href='crearusuario.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Añadir Usuario</a>";
             echo "<a href='bajausuario.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Eliminar Usuario</a>";
@@ -87,12 +88,12 @@ if (isset($_GET['usuario']))
                             echo " <td >{$comentario} </td>";
                             echo " <td class='text-center'> <a href='../acciones/verincidencia.php?incidencia_id={$id}' class='btn btn-primary'> <i class='bi bi-eye'></i> Ver</a> </td>";
 
-                            if(strcmp($rolenuso,"administrador"))
+                            if(strcmp($rolenuso,"administrador")==0)
                             {
                                 echo " <td class='text-center' > <a href='editarincidencia.php?editar&incidencia_id={$id}' class='btn btn-secondary' ><i class='bi bi-pencil'></i> Editar</a> </td>";
                                 echo " <td class='text-center'>  <a href='borrarincidencia.php?eliminar={$id}' class='btn btn-danger' > <i class='bi bi-trash'></i> Eliminar</a> </td>";
                             
-                            }else if(strcmp($rolenuso,"direccion"))
+                            }else if(strcmp($rolenuso,"direccion")==0)
                             {
                                 echo " <td class='text-center' > <a href='editarincidencia.php?editar&incidencia_id={$id}' class='btn btn-secondary' ><i class='bi bi-pencil'></i> Editar</a> </td>";
                             }

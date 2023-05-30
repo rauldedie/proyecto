@@ -36,7 +36,7 @@ if (isset($_POST["login"]))
             {
                 $_SESSION['usuario_id'] = $row['idusuario'];
                 $_SESSION['usuario_nombre'] = $usuario;
-                $_SESSION['usuario_rol'] = $rol;
+                $_SESSION['usuario_rol'] = $row['rol'];
             
                 if ($_POST['recuerdame']=='1')
                 {
