@@ -27,8 +27,8 @@ if (isset($_GET['usuario']))
         echo "<a href='creaincidencia.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Añadir Incidencia</a>";
         if(strcmp($rolenuso,"administrador")==0)
         {
-            echo " <a href='crearusuario.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Añadir Usuario</a>";
-            echo "<a href='bajausuario.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Eliminar Usuario</a>";
+            //echo " <a href='crearusuario.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Añadir Usuario</a>";
+            echo "<a href='gestionarusuario.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Gestionar Usuario</a>";
             echo "<a href='gestionaraulas.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Gestionar Aulas y Plantas</a>";
         }     
         
@@ -86,7 +86,7 @@ if (isset($_GET['usuario']))
                             echo " <td >{$fecha_rev} </td>";
                             echo " <td >{$fecha_sol} </td>";
                             echo " <td >{$comentario} </td>";
-                            echo " <td class='text-center'> <a href='../acciones/verincidencia.php?incidencia_id={$id}' class='btn btn-primary'> <i class='bi bi-eye'></i> Ver</a> </td>";
+                            echo " <td class='text-center'> <a href='verincidencia.php?incidencia_id={$id}' class='btn btn-primary'> <i class='bi bi-eye'></i> Ver</a> </td>";
 
                             if(strcmp($rolenuso,"administrador")==0)
                             {
@@ -105,7 +105,7 @@ if (isset($_GET['usuario']))
             echo "</tbody>";
         echo "</table>";
         echo "<div class='form-group'>";
-            include "conexion.php";
+
             $query = "SELECT count(*) numero from incidencias2 WHERE fecha_resol is not null";
             $resultado = mysqli_query($enlace,$query);
             $sinresolver = mysqli_fetch_array($resultado);

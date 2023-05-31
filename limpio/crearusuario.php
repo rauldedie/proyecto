@@ -90,7 +90,7 @@ if(isset($_POST['registro']))
         </div>
         
         <br><button type="submit" name="registro" class="btn btn-primary">Alta usuario</button>
-        <a href="panelgestion.php?usuario=<?php echo $idusuario?>" class="btn btn-primary"> Volver </a>
+        <a href="gestionarusuario.php" class="btn btn-primary"> Volver </a>
                           
     </form>
         

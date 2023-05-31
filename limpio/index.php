@@ -86,7 +86,7 @@ include "cabecera.php";
                     <label class="error" id="errorpasswd" ></label>
                     <small id="AyudaPasswd" >Este campo es obligatorio.</small>
                 </label><br>
-                <small id="AyudaPasswd2" >Longitud mínima 8 caracteres, ha de contener al menos un numero y una mayúscula.</small>
+                <small id="AyudaPasswd2" >Longitud mínima 8 caracteres.</small>
             </div>
 
             <div class="form-check">
