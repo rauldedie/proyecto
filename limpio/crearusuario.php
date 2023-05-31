@@ -5,24 +5,61 @@ if (!array_key_exists("usuario_id",$_SESSION)){
     header("Location:logout.php");
 }//DE ESTA FORMA FUNCIONA
 
-include "conexion.php";
-$idusuario = $_SESSION['usuario_id'];
-$nombreusuario = $_SESSION['usuario_nombre'];
-//echo "id=".$idusuario."<br>";
-//crea una nueva incidencia 
+
+
 if(isset($_POST['registro'])) 
 {
+    include "conexion.php";
+    $nombre = htmlspecialchars($_POST['nombre']);
+    $apellidos = htmlspecialchars($_POST['apellidos']);
+    $telefono = htmlspecialchars($_POST['telefono']);
+    $email = htmlspecialchars($_POST['email']);
+    $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+    $pass1 = htmlspecialchars($_POST['password']);
+    $nombreusuario =  strtolower(htmlspecialchars($_POST['usuario']));
+    //$pass2 = htmlspecialchars($_POST['password2']);
+    $rol = htmlspecialchars($_POST['rol']);
 
+    echo $nombre."<br>";
+    echo $apellidos."<br>";
+    echo $email."<br>";
+    echo $telefono."<br>";
+    echo $pass1."<br>";
+    echo $nombreusuario."<br>";
+    echo $rol."<br>";
+    //busco que no exista
+
+    $query = "SELECT * FROM usuarios2 WHERE nombreusuario = '{$nombreusuario}'";
+    echo $query."<br>";
+    //$resultado = mysqli_query($enlace,$query);
+    //$fila = mysqli_fetch_array($resultado);
+    //print_r($fila);
+
+    //if(count($fila)>0)
+    //{
+      //  echo "Lo siento ese nombre de usuario ya existe";
+    //}else
+    //{
+        $query = "INSERT INTO usuarios2 (nombre,apellidos,mail,telefono,nombreusuario,pass,rol) VALUES ('{$nombre}','{$apellidos}','{$email}','{$telefono}','{$nombreusuario}','{$pass1}','{$rol}')";
+        //$resultado2 = mysqli_query($enlace,$query);
+        echo $query."<br>";
+        //if($resultado2)
+          //  echo "<script type='text/javascript'>alert('¡Usuario Añadido!')</script>";
+        //else
+          //  echo "Se ha producido un error al actualizar la incidencia.".mysqli_error($enlace);
+    
+        //HECHO ESTO HE DE ENCRIPTAR LA CONTRASEÑA Y HACER UN UPDATE USANDO EL ID COMO HASS
+    //}
+        mysqli_close($enlace);
 }
 
+include "cabecera.php";
 ?>
-
-<?php include "cabecera.php"?>
-<p class="encabezado"><h1 class="text-center" >Gestión de incidencias (CRUD). Panel Administrador.</h1></p>
+<p class="encabezado"><h1 class="text-center" >Gestión de incidencias (CRUD) - Alta nuevo usuario.</h1></p>
 <p class="encabezado"><h4 class="text-center">Facilita los datos del nuevo usuario.</h4></p>
 <div class="container">  
     
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
+    <form action="" method="POST">
         <div>
             <label for="usuario">Nombre de Usuario                        
                 <input type="text" name="usuario" class="form-control" id="usuario" aria-describedby="AyudaUsuario" placeholder="Escribe tu usuario">
@@ -37,7 +74,7 @@ if(isset($_POST['registro']))
                 <label class="error" id="errorpasswd" ></label>
                 <small id="AyudaPasswd" >Este campo es obligatorio.</small>
             </label><br>
-            <small id="AyudaPasswd2" >Longitud mínima 8 caracteres.</small>
+            <small id="Ayuda2Passwd" >Longitud mínima 8 caracteres.</small>
         </div>
 
         <div class="form-group">
@@ -46,7 +83,7 @@ if(isset($_POST['registro']))
                 <label class="error" id="errorpasswd2" ></label>
                 <small id="AyudaPasswd" >Este campo es obligatorio.</small>
             </label><br>
-            <small id="AyudaPasswd2" >Longitud mínima 8 caracteres.</small>
+            <small id="Ayuda2Passwd2" >Longitud mínima 8 caracteres.</small>
         </div>
 
         <div class="form-group">
@@ -92,8 +129,6 @@ if(isset($_POST['registro']))
         <br><button type="submit" name="registro" class="btn btn-primary">Alta usuario</button>
         <a href="gestionarusuario.php" class="btn btn-primary"> Volver </a>
                           
-    </form>
-        
+    </form>  
 </div>
-<div>
 <?php include "pie.php"?>

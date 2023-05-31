@@ -8,21 +8,9 @@ if (!array_key_exists("usuario_id",$_SESSION)){
 $nombreusuario = $_SESSION['usuario_nombre'];
 $idenuso = $_SESSION['usuario_id'];
 $rolenuso = $_SESSION['usuario_rol'];
+$tiempo = $_SESSION['tiempo_ultima_conexion'];
 
-include "conexion.php";
-
-//calculo tiempo desede la ultima conexion
-
-$query = "select max(fecha) fecha from accesos where idusuario={$idenuso}; ";
-$fecha = mysqli_fetch_array (mysqli_query($enlace,$query));
-$hoy = date('Y-m-d H:i:s');
-	
-date_default_timezone_set('Europe/Madrid');		
-
-$fechaInicio = new Datetime ($hoy);
-$fechaFin = new Datetime($fecha['fecha']);
-$intervalo = $fechaInicio->diff($fechaFin);  
-
+include "conexion.php"; 
 include "cabecera.php";
 
 if (isset($_GET['usuario']))
@@ -36,7 +24,7 @@ if (isset($_GET['usuario']))
         echo "<h1 class='text-center' >Gestión de incidencias (CRUD). Panel Administrador.</h1>";
         echo "<div>";
             echo "<p class='usuario'>Usuario: ".$nombreusuario."</p>";
-            echo "<p class='usuario'>Tiempo desde última conexión: ".$intervalo->y . " años, " . $intervalo->m." meses, ".$intervalo->d." dias, " . $intervalo->h . " horas, " . $intervalo->i . " minutos y " . $intervalo->s . " segundos"."</p>";
+            echo "<p class='usuario'>Tiempo desde última conexión: ".$tiempo;
         echo "</div>";
         echo "<a href='creaincidencia.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Añadir Incidencia</a>";
         if(strcmp($rolenuso,"administrador")==0)

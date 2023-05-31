@@ -14,6 +14,7 @@ if (isset($_POST["login"]))
     $error="";
     $usuario = mysqli_real_escape_string($enlace, $_POST['usuario']);
     $pass = mysqli_real_escape_string($enlace, $_POST['password']);
+    $idusuario = $row['idusuario'];
     //echo "Usuario: " . $usuario . " y password: " . $pass;
     if (empty($usuario))
     {
@@ -40,10 +41,18 @@ if (isset($_POST["login"]))
             
                 if ($_POST['recuerdame']=='1')
                 {
+                    //primero calculo tiempo ultima conexion
+                    $query = "select max(fecha) fecha from accesos where idusuario={$idusuario}; ";
+                    $fecha = mysqli_fetch_array (mysqli_query($enlace,$query));
+                    $hoy = date('Y-m-d H:i:s');
+                    date_default_timezone_set('Europe/Madrid');		
+                    $fechaInicio = new Datetime ($hoy);
+                    $fechaFin = new Datetime($fecha['fecha']);
+                    $intervalo = $fechaInicio->diff($fechaFin);
+                    $_SESSION['tiempo_ultima_conexion'] = $intervalo->y . " años, " . $intervalo->m." meses, ".$intervalo->d." dias, " . $intervalo->h . " horas, " . $intervalo->i . " minutos y " . $intervalo->s . " segundos"."</p>";
 
+                    //actualizo con la última conexion
                     $fecha = date('Y-m-d H:i:s');
-                    $idusuario = $row['idusuario'];
-
                     $query = "INSERT INTO accesos (idusuario,fecha) VALUES ({$idusuario},'{$fecha}')"; // Historial de accesos
                     mysqli_query($enlace, $query);
                     //echo $query;
@@ -53,12 +62,12 @@ if (isset($_POST["login"]))
 
             }
             else {
-                echo "Usuario y/o password erróneo.";
+                echo "<p class='usuario'>Usuario y/o password erróneo.</p>";
             }
         }
         else
         {
-            echo "Usuario y/o contraseña incorrectos." . mysqli_error($enlace);
+            echo "<p class='usuario'>Usuario y/o password erróneo. " . mysqli_error($enlace)."</p>";
             mysqli_close($enlace);
         }  
     }
@@ -70,7 +79,7 @@ include "cabecera.php";
     <div>
         <p><h3>Introduce tu usuario y contraseña para entrar al sistema</h3></p>
 
-        <form action="index.php" method="POST">
+        <form id="formulario" action="index.php" method="POST">
             <div class="form-group">
         
                 <label for="usuario">Nombre de Usuario                        
@@ -106,3 +115,27 @@ include "cabecera.php";
     </div>
 </div>  
 <?php include "pie.php"; ?>
+
+<!--<script>
+
+document.addEventListener("DOMContentLoaded", function() 
+{
+  document.getElementById("formulario").addEventListener('submit', validarFormulario); 
+});
+
+function validarFormulario(evento) 
+{
+    evento.preventDefault();
+    var usuario = document.getElementById('usuario').value;
+    if(usuario.length == 0) {
+        alert('No has escrito nada en el usuario');
+        return;
+    }
+    var clave = document.getElementById('clave').value;
+    if (clave.length < 6) {
+        alert('La clave no es válida');
+        return;
+    }
+    this.submit();
+}
+</script>-->
