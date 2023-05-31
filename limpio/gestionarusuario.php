@@ -91,6 +91,7 @@ if(strcmp($rolenuso,"administrador")==0 && strcmp($rolenuso,$rol)==0)
         echo "</table>";
     echo "</div>";
     mysqli_close($enlace);
+    echo "<p class='usuario'>Ojo! Si eliminas un usuario, eliminarás las incidencias asociadas al mismo.</p>";
     echo "<div class='container text-center mt-5'>";
         echo "<a href='panelgestion.php?usuario={$idusuarioenuso}' class='btn btn-warning mt-5'> Volver </a>";
     echo "</div>";

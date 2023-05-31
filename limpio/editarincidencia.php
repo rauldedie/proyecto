@@ -12,13 +12,13 @@ $nombreusuario = $_SESSION['usuario_nombre'];
 $rolenuso = $_SESSION['usuario_rol']; 
 $hoy = date("Y-m-d");
 //$hoy = date("Y-m-d H:i:s")
-$fecha_rev_mod = $fecha_sol_mod = $aula_mod = $descripcion_mod = $comentario_mod =0;
+$fecha_rev_mod = $fecha_sol_mod = $idaula_mod = $descripcion_mod = $comentario_mod =0;
 
 if(isset($_GET['incidencia_id']))
 {
   $incidenciaid = htmlspecialchars($_GET['incidencia_id']); 
 }
-  
+ 
   $query="SELECT * FROM incidencias2 WHERE idincidencia =".$incidenciaid;
   $vista_incidencias= mysqli_query($enlace,$query);
 
@@ -45,6 +45,7 @@ if(isset($_GET['incidencia_id']))
   $fecha_sol = $fila['fecha_resol'];        
   $comentario = $fila['comentario'];
   $error_edicion = "";
+
   if(isset($_POST['editar'])) 
   {
     $planta_mod = (htmlspecialchars($_POST['planta']));
@@ -52,7 +53,6 @@ if(isset($_GET['incidencia_id']))
     $descripcion_mod = htmlspecialchars($_POST['descripcion']);
     $comentario_mod = htmlspecialchars($_POST['comentario']);
     
-    echo "idaula: ".$idaula_mod."<br>";
     if($_POST['fecha_revision']==1)
     {
       $fecha_rev_mod = $hoy;
@@ -60,71 +60,112 @@ if(isset($_GET['incidencia_id']))
     if($_POST['fecha_resolucion']==1)
     {
       $fecha_sol_mod = $hoy;
-    }
-    echo "fecha: ".$fecha_rev_mod."<br>";
+    }  
     
     if(strcmp($idaula_mod,"")==0)
       {
         $idaula_mod=0;
       }
 
-    if (($idaula_mod!=0) && ($fecha_rev_mod!=0) && ($fecha_sol_mod!=0))
-    {
+    if ($idaula_mod!=0) 
+    { 
+      if($fecha_rev_mod!=0)
+      {
+        if($fecha_sol_mod!=0)
+        {
+          $query = "UPDATE incidencias2 SET idaula={$idaula_mod}, descripcion='{$descripcion_mod}',comentario='{$comentario_mod}',fecha_mod='{$fecha_rev_mod}',fecha_resol='{$fecha_sol_mod}' WHERE idincidencia={$incidenciaid}";
+          //echo $query."<br>";
+          $incidencia_actualizada = mysqli_query($enlace,$query);
 
-      $query = "UPDATE incidencias2 SET idaula={$idaula_mod}, descripcion='{$descripcion_mod}',comentario='{$comentario_mod}',fecha_mod='{$fecha_rev_mod}',fecha_resol='{$fecha_sol_mod}' WHERE idincidencia={$incidenciaid}";
-      echo $query."<br>";
-      //$incidencia_actualizada = msqli_query($enlace,$query);
-      if (!$incidencia_actualizada)
+          if (!$incidencia_actualizada)
+          {
+            $error_edicion = "Error en la actualizacion de la incidencia<br>";
+          }
+        }else
+        {
+          $query = "UPDATE incidencias2 SET idaula={$idaula_mod}, descripcion='{$descripcion_mod}',comentario='{$comentario_mod}',fecha_mod='{$fecha_rev_mod}' WHERE idincidencia={$incidenciaid}";
+          //echo $query."<br>";
+          $incidencia_actualizada = mysqli_query($enlace,$query);
+
+          if (!$incidencia_actualizada)
+          {
+            $error_edicion = "Error en la actualizacion de la incidencia<br>";
+          }
+        }
+      }else if ($fecha_sol_mod!=0)
       {
-        $error_edicion.="Error en la actualizacion de la incidencia<br>";
+        $query = "UPDATE incidencias2 SET idaula={$idaula_mod}, descripcion='{$descripcion_mod}',comentario='{$comentario_mod}',fecha_resol='{$fecha_sol_mod}' WHERE idincidencia={$incidenciaid}";
+        //echo $query."<br>";
+        $incidencia_actualizada = mysqli_query($enlace,$query);
+
+        if (!$incidencia_actualizada)
+        {
+          $error_edicion = "Error en la actualizacion de la incidencia<br>";
+        }
+      }else
+      {
+        $query = "UPDATE incidencias2 SET idaula={$idaula_mod}, descripcion='{$descripcion_mod}',comentario='{$comentario_mod}' WHERE idincidencia={$incidenciaid}";
+        //echo $query."<br>";
+        $incidencia_actualizada = mysqli_query($enlace,$query);
+
+        if (!$incidencia_actualizada)
+        {
+          $error_edicion = "Error en la actualizacion de la incidencia<br>";
+        }
       }
-    } else if (($idaula_mod==0)  && ($fecha_rev_mod!=0) && ($fecha_sol_mod!=0))
+    }else if ($fecha_rev_mod!=0)
     {
-      $query = "UPDATE incidencias2 SET descripcion='{$descripcion_mod}',comentario='{$comentario_mod}',fecha_mod='{$fecha_rev_mod}',fecha_resol='{$fecha_sol_mod}' WHERE idincidencia={$incidenciaid}";
-      echo $query."<br>";
-      //$incidencia_actualizada = msqli_query($enlace,$query);
+      if ($fecha_sol_mod!=0)
+      {
+        $query = "UPDATE incidencias2 SET descripcion='{$descripcion_mod}',comentario='{$comentario_mod}',fecha_mod='{$fecha_rev_mod}',fecha_resol='{$fecha_sol_mod}' WHERE idincidencia={$incidenciaid}";
+        //echo $query."<br>";
+        $incidencia_actualizada = mysqli_query($enlace,$query);
+
+        if (!$incidencia_actualizada)
+        {
+          $error_edicion = "Error en la actualizacion de la incidencia<br>";
+        }
+      }else
+      {
+        $query = "UPDATE incidencias2 SET descripcion='{$descripcion_mod}',comentario='{$comentario_mod}',fecha_mod='{$fecha_rev_mod}' WHERE idincidencia={$incidenciaid}";
+        //echo $query."<br>";
+        $incidencia_actualizada = msyqli_query($enlace,$query);
+
+        if (!$incidencia_actualizada)
+        {
+          $error_edicion = "Error en la actualizacion de la incidencia<br>";
+        }
+      }
+    }else if ($fecha_sol_mod!=0)
+    {
+      $query = "UPDATE incidencias2 SET descripcion='{$descripcion_mod}',comentario='{$comentario_mod}',fecha_resol='{$fecha_sol_mod}' WHERE idincidencia={$incidenciaid}";
+      //echo $query."<br>";
+      $incidencia_actualizada = mysqli_query($enlace,$query);
+
       if (!$incidencia_actualizada)
       {
-        $error_edicion.="Error en la actualizacion de la incidencia<br>";
+        $error_edicion = "Error en la actualizacion de la incidencia<br>";
       }
 
-    } else if (($idaula_mod!=0)  && ($fecha_rev_mod==0) && ($fecha_sol_mod!=0))
-    {
-      $query = "UPDATE incidencias2 SET idaula={$idaula_mod}, descripcion='{$descripcion_mod}',comentario='{$comentario_mod}',fecha_resol='{$fecha_sol_mod}' WHERE idincidencia={$incidenciaid}";
-      echo $query."<br>";
-      //$incidencia_actualizada = msqli_query($enlace,$query);
-      if (!$incidencia_actualizada)
-      {
-        $error_edicion.="Error en la actualizacion de la incidencia<br>";
-      }
-    }else if (($idaula_mod!=0)  && ($fecha_rev_mod!=0) && ($fecha_sol_mod==0))
-    {
-      $query = "UPDATE incidencias2 SET idaula={$idaula_mod}, descripcion='{$descripcion_mod}',comentario='{$comentario_mod}',fecha_mod='{$fecha_rev_mod}' WHERE idincidencia={$incidenciaid}";
-      echo $query."<br>";
-      //$incidencia_actualizada = msqli_query($enlace,$query);
-      if (!$incidencia_actualizada)
-      {
-        $error_edicion.="Error en la actualizacion de la incidencia<br>";
-      }
-    }else if (($idaula_mod==0)  && ($fecha_rev_mod==0) && ($fecha_sol_mod==0))
+    }else
     {
       $query = "UPDATE incidencias2 SET descripcion='{$descripcion_mod}',comentario='{$comentario_mod}' WHERE idincidencia={$incidenciaid}";
-      echo $query."<br>";
-      $incidencia_actualizada = msqli_query($enlace,$query);
+      //echo $query."<br>";
+      
+      $incidencia_actualizada = mysqli_query($enlace,$query);
+
       if (!$incidencia_actualizada)
       {
-        $error_edicion.="Error en la actualizacion de la incidencia<br>";
+        $error_edicion = "Error en la actualizacion de la incidencia<br>";
       }
     }
-    if ($error_edicion=="")
-    {
+    if(strcmp($error_edicion,"")==0)
       echo "<script type='text/javascript'>alert('¡Datos de la incidencia actualizados!')</script>";
-    }else{
-      echo $error_edicion;
-    }
-
+    else
+      echo "Se ha producido un error al actualizar la incidencia.";
+    
   }
-mysqli_close($enlace);          
+mysqli_close($enlace);     
 include "cabecera.php";
 ?>
 

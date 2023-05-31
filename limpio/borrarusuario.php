@@ -13,11 +13,11 @@ $rolenuso = $_SESSION['usuario_rol'];
 
 
 include "cabecera.php" ?>
-<?php //no funciona ???????
+<?php 
      if(isset($_GET['eliminar']))
      { 
         $id= htmlspecialchars($_GET['eliminar']);
-        $query = "DELETE FROM usuarios2 WHERE idusuario =". $id; 
+        $query = "DELETE FROM usuarios2 WHERE idusuario ={$id}"; 
         $delete_query= mysqli_query($enlace, $query);
         
         echo "<script>window.location='gestionarusuario.php';</script>";

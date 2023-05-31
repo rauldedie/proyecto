@@ -91,7 +91,7 @@ include "cabecera.php";
 
             <div class="form-check">
                 <input type="checkbox" name="recuerdame" value="1" class="form-check-input" id="AyudaCheck">
-                <label class="form-check-label" for="AyudaCheck">Mantener Sesión (la sesion durará 24 horas)</label>
+                <label class="form-check-label" for="AyudaCheck">Recordar Sesión</label>
             </div>
 
             <br><button type="submit" name="login" class="btn btn-primary">Login</button>
