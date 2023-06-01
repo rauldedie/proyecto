@@ -3,7 +3,7 @@ session_start();
 
 if ((array_key_exists("usuario_id",$_SESSION) AND $_SESSION['usuario_id']) OR (array_key_exists("usuario_id",$_COOKIE) AND $_COOKIE['usuario_id'])){
     // Si ya tenia la sesion iniciada
-    header("Location:panelrol.php?usuario=" . $_SESSION["usuario_id"]);
+    header("Location:panelgestion.php?usuario=" . $_SESSION["usuario_id"]);
 }
 
 
@@ -14,7 +14,9 @@ if (isset($_POST["login"]))
     $error="";
     $usuario = mysqli_real_escape_string($enlace, $_POST['usuario']);
     $pass = mysqli_real_escape_string($enlace, $_POST['password']);
+    $idusuario = $row['idusuario'];
     //echo "Usuario: " . $usuario . " y password: " . $pass;
+    $error="";
     if (empty($usuario))
     {
         $error .= "El campo usuario no puede quedar vacío.";
@@ -36,29 +38,47 @@ if (isset($_POST["login"]))
             {
                 $_SESSION['usuario_id'] = $row['idusuario'];
                 $_SESSION['usuario_nombre'] = $usuario;
-                $_SESSION['rol'] = $rol;
+                $_SESSION['usuario_rol'] = $row['rol'];
             
                 if ($_POST['recuerdame']=='1')
                 {
+                    date_default_timezone_set('Europe/Madrid');
+                    //primero calculo tiempo ultima conexion
+                    $query = "SELECT max(fecha) fecha FROM accesos WHERE idusuario={$idusuario}";
+                    $fecha = mysqli_fetch_array (mysqli_query($enlace,$query));
+                    echo $query."<br>";
+                    if ($fecha)
+                    {
+                        $hoy = date('Y-m-d H:i:s');
+                        		
+                        $fechaInicio = new Datetime ($hoy);
+                        $fechaFin = new Datetime($fecha['fecha']);
+                        $intervalo = $fechaInicio->diff($fechaFin);
+                        $_SESSION['tiempo_ultima_conexion'] = $intervalo->y . " años, " . $intervalo->m." meses, ".$intervalo->d." dias, " . $intervalo->h . " horas, " . $intervalo->i . " minutos y " . $intervalo->s . " segundos"."</p>";
+                    
+                    }else
+                    {
+                        $_SESSION['tiempo_ultima conexion'] = "Bienvenido a tu primiera conexión";
+                    }
 
+                    //actualizo con la última conexion
                     $fecha = date('Y-m-d H:i:s');
-                    $idusuario = $row['idusuario'];
-
                     $query = "INSERT INTO accesos (idusuario,fecha) VALUES ({$idusuario},'{$fecha}')"; // Historial de accesos
-                    mysqli_query($enlace, $query);
+                    echo $query."<br>";
+                    //mysqli_query($enlace, $query);
                     //echo $query;
                 }
-                //LA MANDO AL PANEL Y NO CARGA PORQUE NO VAN LAS SESSIONES
-                echo "<script>window.location='panelrol.php?usuario=". $row['idusuario'] . "';</script>";
+                
+                echo "<script>window.location='panelgestion.php?usuario=". $row['idusuario'] . "';</script>";
 
             }
             else {
-                echo "Usuario y/o password erróneo.";
+                echo "<p class='usuario'>Usuario y/o password erróneo.</p>";
             }
         }
         else
         {
-            echo "Usuario y/o contraseña incorrectos." . mysqli_error($enlace);
+            echo "<p class='usuario'>Usuario y/o password erróneo. " . mysqli_error($enlace)."</p>";
             mysqli_close($enlace);
         }  
     }
@@ -70,7 +90,7 @@ include "cabecera.php";
     <div>
         <p><h3>Introduce tu usuario y contraseña para entrar al sistema</h3></p>
 
-        <form action="index.php" method="POST">
+        <form id="formulario" action="index.php" autocomplete="off" onsubmit="ValidarLogin()" method="POST">
             <div class="form-group">
         
                 <label for="usuario">Nombre de Usuario                        
@@ -86,23 +106,50 @@ include "cabecera.php";
                     <label class="error" id="errorpasswd" ></label>
                     <small id="AyudaPasswd" >Este campo es obligatorio.</small>
                 </label><br>
-                <small id="AyudaPasswd2" >Longitud mínima 8 caracteres, ha de contener al menos un numero y una mayúscula.</small>
+                <small id="AyudaPasswd2" >Longitud mínima 6 caracteres.</small>
             </div>
 
             <div class="form-check">
                 <input type="checkbox" name="recuerdame" value="1" class="form-check-input" id="AyudaCheck">
-                <label class="form-check-label" for="AyudaCheck">Mantener Sesión (la sesion durará 24 horas)</label>
+                <label class="form-check-label" for="AyudaCheck">Recordar Sesión</label>
             </div>
 
             <br><button type="submit" name="login" class="btn btn-primary">Login</button>
-            <p><a href="include/recordar_pass.php" target="_blank">Recordar contraseña</a></p>               
+            <p><a href="recordar_pass.php" target="_blank">Recordar contraseña</a></p>               
         </form>
     </div>
     <div>
         <label class="error" id="aviso1" ></label>
+        <?php if($error!="") echo $error; ?>
     </div> 
     <div>
         <label class="error" id="aviso2" ></label>
     </div>
 </div>  
 <?php include "pie.php"; ?>
+
+
+
+<!--<script>
+
+document.addEventListener("DOMContentLoaded", function() 
+{
+  document.getElementById("formulario").addEventListener('submit', validarFormulario); 
+});
+
+function validarFormulario(evento) 
+{
+    evento.preventDefault();
+    var usuario = document.getElementById('usuario').value;
+    if(usuario.length == 0) {
+        alert('No has escrito nada en el usuario');
+        return;
+    }
+    var clave = document.getElementById('clave').value;
+    if (clave.length < 6) {
+        alert('La clave no es válida');
+        return;
+    }
+    this.submit();
+}
+</script>-->

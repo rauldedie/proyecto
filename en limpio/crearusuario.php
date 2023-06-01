@@ -6,76 +6,102 @@ if (!array_key_exists("usuario_id",$_SESSION)){
 }//DE ESTA FORMA FUNCIONA
 
 include "conexion.php";
-$idusuario = $_SESSION['usuario_id'];
-$nombreusuario = $_SESSION['usuario_nombre'];
-//echo "id=".$idusuario."<br>";
-//crea una nueva incidencia 
+
 if(isset($_POST['registro'])) 
 {
+    //include "conexion.php";
+    $nombre = htmlspecialchars($_POST['nombre']);
+    $apellidos = htmlspecialchars($_POST['apellidos']);
+    $telefono = htmlspecialchars($_POST['telefono']);
+    $email = htmlspecialchars($_POST['email']);
+    $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+    $pass1 = htmlspecialchars($_POST['password']);
+    $nombreusuario =  strtolower(htmlspecialchars($_POST['usuario']));
+    //$pass2 = htmlspecialchars($_POST['password2']);
+    $rol = htmlspecialchars($_POST['rol']);
 
+    //para comprobar que los datos estan bien
+    echo $nombre."<br>";
+    echo $apellidos."<br>";
+    echo $email."<br>";
+    echo $telefono."<br>";
+    echo $pass1."<br>";
+    echo $nombreusuario."<br>";
+    echo $rol."<br>";
+    //busco que no exista
+    //el select es correcto
+    $query = "SELECT * FROM usuarios2 WHERE nombreusuario = '{$nombreusuario}'";
+    echo $query."<br>";
+    $existe = mysqli_fetch_array(mysqli_query($enlace,$query));//Aqui falla porque??????   
+    //print_r($fila);
+
+    if(count($existe)>0)
+    {
+        echo "Lo siento ese nombre de usuario ya existe";
+    }else
+    {
+        $query = "INSERT INTO usuarios2 (nombre,apellidos,mail,telefono,nombreusuario,pass,rol) VALUES ('{$nombre}','{$apellidos}','{$email}','{$telefono}','{$nombreusuario}','{$pass1}','{$rol}')";
+        //$resultado2 = mysqli_query($enlace,$query);
+        echo $query."<br>";
+        //if($resultado2)
+          //  echo "<script type='text/javascript'>alert('¡Usuario Añadido!')</script>";
+        //else
+          //  echo "Se ha producido un error al actualizar la incidencia.".mysqli_error($enlace);
+    
+        //HECHO ESTO HE DE ENCRIPTAR LA CONTRASEÑA Y HACER UN UPDATE USANDO EL ID COMO HASS
+    }
+       
 }
-
+mysqli_close($enlace);
+include "cabecera.php";
 ?>
-
-<?php include "cabecera.php"?>
-<p class="encabezado"><h1 class="text-center" >Gestión de incidencias (CRUD). Panel Administrador.</h1></p>
+<p class="encabezado"><h1 class="text-center" >Gestión de incidencias (CRUD) - Alta nuevo usuario.</h1></p>
 <p class="encabezado"><h4 class="text-center">Facilita los datos del nuevo usuario.</h4></p>
 <div class="container">  
     
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
+    <form action="" method="POST">
         <div>
-            <label for="usuario">Nombre de Usuario                        
-                <input type="text" name="usuario" class="form-control" id="usuario" aria-describedby="AyudaUsuario" placeholder="Escribe tu usuario">
-                <label class="error" id="errorusuario" > </label>
+            <label for="usuario" >Nombre de Usuario                        
+                <input type="text" name="usuario" class="form-group" id="usuario" aria-describedby="AyudaUsuario" placeholder="Escribe tu usuario">
+                <label class="error" id="errorusuario" > </label><br>
                 <small id="AyudaUsuario">Este campo es obligatorio.</small>
             </label>
-        </div>
-
-        <div class="form-group">
             <label for="Password">Password
-                <input type="password" name="password" aria-describedby="AyudaPasswd" class="form-control" id="password" placeholder="Escribe tu Password">
-                <label class="error" id="errorpasswd" ></label>
+                <input type="password" name="password" class="form-group" aria-describedby="AyudaPasswd" id="password" placeholder="Escribe tu Password">
+                <label class="error" id="errorpasswd" ></label><br>
                 <small id="AyudaPasswd" >Este campo es obligatorio.</small>
+                <small id="Ayuda2Passwd" >Longitud mínima 8 caracteres.</small>
             </label><br>
-            <small id="AyudaPasswd2" >Longitud mínima 8 caracteres.</small>
-        </div>
-
-        <div class="form-group">
+            
             <label for="Password">Repite Password
-                <input type="password" name="password2" aria-describedby="AyudaPasswd" class="form-control" id="password2" placeholder="Repite tu Password">
-                <label class="error" id="errorpasswd2" ></label>
+                <input type="password" name="password2" class="form-group" aria-describedby="AyudaPasswd" id="password2" placeholder="Repite tu Password">
+                <label class="error" id="errorpasswd2" ></label><br>
                 <small id="AyudaPasswd" >Este campo es obligatorio.</small>
-            </label><br>
-            <small id="AyudaPasswd2" >Longitud mínima 8 caracteres.</small>
+                <small id="Ayuda2Passwd2" >Longitud mínima 8 caracteres.</small>
+            </label><br>    
         </div>
 
         <div class="form-group">
             <label for="nombre">Nombre
-                <input type="text" name="nombre" aria-describedby="Ayudanombre" class="form-control" id="nombre" placeholder="Escribe tu nombre">
+                <input type="text" name="nombre" aria-describedby="Ayudanombre" id="nombre" placeholder="Escribe tu nombre">
+                <label class="error" id="errornombre" ></label><br>
                 <small id="Ayudanombre" >Este campo es obligatorio.</small>
-                <label class="error" id="errornombre" ></label>
+                
             </label>
-        </div>
-
-        <div class="form-group">
             <label for="apellidos">Apellidos
-                <input type="text" name="apellidos" aria-describedby="AyudaApellidos" class="form-control" id="apellidos" placeholder="Escribe tus apellidos">
+                <input type="text" name="apellidos" aria-describedby="AyudaApellidos" id="apellidos" placeholder="Escribe tus apellidos">
+                <label class="error" id="errorapellidos" ></label><br>
                 <small id="AyudaApellidos" >Este campo es obligatorio.</small>
-                <label class="error" id="errorapellidos" ></label>
+                
             </label>
-        </div>
-
-        <div class="form-group">
             <label for="email">Correo electrónico
-                <input type="email" name="email" aria-describedby="AyudaEmail" class="form-control" id="email" placeholder="Escribe tu correo electrónico">
+                <input type="email" name="email" aria-describedby="AyudaEmail" id="email" placeholder="Escribe tu correo electrónico">
+                <label class="error" id="errormail" ></label><br>
                 <small id="AyudaEmail" >Este campo es obligatorio.</small>
-                <label class="error" id="errormail" ></label>
+               
             </label>
-        </div>
-
-        <div class="form-group">
             <label for="telefono">Telefono
-                <input type="text" name="telefono" aria-describedby="Ayudatelefono" class="form-control" id="telefono" placeholder="Escribe tu telefono">
+                <input type="text" name="telefono" aria-describedby="Ayudatelefono" id="telefono" placeholder="Escribe tu telefono">
                 <label class="error" id="errortelefono" ></label>
             </label>
         </div>
@@ -88,12 +114,11 @@ if(isset($_POST['registro']))
                 <option value="profesorado" selected>profesorado</option>
             </select>
         </div>
-        
-        <br><button type="submit" name="registro" class="btn btn-primary">Alta usuario</button>
-        <a href="panelrol.php?usuario=<?php echo $idusuario?>" class="btn btn-primary"> Volver </a>
+        <div  class="container text-center mt-5">
+            <button type="submit" name="registro" class="btn btn-primary">Alta usuario</button>
+        </div>
+        <a href="gestionarusuario.php" class='btn btn-warning mt-5'> Volver </a>
                           
-    </form>
-        
+    </form>  
 </div>
-<div>
 <?php include "pie.php"?>

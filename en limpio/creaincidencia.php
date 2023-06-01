@@ -8,21 +8,15 @@ if (!array_key_exists("usuario_id",$_SESSION)){
 include "conexion.php";
 $idusuario = $_SESSION['usuario_id'];
 $nombreusuario = $_SESSION['usuario_nombre'];
-//echo "id=".$idusuario."<br>";
+
 //crea una nueva incidencia 
   if(isset($_POST['crear'])) 
     {
         //$planta = htmlspecialchars($_POST['planta']);
-        $aula = htmlspecialchars($_POST['aula']);
+        $idaula = htmlspecialchars($_POST['aula']);
         $descripcion = htmlspecialchars($_POST['descripcion']);
         $comentario = htmlspecialchars($_POST['comentario']);
         $fecha_alta = htmlspecialchars($_POST['fecha_alta']);
-
-
-        $query = "SELECT * FROM aulas2 WHERE aula like '{$aula}'";
-        $resultado = mysqli_query($enlace,$query);
-
-
 
         if (isset($_POST['fecha_revision']))
         {
@@ -37,23 +31,23 @@ $nombreusuario = $_SESSION['usuario_nombre'];
       //NECESITO SESION O COOKIE PARA PONER IDUSUARIO
       //REVISAR COMILLAS SIMPLES DE LA FECHA SE PONE...NO....????
         $query= "INSERT INTO incidencias2 (descripcion, comentario, idaula, idusuario, fecha_alta ) VALUES('{$descripcion}','{$comentario}',{$idaula},{$idusuario},'{$fecha_alta}')";
-        //$resultado = mysqli_query($enlace,$query);
-        echo $query;
+        $resultado = mysqli_query($enlace,$query);
+        //echo $query;
     
-          /*if (!$resultado) {
+          if (!$resultado) {
               echo "Algo ha ido mal añadiendo la incidencia: ". mysqli_error($enlace);
           }
           else
           {
             echo "<script type='text/javascript'>alert('¡Incidencia añadida con éxito!')</script>";
-          }   */      
+          }     
     }
     //mysqli_close($enlace); ?????
-    include "cabeceracrear.php";
+    include "cabecera.php";
 ?>
-<h2 class="text-center">Panel de Gestión (CRU)-Añadir incidencia</h2>
+<h1 class="text-center">Panel de Gestión (CRU)-Añadir incidencia</h1>
 <div>
-    <p><?php echo "Usuario: ".$nombreusuario?></p>
+    <p class="usuario"><?php echo "Usuario: ".$nombreusuario?></p>
 </div>
   <div class="container">
     <form action="" method="post">
@@ -68,15 +62,7 @@ $nombreusuario = $_SESSION['usuario_nombre'];
       </div>
       <div class="form-group">
         <label for="aula">Aula</label>
-        <select name="aula" id="aula" class="form-control">
-          <!--<option value="Sala de Profesores" selected>Sala de Profesores</option>
-          <option value="Biblioteca">Biblioteca</option>
-          <option value="Secretaria">Secretaria</option>
-          <option value="Conserjeria">Conserjeria</option>
-          <option value="Primero de Bachillerato">Primero de Bachillerato</option> 
-          <option value="Segundo de Bachillerato">Segundo de Bachillerato</option> 
-          <option value="Primero Grado Superior">Primero Grado Superior</option> 
-          <option value="Segundo Grado Superior">Segundo Grado Superior</option>-->            
+        <select name="aula" id="aula" class="form-control">           
         </select> 
       <div class="form-group">
         <label for="descripcion" class="form-label">Descripcion</label>
@@ -98,10 +84,10 @@ $nombreusuario = $_SESSION['usuario_nombre'];
     </form> 
   </div>
   <div class="container text-center mt-5">
-    <a href="panelrol.php?usuario=<?php echo $idusuario?>" class="btn btn-warning mt-5"> Volver </a>
+    <a href="panelgestion.php?usuario=<?php echo $idusuario?>" class="btn btn-warning mt-5"> Volver </a>
   </div>
       <!--Llamada al evento Change del selector Plantas-->
-    <script language="javascript">
+    <script>
         $(document).ready(function(){
             $("#planta").on('change', function () 
             {
