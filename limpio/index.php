@@ -16,6 +16,7 @@ if (isset($_POST["login"]))
     $pass = mysqli_real_escape_string($enlace, $_POST['password']);
     $idusuario = $row['idusuario'];
     //echo "Usuario: " . $usuario . " y password: " . $pass;
+    $error="";
     if (empty($usuario))
     {
         $error .= "El campo usuario no puede quedar vacío.";

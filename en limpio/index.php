@@ -28,6 +28,7 @@ if (isset($_POST["login"]))
     {
 
         $sql = "SELECT * FROM usuarios2 WHERE nombreusuario='" . $usuario . "' AND pass='" . $pass . "'";
+        //echo $query."<br>";
         $result = mysqli_query($enlace, $sql);
 
         if ($result)
@@ -42,30 +43,32 @@ if (isset($_POST["login"]))
             
                 if ($_POST['recuerdame']=='1')
                 {
-                    date_default_timezone_set('Europe/Madrid');
+                    
                     //primero calculo tiempo ultima conexion
-                    $query = "SELECT max(fecha) fecha FROM accesos WHERE idusuario={$idusuario}";
-                    $fecha = mysqli_fetch_array (mysqli_query($enlace,$query));
-                    echo $query."<br>";
-                    if ($fecha)
+                    $consulta = "SELECT max(fecha) fecha FROM accesos WHERE idusuario={$idusuario}";
+                    //echo $query."<br>";
+                    $resultado = mysqli_query($enlace,$consulta);
+                    $hoy = date('Y-m-d H:i:s');
+                    date_default_timezone_set('Europe/Madrid');
+
+                    if (!$resultado)
                     {
-                        $hoy = date('Y-m-d H:i:s');
-                        		
+                        $_SESSION['tiempo_ultima conexion'] = "Bienvenido a tu primiera conexión";
+                    }else
+                    {
+                        $fecha = mysqli_fetch_array ($resultado);
                         $fechaInicio = new Datetime ($hoy);
                         $fechaFin = new Datetime($fecha['fecha']);
                         $intervalo = $fechaInicio->diff($fechaFin);
                         $_SESSION['tiempo_ultima_conexion'] = $intervalo->y . " años, " . $intervalo->m." meses, ".$intervalo->d." dias, " . $intervalo->h . " horas, " . $intervalo->i . " minutos y " . $intervalo->s . " segundos"."</p>";
-                    
-                    }else
-                    {
-                        $_SESSION['tiempo_ultima conexion'] = "Bienvenido a tu primiera conexión";
+                        
                     }
 
                     //actualizo con la última conexion
                     $fecha = date('Y-m-d H:i:s');
                     $query = "INSERT INTO accesos (idusuario,fecha) VALUES ({$idusuario},'{$fecha}')"; // Historial de accesos
-                    echo $query."<br>";
-                    //mysqli_query($enlace, $query);
+                    //echo $query."<br>";
+                    mysqli_query($enlace, $query);
                     //echo $query;
                 }
                 

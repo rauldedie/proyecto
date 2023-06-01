@@ -38,7 +38,7 @@ if(strcmp($rolenuso,"administrador")==0 && strcmp($rolenuso,$rol)==0)
                 echo "<tr>";
                 
                     echo "<th class='table-dark' scope='col'>Usuario</th>";
-                    echo "<th class='table-dark' scope='col'>ID</th>";
+                    //echo "<th class='table-dark' scope='col'>ID</th>";
                     echo "<th class='table-dark' scope='col'>Nombre</th>";
                     echo "<th class='table-dark' scope='col'>Apelllidos</th>";
                     echo "<th class='table-dark' scope='col'>Teléfono</th>";
@@ -68,7 +68,7 @@ if(strcmp($rolenuso,"administrador")==0 && strcmp($rolenuso,$rol)==0)
 
                         echo "<tr >";
                             echo " <th scope='row' >{$usuario}</th>";
-                            echo " <td > {$id}</td>";
+                            //echo " <td > {$id}</td>";
                             echo " <td > {$nombre}</td>";
                             echo " <td > {$apellidos}</td>";
                             echo " <td >{$telefono} </td>";
