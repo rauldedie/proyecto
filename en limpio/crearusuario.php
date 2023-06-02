@@ -17,39 +17,46 @@ if(isset($_POST['registro']))
     $email = filter_var($email, FILTER_VALIDATE_EMAIL);
     $pass1 = htmlspecialchars($_POST['password']);
     $nombreusuario =  strtolower(htmlspecialchars($_POST['usuario']));
-    //$pass2 = htmlspecialchars($_POST['password2']);
+    $pass2 = htmlspecialchars($_POST['password2']);
     $rol = htmlspecialchars($_POST['rol']);
-
+    $error = "";
     //para comprobar que los datos estan bien
-    echo $nombre."<br>";
-    echo $apellidos."<br>";
-    echo $email."<br>";
-    echo $telefono."<br>";
-    echo $pass1."<br>";
-    echo $nombreusuario."<br>";
-    echo $rol."<br>";
-    //busco que no exista
-    //el select es correcto
-    $query = "SELECT * FROM usuarios2 WHERE nombreusuario = '{$nombreusuario}'";
-    echo $query."<br>";
-    $existe = mysqli_fetch_array(mysqli_query($enlace,$query));//Aqui falla porque??????   
-    //print_r($fila);
-
-    if(count($existe)>0)
+    if(empty($nombre) OR empty($apellidos) OR empty($email) OR empty($nombreusuario) OR empty($pass1) OR empty($pass2))
     {
-        echo "Lo siento ese nombre de usuario ya existe";
-    }else
-    {
-        $query = "INSERT INTO usuarios2 (nombre,apellidos,mail,telefono,nombreusuario,pass,rol) VALUES ('{$nombre}','{$apellidos}','{$email}','{$telefono}','{$nombreusuario}','{$pass1}','{$rol}')";
-        //$resultado2 = mysqli_query($enlace,$query);
-        echo $query."<br>";
-        //if($resultado2)
-          //  echo "<script type='text/javascript'>alert('¡Usuario Añadido!')</script>";
-        //else
-          //  echo "Se ha producido un error al actualizar la incidencia.".mysqli_error($enlace);
-    
-        //HECHO ESTO HE DE ENCRIPTAR LA CONTRASEÑA Y HACER UN UPDATE USANDO EL ID COMO HASS
+        $error.= "Ningún campo obligatorio puede quedar vacío.<br>";
     }
+    if (strcmp($pass1,$pass2)!=0)
+    {
+        $error.="Las contraseñas han de ser iguales.<br>";
+    }
+    if (strlen($pass1)<6)
+    {
+        $error.="Longitud mínima de contraseña 6 caracteres.<br>";
+    }
+    else
+    {
+        //busco que no exista ya en la BD
+        $query = "SELECT * FROM usuarios2 WHERE nombreusuario = '{$nombreusuario}'";
+        $resultado = mysqli_query($enlace,$query);
+       
+        if(mysqli_num_rows($resultado)>0)
+        {
+            echo "Lo siento ese nombre de usuario existe";
+            
+        }else
+        {
+            //echo "Lo siento ese nombre de usuario no existe";
+            $query = "INSERT INTO usuarios2 (nombre,apellidos,mail,telefono,nombreusuario,pass,rol) VALUES ('{$nombre}','{$apellidos}','{$email}','{$telefono}','{$nombreusuario}','{$pass1}','{$rol}')";
+            $resultado2 = mysqli_query($enlace,$query);
+            if($resultado2)
+                echo "<script type='text/javascript'>alert('¡Usuario Añadido!')</script>";
+            else
+                echo "Se ha producido un error al actualizar la incidencia.".mysqli_error($enlace);
+        
+            //HECHO ESTO HE DE ENCRIPTAR LA CONTRASEÑA Y HACER UN UPDATE USANDO EL ID COMO HASS
+        }
+    }
+    echo $error;
        
 }
 mysqli_close($enlace);

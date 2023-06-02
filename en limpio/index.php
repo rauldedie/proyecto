@@ -14,8 +14,6 @@ if (isset($_POST["login"]))
     $error="";
     $usuario = mysqli_real_escape_string($enlace, $_POST['usuario']);
     $pass = mysqli_real_escape_string($enlace, $_POST['password']);
-    $idusuario = $row['idusuario'];
-    //echo "Usuario: " . $usuario . " y password: " . $pass;
     $error="";
     if (empty($usuario))
     {
@@ -26,66 +24,61 @@ if (isset($_POST["login"]))
         $error .= "El campo contraseña no puede quedar vacío.";
     }else
     {
+        $hoy = date('Y-m-d H:i:s');
+        date_default_timezone_set('Europe/Madrid');
+        $query = "SELECT * FROM usuarios2 WHERE nombreusuario='{$usuario}' AND pass='{$pass}'";
+        $resultado = mysqli_query($enlace, $query);
 
-        $sql = "SELECT * FROM usuarios2 WHERE nombreusuario='" . $usuario . "' AND pass='" . $pass . "'";
-        //echo $query."<br>";
-        $result = mysqli_query($enlace, $sql);
-
-        if ($result)
+        if (mysqli_num_rows($resultado)>0)
         {
-            $row = mysqli_fetch_array($result);
-           
-            if (mysqli_num_rows($result)>0)
+            $row = mysqli_fetch_array($resultado);
+            $idusuario = $row['idusuario'];
+            $_SESSION['usuario_id'] = $row['idusuario'];
+            $_SESSION['usuario_nombre'] = $usuario;
+            $_SESSION['usuario_rol'] = $row['rol'];
+
+            //primero calculo tiempo ultima conexion
+            $query = "SELECT fecha FROM accesos WHERE idusuario={$idusuario}";
+            $respuesta = mysqli_query($enlace,$query);
+
+            //si no hay registro es que es la primera vez si hay registros me quedo con max(fecha)
+            //guardo en el array de sesiones el mensaje de bienvenida o el tiempo transcurrido.
+            if (mysqli_num_rows($respuesta)>0)
             {
-                $_SESSION['usuario_id'] = $row['idusuario'];
-                $_SESSION['usuario_nombre'] = $usuario;
-                $_SESSION['usuario_rol'] = $row['rol'];
-            
-                if ($_POST['recuerdame']=='1')
-                {
-                    
-                    //primero calculo tiempo ultima conexion
-                    $consulta = "SELECT max(fecha) fecha FROM accesos WHERE idusuario={$idusuario}";
-                    //echo $query."<br>";
-                    $resultado = mysqli_query($enlace,$consulta);
-                    $hoy = date('Y-m-d H:i:s');
-                    date_default_timezone_set('Europe/Madrid');
+                $query = "SELECT max(fecha) fecha FROM accesos WHERE idusuario={$idusuario}";
+                $fecha = mysqli_fetch_array (mysqli_query($enlace,$query));
 
-                    if (!$resultado)
-                    {
-                        $_SESSION['tiempo_ultima conexion'] = "Bienvenido a tu primiera conexión";
-                    }else
-                    {
-                        $fecha = mysqli_fetch_array ($resultado);
-                        $fechaInicio = new Datetime ($hoy);
-                        $fechaFin = new Datetime($fecha['fecha']);
-                        $intervalo = $fechaInicio->diff($fechaFin);
-                        $_SESSION['tiempo_ultima_conexion'] = $intervalo->y . " años, " . $intervalo->m." meses, ".$intervalo->d." dias, " . $intervalo->h . " horas, " . $intervalo->i . " minutos y " . $intervalo->s . " segundos"."</p>";
-                        
-                    }
-
-                    //actualizo con la última conexion
-                    $fecha = date('Y-m-d H:i:s');
-                    $query = "INSERT INTO accesos (idusuario,fecha) VALUES ({$idusuario},'{$fecha}')"; // Historial de accesos
-                    //echo $query."<br>";
-                    mysqli_query($enlace, $query);
-                    //echo $query;
-                }
+                $fechaInicio = new Datetime ($hoy);
+                $fechaFin = new Datetime($fecha['fecha']);
+                $intervalo = $fechaInicio->diff($fechaFin);
+                $_SESSION['tiempo_ultima_conexion'] = $intervalo->y . " años, " . $intervalo->m." meses, ".$intervalo->d." dias, " . $intervalo->h . " horas, " . $intervalo->i . " minutos y " . $intervalo->s . " segundos"."</p>";
                 
-                echo "<script>window.location='panelgestion.php?usuario=". $row['idusuario'] . "';</script>";
+            }else
+            {
+            
+                $_SESSION['tiempo_ultima_conexion'] = "Bienvenido a tu primiera conexión";       
+            }
 
+            //si esta marcado recuerda sesiones añadimos la fecha de hoy ala tabla accesos para el usuario
+            if ($_POST['recuerdame']=='1')
+            {
+                //actualizo con la última fecha de conexion";
+                $fecha = date('Y-m-d H:i:s');
+                $query = "INSERT INTO accesos (idusuario,fecha) VALUES ({$idusuario},'{$fecha}')"; // Historial de accesos
+                $resultado = mysqli_query($enlace, $query);
             }
-            else {
-                echo "<p class='usuario'>Usuario y/o password erróneo.</p>";
-            }
-        }
-        else
+            echo "<script>window.location='panelgestion.php?usuario=". $row['idusuario'] . "';</script>";
+
+        }else 
         {
             echo "<p class='usuario'>Usuario y/o password erróneo. " . mysqli_error($enlace)."</p>";
             mysqli_close($enlace);
-        }  
+            
+        }
     }
+    echo $error;
 }
+
 include "cabecera.php";
 ?>
 <div class="container">

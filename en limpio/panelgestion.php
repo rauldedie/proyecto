@@ -15,6 +15,18 @@ include "cabecera.php";
 
 if (isset($_GET['usuario']))
 {
+    if(isset($_GET['mostrar']))
+    {
+        $mostrar = htmlspecialchars($_GET['mostrar']);
+        if (strcmp($mostrar,'resueltas')==0)
+        {
+            $mostrar = "not null";
+        }
+
+    }else
+    {
+        $mostrar = "null";
+    }
     
     $idusuario = htmlspecialchars($_GET['usuario']);
 
@@ -26,12 +38,14 @@ if (isset($_GET['usuario']))
             echo "<p class='usuario'>Usuario: ".$nombreusuario."</p>";
             echo "<p class='usuario'>Tiempo desde última conexión: ".$tiempo;
         echo "</div>";
-        echo "<a href='creaincidencia.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Añadir Incidencia</a>";
+        echo "<a href='creaincidencia.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-bullseye'></i> Añadir Incidencia</a>";
         if(strcmp($rolenuso,"administrador")==0)
         {
             //echo " <a href='crearusuario.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Añadir Usuario</a>";
             echo "<a href='gestionarusuario.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Gestionar Usuario</a>";
-            echo "<a href='gestionaraulas.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Gestionar Aulas y Plantas</a>";
+            echo "<a href='gestionaraulas.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-building'></i> Gestionar Aulas y Plantas</a>";
+            echo " <a href='panelgestion.php?usuario={$idusuario}&&mostrar=resueltas' class='btn btn-outline-dark mb-2'> <i class='bi bi-calendar-plus'></i> Mostrar Incidencias Resueltas</a>";
+            echo " <a href='panelgestion.php?usuario={$idusuario}' class='btn btn-outline-dark mb-2'> <i class='bi bi-calendar-minus'></i> Mostrar Incidencias Pendientes</a>";
         }     
         
         echo "<table class='table table-striped table-bordered table-hover'>";
@@ -52,7 +66,7 @@ if (isset($_GET['usuario']))
             echo "<tbody>";
                 echo "<tr>";
                     //SELECT DE INCIDENCIAS no resueltas Y MOSTRARLAS
-                    $query = "SELECT * FROM incidencias2 WHERE fecha_resol is null";               
+                    $query = "SELECT * FROM incidencias2 WHERE fecha_resol is {$mostrar}";               
                     $vista_incidencias = mysqli_query($enlace,$query);
 
                     while($row = mysqli_fetch_assoc($vista_incidencias))
@@ -109,15 +123,13 @@ if (isset($_GET['usuario']))
         echo "<div class='form-group'>";
 
             $query = "SELECT count(idincidencia) numero from incidencias2 WHERE fecha_resol is not null";
-            $sinresolver = mysqli_fetch_array(mysqli_query($enlace,$query));
-            $numsinres = count($sinresolver);
-
-            $query = "SELECT count(*) numero from incidencias2 WHERE fecha_resol is null";
             $resueltas = mysqli_fetch_array(mysqli_query($enlace,$query));
-            $numresu = count($resueltas);
 
-                echo "<p class='edicion'>Incidencias resueltas: ". $numresu." incidencias </p>";
-                echo "<p class='edicion'>Incidencias pendientes de resolver: ".$numsinres." incidencias </p>";
+            $query = "SELECT count(idincidencia) numero from incidencias2 WHERE fecha_resol is null";
+            $inresolver = mysqli_fetch_array(mysqli_query($enlace,$query));
+
+            echo "<p class='edicion'>Incidencias resueltas: ". $resueltas['numero']." incidencias </p>";
+            echo "<p class='edicion'>Incidencias pendientes de resolver: ".$inresolver['numero']." incidencias </p>";
         echo "</div>";
     echo "</div>";
     mysqli_close($enlace);
