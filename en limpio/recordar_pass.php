@@ -34,7 +34,7 @@ if (!$email)
     $output='<p>Estimado usuario,</p>';
     $output.='<p>Por favor haz click en el enlace de abajo para resetear tu contraseña.</p>';
     $output.='<p>-------------------------------------------------------------</p>';
-    $output.='<p><a href="https://practicasrdm.es/cambiar_pass.php?key='.$key.'&email='.$email.'&action=reset" target="_blank">https://http://practicasrdm.es/cambiar-pass.php?key='.$key.'&email='.$email.'&action=reset</a></p>';		
+    $output.='<p><a href="http://practicasrdm.es/cambiar_pass.php?key='.$key.'&email='.$email.'&action=reset" target="_blank">http://http://practicasrdm.es/cambiar-pass.php?key='.$key.'&email='.$email.'&action=reset</a></p>';		
     $output.='<p>-------------------------------------------------------------</p>';
     $output.='<p>Por favor, asegúrate de copiar el enlace completo en tu navegador. El enlace expirará después de un día por razones de seguridad.</p>';
     $output.='<p>Si no solicitaste la contraseña no es necesario que hagas nada.</p>';   	
@@ -49,9 +49,7 @@ if (!$email)
     $headers .= 'From: <info@practicasrdm.es>' . "\r\n";
     if (mail($email_to,$subject,$body,$headers))
     {
-    echo "<div class='error'>
-    <p>Hemos enviado un email con detalles sobre cómo restablecer la contraseña.</p>
-    </div><br /><br /><br />";
+    echo "<p class='error'>Hemos enviado un email con detalles sobre cómo restablecer la contraseña.</p>";
 	}
    }
 }else{

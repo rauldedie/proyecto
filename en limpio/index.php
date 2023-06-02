@@ -8,7 +8,7 @@ if ((array_key_exists("usuario_id",$_SESSION) AND $_SESSION['usuario_id']) OR (a
 
 
 
-if (isset($_REQUEST["login"]))
+if (isset($_POST["login"]))
 {
     include 'conexion.php';
     $error="";

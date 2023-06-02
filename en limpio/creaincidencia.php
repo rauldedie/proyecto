@@ -25,41 +25,54 @@ $idusuario = $_SESSION['usuario_id'];
 $nombreusuario = $_SESSION['usuario_nombre'];
 
 //crea una nueva incidencia 
-  if(isset($_REQUEST['crear'])) 
+  if(isset($_POST['crear'])) 
     {
-        //$planta = htmlspecialchars($_POST['planta']);
-        $idaula = stripslashes($_REQUEST['aula']);
-        $idaula = mysqli_real_escape_string($enlace,$idaula);
-        $descripcion = stripslashes($_REQUEST['aula']);
-        $descripcion = mysqli_real_escape_string($enlace,$descripcion);
-        $comentario = stripslashes($_REQUEST['comentario']);
-        $comentario = mysqli_real_escape_string($enlace,$comentario);
-        $fecha_alta = stripslashes($_REQUEST['fecha_alta']);
-        $fecha_alta = mysqli_real_escape_string($enlace,$fecha_alta);
+      //$planta = htmlspecialchars($_POST['planta']);
+      $idaula = stripslashes($_POST['aula']);
+      $idaula = mysqli_real_escape_string($enlace,$idaula);
+      $descripcion = stripslashes($_POST['descripcion']);
+      $descripcion = mysqli_real_escape_string($enlace,$descripcion);
+      $comentario = stripslashes($_POST['comentario']);
+      $comentario = mysqli_real_escape_string($enlace,$comentario);
+      $fecha_alta = stripslashes($_POST['fecha_alta']);
+      $fecha_alta = mysqli_real_escape_string($enlace,$fecha_alta);
+      $idplanta = stripslashes($_POST['planta']);
+      $idplanta = mysqli_real_escape_string($enlace,$idplanta);
+      $error = "";
+      $nohacer = 1;
 
-        if (isset($_POST['fecha_revision']))
-        {
-            $fecha_rev = date('Y-m-d');
-        }else $fecha_rev="";
+      if($idplanta=="")
+      {
+        $error.="No se puede dar de alta una incidencia sin indicar planta.<br>";
+        $nohacer = 0;
+      }else if ($idaula=="")
+      {
+        $error.="No se puede dar de alta una incidencia sin indicar aula.<br>";
+        $nohacer = 0;
+      }else if ($descripcion=="")
+      {
+        $error.="Indicque alguna descripcion de la averia para poder resolverla.<br>";
+        $nohacer = 0;
+      }
 
-        if (isset($_POST['fecha_revision']))
-        {
-            $fecha_sol = date('Y-m-d');
-        }else $fecha_resol="";
-        
-      //NECESITO SESION O COOKIE PARA PONER IDUSUARIO
-      //REVISAR COMILLAS SIMPLES DE LA FECHA SE PONE...NO....????
+      if ($nohacer==0)
+      {
+        echo $error;
+      }else
+      {
+      
         $query= "INSERT INTO incidencias2 (descripcion, comentario, idaula, idusuario, fecha_alta ) VALUES('{$descripcion}','{$comentario}',{$idaula},{$idusuario},'{$fecha_alta}')";
+        echo $query."<br>";
         $resultado = mysqli_query($enlace,$query);
-        //echo $query;
     
-          if (!$resultado) {
-              echo "Algo ha ido mal añadiendo la incidencia: ". mysqli_error($enlace);
-          }
-          else
-          {
-            echo "<script type='text/javascript'>alert('¡Incidencia añadida con éxito!')</script>";
-          }     
+        if (!$resultado) {
+            echo "Algo ha ido mal añadiendo la incidencia: ". mysqli_error($enlace);
+        }
+        else
+        {
+          echo "<script type='text/javascript'>alert('¡Incidencia añadida con éxito!')</script>";
+        }    
+      } 
     }
     //mysqli_close($enlace); ?????
     include "cabecera.php";
@@ -72,7 +85,7 @@ $nombreusuario = $_SESSION['usuario_nombre'];
     <form action="" method="post">
     <div class="form-group">
         <label>Planta</label>
-        <select name="planta" id="planta" class="form-control">
+        <select name="planta" id="planta" class="form-control" required>
             <option value="">Seleccione...</option>
             <option value="1">Baja</option>
             <option value="2">Primera</option> 
@@ -81,11 +94,11 @@ $nombreusuario = $_SESSION['usuario_nombre'];
       </div>
       <div class="form-group">
         <label for="aula">Aula</label>
-        <select name="aula" id="aula" class="form-control">           
+        <select name="aula" id="aula" class="form-control" required>           
         </select> 
       <div class="form-group">
         <label for="descripcion" class="form-label">Descripcion</label>
-        <input type="text" name="descripcion"  class="form-control">
+        <input type="text" name="descripcion"  class="form-control" required>
       </div>
       <div class="form-group">
         <label for="fecha_alta" class="form-label">Fecha Alta</label>

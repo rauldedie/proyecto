@@ -1,9 +1,9 @@
 <?php
-session_start();
+/*session_start();
 if (!isset($_SESSION['usuario_id'])) {
 header("Location: index.php");
 exit();
-}
+}*/
 include "cabecera.php";?>
 <h1>Cambiar contraseña</h1>
 <div class="container">
