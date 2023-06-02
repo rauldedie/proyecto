@@ -46,24 +46,24 @@ if(isset($_GET['usuarioid']))
     $telefono = $fila['telefono'];        
     $rol = $fila['rol'];
 
-    if(isset($_REQUEST['editar'])) 
+    if(isset($_POST['editar'])) 
     {
         //$usuario_mod = (htmlspecialchars($_POST['usuario']));
-        $usuario_mod = stripslashes($_REQUEST['usuario']);
+        $usuario_mod = stripslashes($_POST['usuario']);
         $usuario_mod = mysqli_real_escape_string($enlace,$usuario_mod);
         //$nombre_mod = (htmlspecialchars($_POST['nombre']));
-        $nombre_mod = stripslashes($_REQUEST['nombre']);
+        $nombre_mod = stripslashes($_POST['nombre']);
         $nombre_mod = mysqli_real_escape_string($enlace,$nombre_mod);
         //$apellidos_mod = htmlspecialchars($_POST['apellidos']);
-        $apellidos_mod = stripslashes($_REQUEST['apellidos']);
+        $apellidos_mod = stripslashes($_POST['apellidos']);
         $apellidos_mod = mysqli_real_escape_string($enlace,$apellidos_mod);
         //$email_mod = htmlspecialchars($_POST['email']);
-        $email_mod = stripslashes($_REQUEST['email']);
+        $email_mod = stripslashes($_POST['email']);
         $email_mod = mysqli_real_escape_string($enlace,$email_mod);
         $email_mod = filter_var($email_mod, FILTER_SANITIZE_EMAIL);
         $email_mod = filter_var($email_mod, FILTER_VALIDATE_EMAIL);
         //$telefono_mod = htmlspecialchars($_POST['telefono']);
-        $telefono_mod = stripslashes($_REQUEST['telefono']);
+        $telefono_mod = stripslashes($_POST['telefono']);
         $telefono_mod = mysqli_real_escape_string($enlace,$telefono_mod);
 
         $query = "UPDATE usuarios2 SET nombreusuario='{$usuario_mod}', nombre='{$nombre_mod}', apellidos='{$apellidos_mod}', telefono='{$telefono_mod}', mail='{$email_mod}' WHERE idusuario={$idusuario}";
@@ -111,7 +111,7 @@ include "cabecera.php";
       <input type="text" name="apellidos" class="form-control" value="<?php echo $apellidos?>">
       <label for="telefono" >Teléfono</label>
       <input type="text" name="telefono" class="form-control" value="<?php echo $telefono?>">
-      <label for="email" >Comentario</label>
+      <label for="email" >Correo Electrónico</label>
       <input type="email" name="email" class="form-control" value="<?php echo $email?>">
       <p><h1>El resto de datos no pueden ser modificados tendras que eliminar y crear el usuario de nuevo.</h1></p>
     </div>

@@ -43,13 +43,13 @@ if(isset($_GET['aula_id']))
     $aula_actual = $aula['aula'];
     $idaula_actual = $aula['idaula'];
 
-    if(isset($_REQUEST['editar'])) 
+    if(isset($_POST['editar'])) 
     {
         //$idplanta_mod = htmlspecialchars($_POST['planta']);
-        $idplanta_mod = stripslashes($_REQUEST['planta']);
+        $idplanta_mod = stripslashes($_POST['planta']);
         $idplanta_mod = mysqli_real_escape_string($enlace,$idplanta_mod);
         //$aula_mod = htmlspecialchars($_POST['aula']);
-        $aula_mod = stripslashes($_REQUEST['aula']);
+        $aula_mod = stripslashes($_POST['aula']);
         $aula_mod = mysqli_real_escape_string($enlace,$aula_mod);
         $aula_mod = strtolower($aula_mod);
 

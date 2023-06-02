@@ -22,26 +22,26 @@ if (isset($_SESSION['inactivo']) && (time() - $_SESSION['inactivo']) > $tiempo_i
 
 include "conexion.php";
 
-if(isset($_REQUEST['registro'])) 
+if(isset($_POST['registro'])) 
 {
     //include "conexion.php";
-    $nombre = stripslashes($_REQUEST['nombre']);
+    $nombre = stripslashes($_POST['nombre']);
     $nombre = mysqli_real_escape_string($enlace,$nombre);
-    $apellidos = stripslashes($_REQUEST['apellidos']);
+    $apellidos = stripslashes($_POST['apellidos']);
     $apellidos = mysqli_real_escape_string($enlace,$apellidos);
-    $telefono = stripslashes($_REQUEST['telefono']);
+    $telefono = stripslashes($_POST['telefono']);
     $telefono = mysqli_real_escape_string($enlace,$telefono);
-    $email = stripslashes($_REQUEST['email']);
+    $email = stripslashes($_POST['email']);
     $email = mysqli_real_escape_string($enlace,$email);
     $email = filter_var($email, FILTER_SANITIZE_EMAIL);
     $email = filter_var($email, FILTER_VALIDATE_EMAIL);
-    $pass1 = stripslashes($_REQUEST['password1']);
+    $pass1 = stripslashes($_POST['password1']);
     $pass1 = mysqli_real_escape_string($enlace,$pass1);
-    $nombreusuario = stripslashes($_REQUEST['usuario']);
+    $nombreusuario = stripslashes($_POST['usuario']);
     $nombreusuario = mysqli_real_escape_string($enlace,$nombreusuario);
-    $pass2 = stripslashes($_REQUEST['password2']);
+    $pass2 = stripslashes($_POST['password2']);
     $pass2 = mysqli_real_escape_string($enlace,$pass2);
-    $rol = stripslashes($_REQUEST['rol']);
+    $rol = stripslashes($_POST['rol']);
     $rol = mysqli_real_escape_string($enlace,$rol);
     $error = "";
     //para comprobar que los datos estan bien
@@ -93,19 +93,19 @@ include "cabecera.php";
     <form action="" method="POST">
         <div>
             <label for="usuario" >Nombre de Usuario                        
-                <input type="text" name="usuario" class="form-group" id="usuario" aria-describedby="AyudaUsuario" placeholder="Escribe tu usuario">
+                <input type="text" name="usuario" class="form-group" id="usuario" aria-describedby="AyudaUsuario" placeholder="Escribe tu usuario" required>
                 <label class="error" id="errorusuario" > </label><br>
                 <small id="AyudaUsuario">Este campo es obligatorio.</small>
             </label>
             <label for="Password">Password
-                <input type="password" name="password1" class="form-group" aria-describedby="AyudaPasswd" id="password1" placeholder="Escribe tu Password">
+                <input type="password" name="password1" class="form-group" aria-describedby="AyudaPasswd" id="password1" placeholder="Escribe tu Password" required>
                 <label class="error" id="errorpasswd" ></label><br>
                 <small id="AyudaPasswd" >Este campo es obligatorio.</small>
                 <small id="Ayuda2Passwd" >Longitud mínima 8 caracteres.</small>
             </label><br>
             
             <label for="Password">Repite Password
-                <input type="password" name="password2" class="form-group" aria-describedby="AyudaPasswd" id="password2" placeholder="Repite tu Password">
+                <input type="password" name="password2" class="form-group" aria-describedby="AyudaPasswd" id="password2" placeholder="Repite tu Password" required>
                 <label class="error" id="errorpasswd2" ></label><br>
                 <small id="AyudaPasswd" >Este campo es obligatorio.</small>
                 <small id="Ayuda2Passwd2" >Longitud mínima 8 caracteres.</small>
@@ -114,19 +114,19 @@ include "cabecera.php";
 
         <div class="form-group">
             <label for="nombre">Nombre
-                <input type="text" name="nombre" aria-describedby="Ayudanombre" id="nombre" placeholder="Escribe tu nombre">
+                <input type="text" name="nombre" aria-describedby="Ayudanombre" id="nombre" placeholder="Escribe tu nombre" required>
                 <label class="error" id="errornombre" ></label><br>
                 <small id="Ayudanombre" >Este campo es obligatorio.</small>
                 
             </label>
             <label for="apellidos">Apellidos
-                <input type="text" name="apellidos" aria-describedby="AyudaApellidos" id="apellidos" placeholder="Escribe tus apellidos">
+                <input type="text" name="apellidos" aria-describedby="AyudaApellidos" id="apellidos" placeholder="Escribe tus apellidos" required>
                 <label class="error" id="errorapellidos" ></label><br>
                 <small id="AyudaApellidos" >Este campo es obligatorio.</small>
                 
             </label>
             <label for="email">Correo electrónico
-                <input type="email" name="email" aria-describedby="AyudaEmail" id="email" placeholder="Escribe tu correo electrónico">
+                <input type="email" name="email" aria-describedby="AyudaEmail" id="email" placeholder="Escribe tu correo electrónico" required>
                 <label class="error" id="errormail" ></label><br>
                 <small id="AyudaEmail" >Este campo es obligatorio.</small>
                
