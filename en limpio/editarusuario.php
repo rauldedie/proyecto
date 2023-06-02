@@ -60,6 +60,7 @@ if(isset($_GET['usuarioid']))
         //$email_mod = htmlspecialchars($_POST['email']);
         $email_mod = stripslashes($_REQUEST['email']);
         $email_mod = mysqli_real_escape_string($enlace,$email_mod);
+        $email_mod = filter_var($email_mod, FILTER_SANITIZE_EMAIL);
         $email_mod = filter_var($email_mod, FILTER_VALIDATE_EMAIL);
         //$telefono_mod = htmlspecialchars($_POST['telefono']);
         $telefono_mod = stripslashes($_REQUEST['telefono']);

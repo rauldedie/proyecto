@@ -33,6 +33,7 @@ if(isset($_REQUEST['registro']))
     $telefono = mysqli_real_escape_string($enlace,$telefono);
     $email = stripslashes($_REQUEST['email']);
     $email = mysqli_real_escape_string($enlace,$email);
+    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
     $email = filter_var($email, FILTER_VALIDATE_EMAIL);
     $pass1 = stripslashes($_REQUEST['password1']);
     $pass1 = mysqli_real_escape_string($enlace,$pass1);

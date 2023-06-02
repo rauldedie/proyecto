@@ -142,9 +142,11 @@ if (isset($_GET['usuario']))
 
             $query = "SELECT count(idincidencia) numero from incidencias2 WHERE fecha_resol is null";
             $inresolver = mysqli_fetch_array(mysqli_query($enlace,$query));
+            $total = $inresolver['numero']+$resueltas['numero'];
 
-            echo "<p class='edicion'>Incidencias resueltas: ". $resueltas['numero']." incidencias </p>";
-            echo "<p class='edicion'>Incidencias pendientes de resolver: ".$inresolver['numero']." incidencias </p>";
+            echo "<p class='edicion'>Incidencias resueltas: ". $resueltas['numero']." incidencias.<br>";
+            echo "Incidencias pendientes de resolver: ".$inresolver['numero']." incidencias.<br>";
+            echo "Total Incidencias : ". $total." incidencias </p>";
         echo "</div>";
     echo "</div>";
     mysqli_close($enlace);

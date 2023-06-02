@@ -1,3 +1,27 @@
+document.addEventListener("DOMContentLoaded", function() 
+{
+  document.getElementById("formulario").addEventListener('submit', validarFormulario); 
+});
+
+function validarFormulario(evento) 
+{
+    evento.preventDefault();
+    var usuario = document.getElementById('usuario').value;
+    if(usuario.length == 0) {
+        alert('No has escrito nada en el usuario');
+        return;
+    }
+    //puedo añadir patrones para comparar usuario y contraseña
+    var clave = document.getElementById('password').value;
+    if (clave.length < 6) {
+        alert('La contraseña no es válida');
+        return;
+    }
+    this.submit();
+}
+
+
+
 function ValidarLogin()
 {
     //let entradas = [];

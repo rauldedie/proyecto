@@ -8,7 +8,7 @@ if ((array_key_exists("usuario_id",$_SESSION) AND $_SESSION['usuario_id']) OR (a
 
 
 
-if (isset($_POST["login"]))
+if (isset($_REQUEST["login"]))
 {
     include 'conexion.php';
     $error="";
@@ -19,11 +19,11 @@ if (isset($_POST["login"]))
     $error="";
     if (empty($usuario))
     {
-        $error .= "El campo usuario no puede quedar vacío.";
+        $error .= "El campo usuario no es válido.";
 
     }else if (empty($pass))
     {
-        $error .= "El campo contraseña no puede quedar vacío.";
+        $error .= "El campo contraseña no es válido.";
     }else
     {
         $hoy = date('Y-m-d H:i:s');
@@ -89,7 +89,7 @@ include "cabecera.php";
     <div>
         <p><h3>Introduce tu usuario y contraseña para entrar al sistema</h3></p>
 
-        <form id="formulario" action="index.php" autocomplete="off" onsubmit="ValidarLogin()" method="POST">
+        <form id="formulario" action="index.php" method="POST">
             <div class="form-group">
         
                 <label for="usuario">Nombre de Usuario                        
@@ -105,7 +105,6 @@ include "cabecera.php";
                     <label class="error" id="errorpasswd" ></label>
                     <small id="AyudaPasswd" >Este campo es obligatorio.</small>
                 </label><br>
-                <small id="AyudaPasswd2" >Longitud mínima 6 caracteres.</small>
             </div>
 
             <div class="form-check">
@@ -113,7 +112,7 @@ include "cabecera.php";
                 <label class="form-check-label" for="AyudaCheck">Recordar Sesión</label>
             </div>
 
-            <br><button type="submit" name="login" class="btn btn-primary">Login</button>
+            <br><button type="submit" name="login" id="login" class="btn btn-primary">Login</button>
             <p><a href="recordar_pass.php" target="_blank">Recordar contraseña</a></p>               
         </form>
     </div>
@@ -126,29 +125,3 @@ include "cabecera.php";
     </div>
 </div>  
 <?php include "pie.php"; ?>
-
-
-
-<!--<script>
-
-document.addEventListener("DOMContentLoaded", function() 
-{
-  document.getElementById("formulario").addEventListener('submit', validarFormulario); 
-});
-
-function validarFormulario(evento) 
-{
-    evento.preventDefault();
-    var usuario = document.getElementById('usuario').value;
-    if(usuario.length == 0) {
-        alert('No has escrito nada en el usuario');
-        return;
-    }
-    var clave = document.getElementById('clave').value;
-    if (clave.length < 6) {
-        alert('La clave no es válida');
-        return;
-    }
-    this.submit();
-}
-</script>-->

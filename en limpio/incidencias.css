@@ -66,6 +66,7 @@ h3{
 .edicion{
     color: green;
     text-align: left;
+    font-weight: bold;
 }
 
 .usuario{

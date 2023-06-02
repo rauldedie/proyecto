@@ -7,17 +7,22 @@ $email = filter_var($email, FILTER_VALIDATE_EMAIL);
 if (!$email) {
    $error .="<p>Dirección invalida de correo, por favor escriba una dirección válida.</p>";
    }else{
+      echo "estouy aqui 1 <br>";
    $sel_query = "SELECT * FROM usuarios2 WHERE mail='".$email."'";
-   $results = mysqli_query($conn,$sel_query);
+   echo $sel_query."<br>";
+   $results = mysqli_query($enlace,$sel_query);
    $row = mysqli_num_rows($results);
+   echo $row."<br>";
    if ($row==""){
    $error .= "<p>¡No existe un usuario asociado a ese correo!</p>";
    }
   }
    if($error!=""){
+      echo "estouy aqui 2 <br>";
    echo "<div class='error'>".$error."</div>
    <br /><a href='javascript:history.go(-1)'>Go Back</a>";
    }else{
+      echo "estouy aqui 3 <br>";
    $expFormat = mktime(
    date("H"), date("i"), date("s"), date("m") ,date("d")+1, date("Y"));
    $expDate = date("Y-m-d H:i:s",$expFormat);
@@ -25,7 +30,10 @@ if (!$email) {
    $addKey = substr(md5(uniqid(rand(),1)),3,10);
    $key = $key . $addKey;
     // Insert Temp Table
-    mysqli_query($conn, "INSERT INTO `password_reset_temp` (`email`, `key`, `expDate`) VALUES ('".$email."', '".$key."', '".$expDate."');");
+    $query = "INSERT INTO `password_reset_temp` (`key`, email, expDate) VALUES ('{$key}', '{$email}', '{$expDate}')";
+    echo $query."<br>";
+    $resultado = mysqli_query($enlace, $query);
+    echo "estouy aqui 4 <br>";
     $output='<p>Estimado usuario,</p>';
     $output.='<p>Por favor haz click en el enlace de abajo para resetear tu contraseña.</p>';
     $output.='<p>-------------------------------------------------------------</p>';
@@ -50,14 +58,17 @@ if (!$email) {
 	}
    }
 }else{
-?>
-<form method="post" action="" name="reset"><br /><br />
-<label><strong>Introduce tu dirección de email:</strong></label><br /><br />
-<input type="email" name="email" placeholder="username@email.com" />
-<br /><br />
-<input type="submit" value="Reset Password"/>
-</form>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<?php } ?>
+include "cabecera.php"; ?>
+<h1>Gestión de incidencias (CRUD) - Recordar contraseña. </h1>
+<div class="container">
+   <form method="post" action="" name="reset"><br /><br />
+      <label for="email"><strong>Introduce tu dirección de email:</strong></label><br /><br />
+      <input type="email" name="email" aria-describedby="AyudaPasswd" class="form-control" placeholder="escriba el correo que tiene registrado en la aplicación" />
+      <br /><br />
+      <input type="submit" value="Reset Password"/>
+   </form>
+   <p>&nbsp;</p>
+   <p>&nbsp;</p>
+   <p>&nbsp;</p>
+</div>
+<?php include "pie.php";} ?>
