@@ -38,6 +38,7 @@ if (isset($_POST["login"]))
             $_SESSION['usuario_id'] = $row['idusuario'];
             $_SESSION['usuario_nombre'] = $usuario;
             $_SESSION['usuario_rol'] = $row['rol'];
+            $_SESSION['inactivo'] = time();
 
             //primero calculo tiempo ultima conexion
             $query = "SELECT fecha FROM accesos WHERE idusuario={$idusuario}";
