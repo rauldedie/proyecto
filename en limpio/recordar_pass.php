@@ -4,25 +4,24 @@ if(isset($_POST["email"]) && (!empty($_POST["email"]))){
 $email = $_POST["email"];
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 $email = filter_var($email, FILTER_VALIDATE_EMAIL);
-if (!$email) {
+if (!$email) 
+{
    $error .="<p>Dirección invalida de correo, por favor escriba una dirección válida.</p>";
-   }else{
-      echo "estouy aqui 1 <br>";
-   $sel_query = "SELECT * FROM usuarios2 WHERE mail='".$email."'";
-   echo $sel_query."<br>";
+}else
+{
+   $sel_query = "SELECT * FROM usuarios2 WHERE mail='{$email}'";
    $results = mysqli_query($enlace,$sel_query);
    $row = mysqli_num_rows($results);
-   echo $row."<br>";
-   if ($row==""){
-   $error .= "<p>¡No existe un usuario asociado a ese correo!</p>";
+
+   if (mysqli_num_rows($results)==0)
+   {
+      $error .= "<p>¡No existe un usuario asociado a ese correo!</p>";
    }
   }
    if($error!=""){
-      echo "estouy aqui 2 <br>";
    echo "<div class='error'>".$error."</div>
    <br /><a href='javascript:history.go(-1)'>Go Back</a>";
    }else{
-      echo "estouy aqui 3 <br>";
    $expFormat = mktime(
    date("H"), date("i"), date("s"), date("m") ,date("d")+1, date("Y"));
    $expDate = date("Y-m-d H:i:s",$expFormat);
@@ -31,13 +30,11 @@ if (!$email) {
    $key = $key . $addKey;
     // Insert Temp Table
     $query = "INSERT INTO `password_reset_temp` (`key`, email, expDate) VALUES ('{$key}', '{$email}', '{$expDate}')";
-    echo $query."<br>";
     $resultado = mysqli_query($enlace, $query);
-    echo "estouy aqui 4 <br>";
     $output='<p>Estimado usuario,</p>';
     $output.='<p>Por favor haz click en el enlace de abajo para resetear tu contraseña.</p>';
     $output.='<p>-------------------------------------------------------------</p>';
-    $output.='<p><a href="https://practicasrdm.es/reset-password.php?key='.$key.'&email='.$email.'&action=reset" target="_blank">https://http://practicasrdm.es/reset-password.php?key='.$key.'&email='.$email.'&action=reset</a></p>';		
+    $output.='<p><a href="https://practicasrdm.es/cambiar_pass.php?key='.$key.'&email='.$email.'&action=reset" target="_blank">https://http://practicasrdm.es/cambiar-pass.php?key='.$key.'&email='.$email.'&action=reset</a></p>';		
     $output.='<p>-------------------------------------------------------------</p>';
     $output.='<p>Por favor, asegúrate de copiar el enlace completo en tu navegador. El enlace expirará después de un día por razones de seguridad.</p>';
     $output.='<p>Si no solicitaste la contraseña no es necesario que hagas nada.</p>';   	
@@ -63,7 +60,7 @@ include "cabecera.php"; ?>
 <div class="container">
    <form method="post" action="" name="reset"><br /><br />
       <label for="email"><strong>Introduce tu dirección de email:</strong></label><br /><br />
-      <input type="email" name="email" aria-describedby="AyudaPasswd" class="form-control" placeholder="escriba el correo que tiene registrado en la aplicación" />
+      <input type="email" name="email" class="form-control" placeholder="escriba el correo que tiene registrado en la aplicación" />
       <br /><br />
       <input type="submit" value="Reset Password"/>
    </form>
