@@ -7,7 +7,7 @@ if (!array_key_exists("usuario_id",$_SESSION)){
 
 include "conexion.php";
 
-if(isset($_POST['registro'])) 
+if(isset($_REQUEST['registro'])) 
 {
     //include "conexion.php";
     $nombre = stripslashes($_REQUEST['nombre']);

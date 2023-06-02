@@ -46,12 +46,20 @@ if(isset($_GET['incidencia_id']))
   $comentario = $fila['comentario'];
   $error_edicion = "";
 
-  if(isset($_POST['editar'])) 
+  if(isset($_REQUEST['editar'])) 
   {
-    $planta_mod = (htmlspecialchars($_POST['planta']));
-    $idaula_mod = (htmlspecialchars($_POST['aula']));
-    $descripcion_mod = htmlspecialchars($_POST['descripcion']);
-    $comentario_mod = htmlspecialchars($_POST['comentario']);
+    //$planta_mod = (htmlspecialchars($_POST['planta']));
+    $planta_mod = stripslashes($_REQUEST['planta']);
+    $planta_mod = mysqli_real_escape_string($enlace,$planta_mod);
+    //$idaula_mod = (htmlspecialchars($_POST['aula']));
+    $idaula_mod = stripslashes($_REQUEST['aula']);
+    $idaula_mod = mysqli_real_escape_string($enlace,$idaula_mod);
+    //$descripcion_mod = htmlspecialchars($_POST['descripcion']);
+    $descripcion_mod = stripslashes($_REQUEST['descripcion']);
+    $descripcion_mod = mysqli_real_escape_string($enlace,$descripcion_mod);
+    //$comentario_mod = htmlspecialchars($_POST['comentario']);
+    $comentario_mod = stripslashes($_REQUEST['comentario']);
+    $comentario_mod = mysqli_real_escape_string($enlace,$comentario_mod);
     
     if($_POST['fecha_revision']==1)
     {

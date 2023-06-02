@@ -32,14 +32,24 @@ if(isset($_GET['usuarioid']))
     $telefono = $fila['telefono'];        
     $rol = $fila['rol'];
 
-    if(isset($_POST['editar'])) 
+    if(isset($_REQUEST['editar'])) 
     {
-        $usuario_mod = (htmlspecialchars($_POST['usuario']));
-        $nombre_mod = (htmlspecialchars($_POST['nombre']));
-        $apellidos_mod = htmlspecialchars($_POST['apellidos']);
-        $email_mod = htmlspecialchars($_POST['email']);
+        //$usuario_mod = (htmlspecialchars($_POST['usuario']));
+        $usuario_mod = stripslashes($_REQUEST['usuario']);
+        $usuario_mod = mysqli_real_escape_string($enlace,$usuario_mod);
+        //$nombre_mod = (htmlspecialchars($_POST['nombre']));
+        $nombre_mod = stripslashes($_REQUEST['nombre']);
+        $nombre_mod = mysqli_real_escape_string($enlace,$nombre_mod);
+        //$apellidos_mod = htmlspecialchars($_POST['apellidos']);
+        $apellidos_mod = stripslashes($_REQUEST['apellidos']);
+        $apellidos_mod = mysqli_real_escape_string($enlace,$apellidos_mod);
+        //$email_mod = htmlspecialchars($_POST['email']);
+        $email_mod = stripslashes($_REQUEST['email']);
+        $email_mod = mysqli_real_escape_string($enlace,$email_mod);
         $email_mod = filter_var($email_mod, FILTER_VALIDATE_EMAIL);
-        $telefono_mod = htmlspecialchars($_POST['telefono']);
+        //$telefono_mod = htmlspecialchars($_POST['telefono']);
+        $telefono_mod = stripslashes($_REQUEST['telefono']);
+        $telefono_mod = mysqli_real_escape_string($enlace,$telefono_mod);
 
         $query = "UPDATE usuarios2 SET nombreusuario='{$usuario_mod}', nombre='{$nombre_mod}', apellidos='{$apellidos_mod}', telefono='{$telefono_mod}', mail='{$email_mod}' WHERE idusuario={$idusuario}";
         $usuario_actualizado = mysqli_query($enlace,$query);
