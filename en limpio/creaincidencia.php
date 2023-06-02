@@ -10,13 +10,17 @@ $idusuario = $_SESSION['usuario_id'];
 $nombreusuario = $_SESSION['usuario_nombre'];
 
 //crea una nueva incidencia 
-  if(isset($_POST['crear'])) 
+  if(isset($_REQUEST['crear'])) 
     {
         //$planta = htmlspecialchars($_POST['planta']);
-        $idaula = htmlspecialchars($_POST['aula']);
-        $descripcion = htmlspecialchars($_POST['descripcion']);
-        $comentario = htmlspecialchars($_POST['comentario']);
-        $fecha_alta = htmlspecialchars($_POST['fecha_alta']);
+        $idaula = stripslashes($_REQUEST['aula']);
+        $idaula = mysqli_real_escape_string($enlace,$idaula);
+        $descripcion = stripslashes($_REQUEST['aula']);
+        $descripcion = mysqli_real_escape_string($enlace,$descripcion);
+        $comentario = stripslashes($_REQUEST['comentario']);
+        $comentario = mysqli_real_escape_string($enlace,$comentario);
+        $fecha_alta = stripslashes($_REQUEST['fecha_alta']);
+        $fecha_alta = mysqli_real_escape_string($enlace,$fecha_alta);
 
         if (isset($_POST['fecha_revision']))
         {

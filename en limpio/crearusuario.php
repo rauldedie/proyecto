@@ -10,15 +10,23 @@ include "conexion.php";
 if(isset($_POST['registro'])) 
 {
     //include "conexion.php";
-    $nombre = htmlspecialchars($_POST['nombre']);
-    $apellidos = htmlspecialchars($_POST['apellidos']);
-    $telefono = htmlspecialchars($_POST['telefono']);
-    $email = htmlspecialchars($_POST['email']);
+    $nombre = stripslashes($_REQUEST['nombre']);
+    $nombre = mysqli_real_escape_string($enlace,$nombre);
+    $apellidos = stripslashes($_REQUEST['apellidos']);
+    $apellidos = mysqli_real_escape_string($enlace,$apellidos);
+    $telefono = stripslashes($_REQUEST['telefono']);
+    $telefono = mysqli_real_escape_string($enlace,$telefono);
+    $email = stripslashes($_REQUEST['email']);
+    $email = mysqli_real_escape_string($enlace,$email);
     $email = filter_var($email, FILTER_VALIDATE_EMAIL);
-    $pass1 = htmlspecialchars($_POST['password']);
-    $nombreusuario =  strtolower(htmlspecialchars($_POST['usuario']));
-    $pass2 = htmlspecialchars($_POST['password2']);
-    $rol = htmlspecialchars($_POST['rol']);
+    $pass1 = stripslashes($_REQUEST['password1']);
+    $pass1 = mysqli_real_escape_string($enlace,$pass1);
+    $nombreusuario = stripslashes($_REQUEST['usuario']);
+    $nombreusuario = mysqli_real_escape_string($enlace,$nombreusuario);
+    $pass2 = stripslashes($_REQUEST['password2']);
+    $pass2 = mysqli_real_escape_string($enlace,$pass2);
+    $rol = stripslashes($_REQUEST['rol']);
+    $rol = mysqli_real_escape_string($enlace,$rol);
     $error = "";
     //para comprobar que los datos estan bien
     if(empty($nombre) OR empty($apellidos) OR empty($email) OR empty($nombreusuario) OR empty($pass1) OR empty($pass2))
@@ -74,7 +82,7 @@ include "cabecera.php";
                 <small id="AyudaUsuario">Este campo es obligatorio.</small>
             </label>
             <label for="Password">Password
-                <input type="password" name="password" class="form-group" aria-describedby="AyudaPasswd" id="password" placeholder="Escribe tu Password">
+                <input type="password" name="password1" class="form-group" aria-describedby="AyudaPasswd" id="password1" placeholder="Escribe tu Password">
                 <label class="error" id="errorpasswd" ></label><br>
                 <small id="AyudaPasswd" >Este campo es obligatorio.</small>
                 <small id="Ayuda2Passwd" >Longitud mínima 8 caracteres.</small>
