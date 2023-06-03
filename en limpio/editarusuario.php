@@ -58,8 +58,8 @@ if(isset($_GET['usuarioid']))
         $apellidos_mod = stripslashes($_POST['apellidos']);
         $apellidos_mod = mysqli_real_escape_string($enlace,$apellidos_mod);
         //$email_mod = htmlspecialchars($_POST['email']);
-        $email_mod = stripslashes($_POST['email']);
-        $email_mod = mysqli_real_escape_string($enlace,$email_mod);
+        //$email_mod = stripslashes($_POST['email']);
+        $email_mod = mysqli_real_escape_string($enlace,$_POST['email']);
         $email_mod = filter_var($email_mod, FILTER_SANITIZE_EMAIL);
         $email_mod = filter_var($email_mod, FILTER_VALIDATE_EMAIL);
         //$telefono_mod = htmlspecialchars($_POST['telefono']);
@@ -76,6 +76,7 @@ if(isset($_GET['usuarioid']))
         }else
         {
             echo "<script type='text/javascript'>alert('¡Usuario actualizado!')</script>";
+            echo "<script>window.location='editarusuario.php?usuarioid=". $usuario_id . "';</script>";
         }
 
     }

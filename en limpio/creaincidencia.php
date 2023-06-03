@@ -62,7 +62,7 @@ $nombreusuario = $_SESSION['usuario_nombre'];
       {
       
         $query= "INSERT INTO incidencias2 (descripcion, comentario, idaula, idusuario, fecha_alta ) VALUES('{$descripcion}','{$comentario}',{$idaula},{$idusuario},'{$fecha_alta}')";
-        echo $query."<br>";
+        //echo $query."<br>";
         $resultado = mysqli_query($enlace,$query);
     
         if (!$resultado) {

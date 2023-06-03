@@ -72,12 +72,35 @@ if(isset($_POST['registro']))
             //echo "Lo siento ese nombre de usuario no existe";
             $query = "INSERT INTO usuarios2 (nombre,apellidos,mail,telefono,nombreusuario,pass,rol) VALUES ('{$nombre}','{$apellidos}','{$email}','{$telefono}','{$nombreusuario}','{$pass1}','{$rol}')";
             $resultado2 = mysqli_query($enlace,$query);
-            if($resultado2)
-                echo "<script type='text/javascript'>alert('¡Usuario Añadido!')</script>";
-            else
-                echo "Se ha producido un error al actualizar la incidencia.".mysqli_error($enlace);
-        
             //HECHO ESTO HE DE ENCRIPTAR LA CONTRASEÑA Y HACER UN UPDATE USANDO EL ID COMO HASS
+
+            if($resultado2)
+            {
+                echo "<script type='text/javascript'>alert('¡Usuario Añadido!')</script>";
+
+                $output='<p>Estimado '.$nombre.' '.$apellidos.' no tiene que responder este mensaje.</p>';
+                $output.='<p>Su usuario acaba de ser registrado en la app de incidencias del IES A. Machado.</p>';
+                $output.='<p>Sus datos de conexion son:</p>'; 
+                $output.='<p>Usuario: '.$nombreusuario.'</p>';
+                $output.='<p>Contraseña: '.$pass1.'</p>';
+                $output.='<p>No comparta estos datos con nadie. Puede ingresar a la aplicacion en www.practicasrdm.es</p>';
+                $output.='<p>Gracias por su colaboración.</p>';   	
+                $body = $output; 
+                $subject = "Equipo técnico IES A. Machado.";
+                $email_to = $email;
+                $fromserver = "info@practicasrdm.es"; 
+                // Always set content-type when sending HTML email
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                $headers .= 'From: <info@practicasrdm.es>' . "\r\n";
+                if (mail($email_to,$subject,$body,$headers))
+                {
+                  echo "<script type='text/javascript'>alert('¡Se ha enviado un mail al usuario!')</script>";
+                }
+            }else
+            {
+                echo "Se ha producido un error al crear el usuario".mysqli_error($enlace);
+            }           
         }
     }
     echo $error;

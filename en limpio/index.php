@@ -12,9 +12,9 @@ if (isset($_POST["login"]))
 {
     include 'conexion.php';
     $error="";
-    $usuario = stripslashes($_REQUEST['usuario']);
+    $usuario = stripslashes($_POST['usuario']);
     $usuario = mysqli_real_escape_string($enlace, $usuario);
-    $pass = stripslashes($_REQUEST['password']);
+    $pass = stripslashes($_POST['password']);
     $pass = mysqli_real_escape_string($enlace, $pass);
     $error="";
     if (empty($usuario))

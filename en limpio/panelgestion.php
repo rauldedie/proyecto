@@ -54,11 +54,12 @@ if (isset($_GET['usuario']))
             echo "<p class='usuario'>Tiempo desde última conexión: ".$tiempo;
         echo "</div>";
         echo "<a href='creaincidencia.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-bullseye'></i> Añadir Incidencia</a>";
+        echo "<a href='cambiarpass.php?idusuario={$idenuso}' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Cambiar mi Contraseña</a>";
         if(strcmp($rolenuso,"administrador")==0)
         {
             //echo " <a href='crearusuario.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Añadir Usuario</a>";
             echo "<a href='gestionarusuario.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Gestionar Usuario</a>";
-            echo "<a href='gestionaraulas.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-building'></i> Gestionar Aulas y Plantas</a>";
+            echo "<a href='gestionaraulas.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-building'></i> Gestionar Aulas y Plantas</a><br>";
             echo " <a href='panelgestion.php?usuario={$idusuario}&&mostrar=resueltas' class='btn btn-outline-dark mb-2'> <i class='bi bi-calendar-plus'></i> Mostrar Incidencias Resueltas</a>";
             echo " <a href='panelgestion.php?usuario={$idusuario}' class='btn btn-outline-dark mb-2'> <i class='bi bi-calendar-minus'></i> Mostrar Incidencias Pendientes</a>";
         }     

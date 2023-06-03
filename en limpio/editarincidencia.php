@@ -38,7 +38,7 @@ if(isset($_GET['incidencia_id']))
 
   $fila= mysqli_fetch_array($vista_incidencias);
 
-  $id = $fila['idincidencias']; 
+  $id = $fila['idincidencia']; 
     
   $query = "SELECT * FROM usuarios2 WHERE idusuario =".$fila['idusuario'];
   $usuario_inci = mysqli_fetch_array(mysqli_query($enlace,$query)); 
@@ -182,7 +182,27 @@ if(isset($_GET['incidencia_id']))
       }
     }
     if(strcmp($error_edicion,"")==0)
+    {
       echo "<script type='text/javascript'>alert('¡Datos de la incidencia actualizados!')</script>";
+      if($fecha_sol_mod!=0)
+      {
+        $output='<p>Estimado usuario, '.$usuario_inci['nombreusuario'].' no tiene que responder este mensaje.</p>';
+        $output.='<p>Su incidencia registrada con nºincidencia: '.$id.', '.$fila['descripcion'].' acaba de ser resuelta por el equipo técnico del IES A. Machado.</p>';
+        $output.='<p>Gracias por su colaboración.</p>';   	
+        $body = $output; 
+        $subject = "Equipo técnico IES A. Machado.";
+        $email_to = $usuario_inci['mail'];
+        $fromserver = "info@practicasrdm.es"; 
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers .= 'From: <info@practicasrdm.es>' . "\r\n";
+        if (mail($email_to,$subject,$body,$headers))
+        {
+          echo "<script type='text/javascript'>alert('¡Se ha enviado un mail al usuario!')</script>";
+        }
+      }
+    }
     else
       echo "Se ha producido un error al actualizar la incidencia.";
     
@@ -201,7 +221,7 @@ include "cabecera.php";
   <p class="edicion">Usuario que registró la incidencia: <?php echo $usuario ?> </p>
   <p class="edicion">Planta: <?php echo $planta?></p>
   <p class="edicion">Aula: <?php echo $aula?></p>
-  <p class="edicion">Descripción: <?php echo $descipcion?></p>
+  <p class="edicion">Descripción: <?php echo $descripcion?></p>
   <p class="edicion">Comentario: <?php echo $comentario?></p>
   <p class="edicion">Fecha Alta: <?php echo $fecha_alta?> </p>        
   <p class="edicion">Fecha Revisión: <?php echo $fecha_rev?></p>       
