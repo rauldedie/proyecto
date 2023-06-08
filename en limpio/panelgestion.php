@@ -42,6 +42,24 @@ if (isset($_GET['usuario']))
     {
         $mostrar = "null";
     }
+
+    //establezco campo y ordenacion 
+    //la primera vez, al hacer login viene establecido, el resto segun decida el usuario
+    //de vuelta de otra pagina el orden siempre sera asc y por el campo idincidencia
+    if(isset($_GET['ord']))
+    {
+        $ord = htmlspecialchars($_GET['ord']);
+    }else
+    {
+        $ord = "asc";
+    }
+    if(isset($_GET['campo']))
+    {
+        $campo = htmlspecialchars($_GET['campo']);
+    }else
+    {
+        $campo = "idusuario";
+    }
     
     $idusuario = htmlspecialchars($_GET['usuario']);
 
@@ -72,7 +90,7 @@ if (isset($_GET['usuario']))
                     echo "<th class='table-dark' scope='col'>Planta</th>";
                     echo "<th class='table-dark' scope='col'>Aula</th>";
                     echo "<th class='table-dark' scope='col'>Descripción</th>";
-                    echo "<th class='table-dark' scope='col'>Fecha alta</th>";
+                    echo "<th class='table-dark' scope='col'><i class='bi bi-arrow-down-circle' onclick='location.reload()'></i><i class='bi bi-arrow-up-circle'></i><br>Fecha alta</th>";
                     echo "<th class='table-dark' scope='col'>Fecha revisión</th>";
                     echo "<th class='table-dark' scope='col'>Fecha solución</th>";
                     echo "<th class='table-dark' scope='col'>Comentario</th>";
@@ -82,7 +100,7 @@ if (isset($_GET['usuario']))
             echo "<tbody>";
                 echo "<tr>";
                     //SELECT DE INCIDENCIAS no resueltas Y MOSTRARLAS
-                    $query = "SELECT * FROM incidencias2 WHERE fecha_resol is {$mostrar}";               
+                    $query = "SELECT * FROM incidencias2 WHERE fecha_resol is {$mostrar} order by {$campo} {$ord} ";               
                     $vista_incidencias = mysqli_query($enlace,$query);
 
                     while($row = mysqli_fetch_assoc($vista_incidencias))
