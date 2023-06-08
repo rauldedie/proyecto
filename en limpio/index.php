@@ -70,7 +70,7 @@ if (isset($_POST["login"]))
                 $query = "INSERT INTO accesos (idusuario,fecha) VALUES ({$idusuario},'{$fecha}')"; // Historial de accesos
                 $resultado = mysqli_query($enlace, $query);
             }
-            echo "<script>window.location='panelgestion.php?usuario=". $row['idusuario'] . "&ord=asc&campo=idusuario';</script>";
+            echo "<script>window.location='panelgestion.php?usuario=". $row['idusuario'] . "&ord=asc&campo=nombre';</script>";
 
         }else 
         {

@@ -70,7 +70,7 @@ if(strcmp($rolenuso,"administrador")==0 && strcmp($rolenuso,$rol)==0)
                         echo "<tbody>";
                         echo "<tr >";
                             $idplanta = $plantas['idplanta'];
-                            $query2 = "SELECT * FROM aulas2 WHERE idplanta={$idplanta}";
+                            $query2 = "SELECT * FROM aulas2 WHERE idplanta={$idplanta} order by aula asc";
                             $vista_aulas = mysqli_query($enlace,$query2);
                             
                             while ($aulas = mysqli_fetch_assoc($vista_aulas))

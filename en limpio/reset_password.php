@@ -74,7 +74,8 @@ if(isset($_POST['usuario']) && isset($_POST["action"]) && ($_POST["action"]=="up
   }else
   {
     $pass1 = md5(mysqli_real_escape_string($enlace, $_POST['pass1']));
-    $query = "UPDATE usuarios2 SET pass='{$pass1}' WHERE nombreusuario='{$usuario}'";
+    $pass = mysqli_real_escape_string($enlace, $_POST['pass1']);
+    $query = "UPDATE usuarios2 SET pass='{$pass}' WHERE nombreusuario='{$usuario}'";
     //echo $query."<br>";
     mysqli_query($enlace,$query);
     $query = "DELETE FROM `password_reset_temp` WHERE nombreusuario='{$usuario}'";

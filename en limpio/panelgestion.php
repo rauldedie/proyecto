@@ -58,7 +58,7 @@ if (isset($_GET['usuario']))
         $campo = htmlspecialchars($_GET['campo']);
     }else
     {
-        $campo = "idusuario";
+        $campo = "nombre";
     }
     
     $idusuario = htmlspecialchars($_GET['usuario']);
@@ -80,19 +80,26 @@ if (isset($_GET['usuario']))
             echo "<a href='gestionaraulas.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-building'></i> Gestionar Aulas y Plantas</a><br>";
             echo " <a href='panelgestion.php?usuario={$idusuario}&&mostrar=resueltas' class='btn btn-outline-dark mb-2'> <i class='bi bi-calendar-plus'></i> Mostrar Incidencias Resueltas</a>";
             echo " <a href='panelgestion.php?usuario={$idusuario}' class='btn btn-outline-dark mb-2'> <i class='bi bi-calendar-minus'></i> Mostrar Incidencias Pendientes</a>";
-        }     
+        }
+        if (strcmp($ord,"asc")==0)
+        {
+            $ord="desc";
+        }else
+        {
+            $ord="asc";
+        }   
         
         echo "<table class='table table-striped table-bordered table-hover'>";
             echo "<thead class='table table-striped'>";
                 echo "<tr>";
                     
-                    echo "<th class='table-dark' scope='col'>Usuario</th>";
-                    echo "<th class='table-dark' scope='col'>Planta</th>";
-                    echo "<th class='table-dark' scope='col'>Aula</th>";
+                    echo "<th class='table-dark' scope='col'><a href='panelgestion.php?usuario={$idusuario}&&ord={$ord}&&campo=nombre' class='btn btn-secondary'>Usuario</a></th>";
+                    echo "<th class='table-dark' scope='col'><a href='panelgestion.php?usuario={$idusuario}&&ord={$ord}&&campo=planta' class='btn btn-secondary'>Planta</a></th>";
+                    echo "<th class='table-dark' scope='col'><a href='panelgestion.php?usuario={$idusuario}&&ord={$ord}&&campo=aula' class='btn btn-secondary'>Aula</a></th>";
                     echo "<th class='table-dark' scope='col'>Descripción</th>";
-                    echo "<th class='table-dark' scope='col'><i class='bi bi-arrow-down-circle' onclick='location.reload()'></i><i class='bi bi-arrow-up-circle'></i><br>Fecha alta</th>";
-                    echo "<th class='table-dark' scope='col'>Fecha revisión</th>";
-                    echo "<th class='table-dark' scope='col'>Fecha solución</th>";
+                    echo "<th class='table-dark' scope='col'> <a href='panelgestion.php?usuario={$idusuario}&&ord={$ord}&&campo=fecha_alta' class='btn btn-secondary'>Fecha alta</a></th>";
+                    echo "<th class='table-dark' scope='col'><a href='panelgestion.php?usuario={$idusuario}&&ord={$ord}&&campo=fecha_mod' class='btn btn-secondary'>Fecha revisión</a></th>";
+                    echo "<th class='table-dark' scope='col'><a href='panelgestion.php?usuario={$idusuario}&&ord={$ord}&&campo=fecha_resol' class='btn btn-secondary'>Fecha solución</a></th>";
                     echo "<th class='table-dark' scope='col'>Comentario</th>";
                     echo "<th class='table-dark' scope='col' colspan='3' class='text-center'>Operaciones</th>";
                 echo "</tr>";  
@@ -100,17 +107,20 @@ if (isset($_GET['usuario']))
             echo "<tbody>";
                 echo "<tr>";
                     //SELECT DE INCIDENCIAS no resueltas Y MOSTRARLAS
-                    $query = "SELECT * FROM incidencias2 WHERE fecha_resol is {$mostrar} order by {$campo} {$ord} ";               
+                    $query = "SELECT nombre,apellidos,idincidencia,planta,aula,descripcion,fecha_alta,fecha_mod,fecha_resol,comentario 
+                    from incidencias2 i,usuarios2 u,plantas2 p,aulas2 a 
+                    WHERE u.idusuario=i.idusuario AND a.idaula=i.idaula AND p.idplanta=a.idplanta and i.fecha_resol is {$mostrar} ORDER BY {$campo} {$ord}";
+                    //$query = "SELECT * FROM incidencias2 WHERE fecha_resol is {$mostrar} order by {$campo} {$ord} ";              
                     $vista_incidencias = mysqli_query($enlace,$query);
-
+                    
                     while($row = mysqli_fetch_assoc($vista_incidencias))
                     {
 
                         $id = $row['idincidencia'];
                           
-                        $query = "SELECT * FROM usuarios2 WHERE idusuario =".$row['idusuario'];
+                        /*$query = "SELECT * FROM usuarios2 WHERE idusuario =".$row['idusuario'];
                         $usuario_inci = mysqli_fetch_array(mysqli_query($enlace,$query));                  
-                            
+                        
                         $query = "SELECT * FROM aulas WHERE idaula =".$row['idaula'];                        
                         $aula_inci =  mysqli_fetch_array(mysqli_query($enlace,$query));
                             
@@ -124,8 +134,15 @@ if (isset($_GET['usuario']))
                         $fecha_alta = $row['fecha_alta'];        
                         $fecha_rev = $row['fecha_mod'];        
                         $fecha_sol = $row['fecha_resol'];        
-                        $comentario = $row['comentario']; 
-                  
+                        $comentario = $row['comentario'];*/
+                        $usuario = $row['nombre']." ".$row['apellidos'];
+                        $aula = $row['aula'];
+                        $planta = $row['planta'];
+                        $descripcion = $row['descripcion'];        
+                        $fecha_alta = $row['fecha_alta'];        
+                        $fecha_rev = $row['fecha_mod'];        
+                        $fecha_sol = $row['fecha_resol'];        
+                        $comentario = $row['comentario'];
 
                         echo "<tr >";
                             echo " <th scope='row' >{$usuario}</th>";

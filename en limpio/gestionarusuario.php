@@ -18,12 +18,33 @@ if (isset($_SESSION['inactivo']) && (time() - $_SESSION['inactivo']) > $tiempo_i
 
     // Update the last timestamp
     $_SESSION['inactivo'] = time();
-  }
-
-
+}
 $idusuarioenuso = $_SESSION['usuario_id'];
 $nombreusuario = $_SESSION['usuario_nombre'];
 $rolenuso = $_SESSION['usuario_rol'];
+
+if(isset($_GET['ord']))
+{
+    $ord = htmlspecialchars($_GET['ord']);
+}else
+{
+    $ord = "asc";
+}
+if(isset($_GET['campo']))
+{
+    $campo = htmlspecialchars($_GET['campo']);
+}else
+{
+    $campo = "idusuario";
+}
+
+if (strcmp($ord,"asc")==0)
+{
+    $ord="desc";
+}else
+{
+    $ord="asc";
+} 
 
 include "conexion.php";
 $query = "SELECT * FROM usuarios2 WHERE idusuario={$idusuarioenuso}";               
@@ -47,17 +68,18 @@ if(strcmp($rolenuso,"administrador")==0 && strcmp($rolenuso,$rol)==0)
             echo "<p class='usuario'>Usuario: ".$nombreusuario."</p>";
         echo "</div>";
         echo "<a href='crearusuario.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Añadir Usuario</a>";
+        echo "<a href='gestionarusuario.php?campo=idusuario&&ord={$ord}' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Ordenar usuarios por antiguedad</a>";
         echo "<table class='table table-striped table-bordered table-hover'>";
             echo "<thead class='table table-striped'>";
                 echo "<tr>";
                 
-                    echo "<th class='table-dark' scope='col'>Usuario</th>";
+                    echo "<th class='table-dark' scope='col'><a href='gestionarusuario.php?ord={$ord}&&campo=nombreusuario' class='btn btn-secondary'>Usuario</a></th>";
                     //echo "<th class='table-dark' scope='col'>ID</th>";
-                    echo "<th class='table-dark' scope='col'>Nombre</th>";
-                    echo "<th class='table-dark' scope='col'>Apelllidos</th>";
+                    echo "<th class='table-dark' scope='col'><a href='gestionarusuario.php?ord={$ord}&&campo=nombre' class='btn btn-secondary'>Nombre</a></th>";
+                    echo "<th class='table-dark' scope='col'><a href='gestionarusuario.php?ord={$ord}&&campo=apellidos' class='btn btn-secondary'>Apelllidos</a></th>";
                     echo "<th class='table-dark' scope='col'>Teléfono</th>";
-                    echo "<th class='table-dark' scope='col'>Email</th>";
-                    echo "<th class='table-dark' scope='col'>Rol</th>";
+                    echo "<th class='table-dark' scope='col'><a href='gestionarusuario.php?ord={$ord}&&campo=mail' class='btn btn-secondary'>Email</a></th>";
+                    echo "<th class='table-dark' scope='col'><a href='gestionarusuario.php?ord={$ord}&&campo=rol' class='btn btn-secondary'>Rol</a></th>";
                     echo "<th class='table-dark' scope='col' colspan='3' class='text-center'>Operaciones</th>";
             
                 echo "</tr>";  
@@ -65,7 +87,7 @@ if(strcmp($rolenuso,"administrador")==0 && strcmp($rolenuso,$rol)==0)
             echo "<tbody>";
                 echo "<tr>";
                     //SELECT DE INCIDENCIAS no resueltas Y MOSTRARLAS
-                    $query = "SELECT * FROM usuarios2 WHERE idusuario<>{$idusuarioenuso}";               
+                    $query = "SELECT * FROM usuarios2 WHERE idusuario<>{$idusuarioenuso} order by {$campo} {$ord}";               
                     $vista_usuarios = mysqli_query($enlace,$query);
 
                     while($row = mysqli_fetch_assoc($vista_usuarios))
