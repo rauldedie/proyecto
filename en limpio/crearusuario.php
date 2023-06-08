@@ -109,7 +109,7 @@ if(isset($_POST['registro']))
 mysqli_close($enlace);
 include "cabecera.php";
 ?>
-<p class="encabezado"><h1 class="text-center" >Gestión de incidencias (CRUD) - Alta nuevo usuario.</h1></p>
+<p class="encabezado"><h1 class="text-center" >Gestión de incidencias (CRUD). Panel Administrador - Alta nuevo usuario.</h1></p>
 <p class="encabezado"><h4 class="text-center">Facilita los datos del nuevo usuario.</h4></p>
 <div class="container">  
     

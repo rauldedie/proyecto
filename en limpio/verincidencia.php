@@ -27,7 +27,7 @@ $rolenuso = $_SESSION['usuario_rol'];
 include "conexion.php";
 include 'cabecera.php'; ?>
 <div class='form-group'>
-    <h1 class="text-center">Panel de Gestion (CRU) - Detalles de incidencia</h1>
+    <h1 class="text-center">Gestión de incidencias (CRUD). Panel Administrador  - Detalles de incidencia</h1>
     <div class="container">
         <table class="table table-striped table-bordered table-hover">
         <thead class="table-dark">

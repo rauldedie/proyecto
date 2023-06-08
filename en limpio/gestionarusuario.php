@@ -63,7 +63,7 @@ if(strcmp($rolenuso,"administrador")==0 && strcmp($rolenuso,$rol)==0)
     
     echo "<div class='form-group'>";
 
-        echo "<h1 class='text-center' >Gestión de incidencias (CRUD). Gestión de Usuarios.</h1>";
+        echo "<h1 class='text-center' >Gestión de incidencias (CRUD). Panel Administrador - Gestión de Usuarios.</h1>";
         echo "<div>";
             echo "<p class='usuario'>Usuario: ".$nombreusuario."</p>";
         echo "</div>";

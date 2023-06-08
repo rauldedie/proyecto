@@ -77,7 +77,7 @@ $nombreusuario = $_SESSION['usuario_nombre'];
     //mysqli_close($enlace); ?????
     include "cabecera.php";
 ?>
-<h1 class="text-center">Panel de Gestión (CRU)-Añadir incidencia</h1>
+<h1 class="text-center">Gestión de incidencias (CRUD). Panel Administrador - Añadir incidencia</h1>
 <div>
     <p class="usuario"><?php echo "Usuario: ".$nombreusuario?></p>
 </div>

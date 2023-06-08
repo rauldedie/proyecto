@@ -77,7 +77,7 @@ mysqli_close($enlace);
 include "cabecera.php";
 ?>
 
-<h1 class="text-center">Panel Gestión (CRU) - Actualizar Aula</h1>
+<h1 class="text-center">Gestión de incidencias (CRUD). Panel Administrador  - Actualizar Aula</h1>
 <div>
     <p class="usuario"><?php echo"Usuario en uso: ".$nombreusuario; ?></p>
 </div>

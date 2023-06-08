@@ -85,7 +85,7 @@ if(isset($_GET['usuarioid']))
 include "cabecera.php";
 ?>
 
-<h1 class="text-center">Panel Gestión (CRU) - Editar Usuario</h1>
+<h1 class="text-center">Gestión de incidencias (CRUD). Panel Administrador - Editar Usuario.</h1>
 <div>
     <p class="usuario"><?php echo"Usuario en uso: ".$nombreusuario; ?></p>
 </div>

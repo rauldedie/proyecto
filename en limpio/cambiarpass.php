@@ -66,7 +66,7 @@ if (isset($_GET['idusuario']))
     }
 }
 include "cabecera.php";?>
-<h1>Cambiar contraseña</h1>
+<h1 class='text-center'>Gestión de incidencias (CRUD). Panel Administrador - Cambiar contraseña</h1>
 <div class="container">
     <form action="actualizar_pass.php" method="POST">
         <label for="contraseña_actual">Contraseña actual:</label>
