@@ -27,13 +27,13 @@
 function validarFormulario(evento) 
 {
     evento.preventDefault();
-    var usuario = document.getElementById('usuario').value;
+    var usuario = document.getElementById('InputUsuario').value;
     if(usuario.length == 0) {
         alert('No has escrito nada en el usuario');
         return;
     }
     //puedo añadir patrones para comparar usuario y contraseña
-    var clave = document.getElementById('password').value;
+    var clave = document.getElementById('InputPassword').value;
     if (clave.length < 8) {
         alert('La contraseña no es válida');
         return;
@@ -43,8 +43,8 @@ function validarFormulario(evento)
 
 /*function ValidarLogin()
 {
-    let nombre = document.getElementById("nombre").value;
-    let pass = document.getElementById("password").value;
+    let nombre = document.getElementById("InputUsuario").value;
+    let pass = document.getElementById("InputPassword").value;
     let valores = /^[a-zA-z0-9]+$/;
 
     if(nombre.length == 0)

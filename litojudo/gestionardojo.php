@@ -88,7 +88,7 @@ if (isset($_GET['usuario']))
     $query = "SELECT nombre FROM dojo WHERE iddojo={$iddojo}";
     $nombredojo = mysqli_fetch_array(mysqli_query($enlace,$query));
     $dojo = $nombredojo['nombre'];
-
+    
     echo "<nav class='navbar navbar-expand-lg navbar-light bg-dark'>";
         echo"<p><img class='logo' src='logolitho.jpg'></p>";
         echo "<label class='navbar-brand'><span class='text-light bg-dark'>GESTION DEPORTISTAS</span></label>
@@ -130,6 +130,8 @@ if (isset($_GET['usuario']))
                         <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                         <span class='text-light bg-dark'>Gestionar Usuarios</span></a>
                         <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
+
+                            <a class='dropdown-item' href='gestionarusuarios.php?usuario={$idusuario}&&dojo={$iddojo}&&mostrar=all&&ord=desc&&campo=nombre&&usuario={$rolenuso}'>Gestionar Usuarios</a>
                             <a class='dropdown-item' href='#'>Nuevo Usuario</a>
                         </div>
                     </li>

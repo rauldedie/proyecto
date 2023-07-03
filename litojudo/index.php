@@ -71,11 +71,11 @@ include "cabecera.php";
         <form id="formulario" name="formulario" action="index.php" method="POST">
 
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" name="usuario" placeholder="Usuario">
+                <input type="text" class="form-control" id="InputUsuario" name="usuario" placeholder="Usuario">
                 <label for="floatingInput">Nombre de usuario</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Contraseña">
+                <input type="password" class="form-control" name="password" id="InputPassword" placeholder="Contraseña">
                 <label for="floatingPassword">Contraseña</label>
             </div>
             <br><button type="submit" name="login" class="btn btn-primary">Login</button>
