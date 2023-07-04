@@ -130,7 +130,7 @@ if (isset($_GET['usuario']))
                         <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                         <span class='text-light bg-dark'>Gestionar Usuarios</span></a>
                         <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
-                            <a class='dropdown-item' href='#'>Nuevo Usuario</a>
+                            <a class='dropdown-item' href='altausuario.php?usuario={$idenuso}'>Nuevo Usuario</a>
                         </div>
                     </li>
                     <li class='nav-item dropdown'>
@@ -162,11 +162,95 @@ if (isset($_GET['usuario']))
     echo "<label class='nav-item'><h6>Usuario: ".$nombreusuario."</h6></label><br>";
     echo "<label class='nav-item'><h6>Dojo: ".$dojo."</h6></label><br>";
 
+    //compruebo que el usuario sea administrador u oficina
+    //muestro los entrenadores y otros usuarios que tiene el centro
+    if(strcmp($rolenuso,"administrador")==0)//añadir oficina
+    {
+        $query = "SELECT iddojo FROM dojo where iddojo<>{$iddojo}";
+        //echo $query;
+        $resp = mysqli_fetch_array(mysqli_query($enlace,$query));
+        $cambiodojo = $resp['iddojo'];
+    
+        if($estado=="alta")
+        {
+            echo " <a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&estado=baja' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Usuarios de baja</a>";
+            //echo "<a href='gestionarusuario.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Gestionar Clases</a>";
+
+        }
+        //echo "<a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=1' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mostrar Federados</a>";
+        //echo "<a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=2' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mostrar Judoliga</a>";
+        //echo "<a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=3' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mostrar No Competición</a>";
+        //echo "<a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mostrar Todos</a>";
+        echo "<a href='gestionarusuarios.php?dojo={$cambiodojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Cambiar Dojo</a>";
+        if (strcmp($ord,"desc")==0)
+        {
+            $ord="asc";
+        }else
+        {
+            $ord="desc";
+        } 
+        echo "<table class='table table-striped table-bordered table-hover'>";
+        echo "<thead class='table table-striped'>";
+            echo "<tr>";                   
+                echo "<th class='table-dark' scope='col'colspan='3'><a href='gestionarusuarios.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre' class='btn btn-secondary'>Usuario</a></th>";
+                echo "<th class='table-dark' scope='col'>Teléfono</th>";
+                echo "<th class='table-dark' scope='col'>Email</th>";
+                echo "<th class='table-dark' scope='col'> <a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=dateborn' class='btn btn-secondary'>Tipo de Usuario</a></th>";
+                echo "<th class='table-dark' scope='col' colspan='6' class='text-center'><center>Operaciones</center></th>";
+            echo "</tr>";  
+        echo "</thead>";
+        echo "<tbody>";
+            echo "<tr>";
+                //SELECT USUARIOS DEL DOJO EN CUESTION.
+                $query = "SELECT * FROM usuarios WHERE estado='{$estado}' ORDER BY {$campo} {$ord}";
+                //echo $query."<br>";
+                $respuesta = mysqli_query($enlace,$query);
+                //print_r($respuesta);
+                while ($row = mysqli_fetch_assoc($respuesta))
+                {
+                    $query = "SELECT * FROM tipo_usuario WHERE idtipo={$row['tipousuario']}";
+                    //echo $query."<br>";
+                    $tipo = mysqli_fetch_array(mysqli_query($enlace,$query));
+                    $id = $row['idusuario'];
+                    $usuario = $row['nombre']." ".$row['apellido1']." ".$row['apellido2'];
+                    $telefono = $row['telefono'];     
+                    $email = $row['email'];
+                    $tipousuario = $tipo['tipousuario'];
+                    echo "<tr >";
+                    echo " <th scope='row' colspan='3'>{$usuario}</th>";
+                    echo " <td> {$telefono}</td>";
+                    echo " <td class='table-dark'>{$email} </td>";
+                    echo " <td class='table-dark'>{$tipousuario} </td>";                   
+
+                    if(strcmp($rolenuso,"administrador")==0)
+                    {
+                        if (strcmp($estado,"baja")==0)
+                        {
+                            echo " <td class='text-center'> <a href='verelemento.php?dojo={$iddojo}&&idelemento={$id}&&estado=baja' class='btn btn-primary'> <i class='bi bi-eye'></i> Ver</a> </td>";
+                            echo " <td class='text-center' > <a href='bajaalumno.php?dojo={$iddojo}&&alta={$id}' class='btn btn-danger' ><i class='bi bi-pencil'></i> Volver dar Alta</a> </td>";
+                        }else
+                        {
+                            echo " <td class='text-center'> <a href='verelemento.php?dojo={$iddojo}&&idelemento={$id}&&estado=alta' class='btn btn-primary'> <i class='bi bi-eye'></i> Ver</a> </td>";
+                            echo " <td class='text-center' > <a href='editaralumno.php?dojo={$iddojo}&&idalumno={$id}' class='btn btn-secondary' ><i class='bi bi-pencil'></i> Editar</a> </td>";
+                            echo " <td class='text-center'>  <a href='bajaalumno.php?dojo={$iddojo}&&eliminar={$id}' class='btn btn-danger' > <i class='bi bi-trash'></i> Dar de Baja</a> </td>";
+                        }
+                    
+                
+                    }/*else if(strcmp($rolenuso,"entrenador")==0)
+                    {
+                        echo " <td class='text-center' > <a href='editarincidencia.php?editar&incidencia_id={$id}' class='btn btn-secondary' ><i class='bi bi-pencil'></i> Editar</a> </td>";
+                    }*/
+                    echo " </tr> ";
+                    
+                }
+                echo "</tr>";  
+            echo "</tbody>";
+        echo "</table>";
+        echo "</div>";
+
+    }
+
 }
-//compruebo que el usuario sea administrador u oficina
-//muestro los entrenadores y otros usuarios que tiene el centro
-
-
 
 mysqli_close($enlace);
 include "pie.php";
