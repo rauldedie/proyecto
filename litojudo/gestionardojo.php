@@ -88,7 +88,7 @@ if (isset($_GET['usuario']))
     $query = "SELECT nombre FROM dojo WHERE iddojo={$iddojo}";
     $nombredojo = mysqli_fetch_array(mysqli_query($enlace,$query));
     $dojo = $nombredojo['nombre'];
-
+    
     echo "<nav class='navbar navbar-expand-lg navbar-light bg-dark'>";
         echo"<p><img class='logo' src='logolitho.jpg'></p>";
         echo "<label class='navbar-brand'><span class='text-light bg-dark'>GESTION DEPORTISTAS</span></label>
@@ -130,6 +130,8 @@ if (isset($_GET['usuario']))
                         <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                         <span class='text-light bg-dark'>Gestionar Usuarios</span></a>
                         <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
+
+                            <a class='dropdown-item' href='gestionarusuarios.php?usuario={$idusuario}&&dojo={$iddojo}&&mostrar=all&&ord=desc&&campo=nombre'>Gestionar Usuarios</a>
                             <a class='dropdown-item' href='#'>Nuevo Usuario</a>
                         </div>
                     </li>
@@ -169,7 +171,7 @@ if (isset($_GET['usuario']))
         {   
             if($estado=="alta")
             {
-                echo " <a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&estado=baja' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Usuarios de baja</a>";
+                echo " <a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&estado=baja' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Alumnos de baja</a>";
                 //echo "<a href='gestionarusuario.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Gestionar Clases</a>";
 
             }
@@ -178,9 +180,9 @@ if (isset($_GET['usuario']))
             $resp = mysqli_fetch_array(mysqli_query($enlace,$query));
             $cambiodojo = $resp['iddojo'];
 
-            echo "<a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=1' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mostrar Federados</a>";
-            echo "<a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=2' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mostrar Judoliga</a>";
-            echo "<a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=3' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mostrar No Competición</a>";
+            echo "<a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=1' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Alumnos Federados</a>";
+            echo "<a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=2' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Alumnos Judoliga</a>";
+            echo "<a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=3' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Alumnos sin Competición</a>";
             echo "<a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mostrar Todos</a>";
             echo "<a href='gestionardojo.php?dojo={$cambiodojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Cambiar Dojo</a>";
             
