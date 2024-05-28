@@ -191,6 +191,9 @@ include "cabecera.php";
             <li class='nav-item'>
                 <a class='navbar-brand' href="gestionardojo.php?dojo=<?php echo $iddojo ?>&&mostrar=all&&ord=desc&&campo=nombre&&usuario=<?php echo $idusuario?>"><span class='text-primary'>VOLVER</span></a>
             </li>
+            <li class='nav-item'>
+                <a class='navbar-brand' href='avisolegal.php'><span class='text-warning'>AVISO LEGAL</span></a>
+            </li>
             <li class="nav-item">
                 <a class="navbar-brand" href="logout.php"><span class="text-warning">Salir</span></a>
             </li>

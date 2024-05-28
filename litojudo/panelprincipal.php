@@ -66,7 +66,9 @@ echo "<nav class='navbar navbar-expand-lg navbar-light bg-dark'>
       </li>
       <li></li>
       <li></li>
-      <li></li>
+      <li class='nav-item'>
+          <a class='navbar-brand' href='avisolegal.php'><span class='text-warning'>AVISO LEGAL</span></a>
+      </li>
       <li class='nav-item'>
         <a class='navbar-brand' href='logout.php'><span class='text-warning'>SALIR</span></a>
       </li>

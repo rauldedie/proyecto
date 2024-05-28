@@ -134,6 +134,9 @@ if (strcmp($fila['tipo'],"administrador")!=0)
                         <a class='navbar-brand' href='gestionardojo.php?dojo={$iddojo}&&usuario={$idenuso}'><span class='text-primary'>VOLVER</span></a>
                     </li>
                     <li class='nav-item'>
+                        <a class='navbar-brand' href='avisolegal.php'><span class='text-warning'>AVISO LEGAL</span></a>
+                    </li>
+                    <li class='nav-item'>
                         <a class='navbar-brand' href='logout.php'><span class='text-warning'>SALIR</span></a>
                     </li>
                 </ul>    
@@ -166,7 +169,7 @@ if (strcmp($fila['tipo'],"administrador")!=0)
         $horaclase = mysqli_fetch_array(mysqli_query($enlace,$query));
         
         
-        //Miro que clase es el dia y la hora y el entrenador
+        //Miro que clase es el dia y la hora y el entrenador (el entrenador habria que cabiarlo y hacerlo sobre usuario y tipo usuario)
         $query = "SELECT * FROM clases   
         WHERE iddiaclase={$iddia} and idhoraclase={$idhora} and iddojo={$iddojo}";
         //echo $query."<br>";

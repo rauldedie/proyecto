@@ -108,6 +108,9 @@ echo "<label class='navbar-brand'><span class='text-light bg-dark'>GESTION DEPOR
                 <a class='navbar-brand' href='gestionardojo.php?dojo={$iddojo}&&estado={$estado}&&mostrar=all&&ord=desc&&campo=nombre&&usuario={$idenuso}'><span class='text-primary'>VOLVER</span></a>
             </li>
             <li class='nav-item'>
+                <a class='navbar-brand' href='avisolegal.php'><span class='text-warning'>AVISO LEGAL</span></a>
+            </li>
+            <li class='nav-item'>
                 <a class='navbar-brand' href='logout.php'><span class='text-warning'>SALIR</span></a>
             </li>
         </ul>
