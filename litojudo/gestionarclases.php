@@ -214,93 +214,62 @@ if (strcmp($fila['tipo'],"administrador")!=0)
             echo "<thead class='table table-striped'>";
                 echo "<tr>";
                     echo "<th class='table-dark' scope='col'>Alumnos clase {$diaclase['diaclase']} de {$horaclase['hora']} con {$entrenador['nombre']}</th>";
+                    echo "<th class='table-dark' scope='col'>Poner Faltas</th>";
                     echo "<th class='table-dark' scope='col'>Competición</th>";
                     echo "<th class='table-dark' scope='col'>Kyu</th>";
                     echo "<th class='table-dark' scope='col'>Categoría</th>";
-                    echo "<th class='table-dark' scope='col'>Día Clase</th>";
-                    echo "<th class='table-dark' scope='col'>Hora Clase</th>";
-                    //echo "<th class='table-dark' scope='col' colspan='3' class='text-center'>Operaciones</th>";
                 echo "</tr>";  
             echo "</thead>";
             echo "<tbody>";
-            $hoy = date('Y');
-            $i=0;
-            echo "<form action='cambiarclase.php' method='post>";
 
             while ($lista = mysqli_fetch_assoc($resp))
             {
-                //echo "<form action='cambiarclase.php' method='post>";
-                    //muestro listado de la clase
-                    $nombre = $lista['nombre']." ".$lista['apellido1']." ".$lista['apellido2'];
-                    $idclase = $lista['idclase'];
-                    $idusuario = $lista['idusuario'];
-                    echo "<input hidden value={$idclase} name='idclase'.$i>";
-                    echo "<input hidden value={$idalumno} name='idalumno'.$i>";
-                    echo "<input hidden value={$i} name='fila.$i'>";
-                    echo "<tr>";
-                        echo " <td>{$nombre}</td>";
+                //muestro listado de la clase
+                $nombre = $lista['nombre']." ".$lista['apellido1']." ".$lista['apellido2'];
+                $idclase = $lista['idclase'];
+                $idalumno = $lista['idalumno'];
+                echo "<tr>";
 
-                        //averiguo la competicion del alumno
-                        $query = "SELECT * from competiciones where idcompeticion={$lista['competicion']}";
-                        $comp = mysqli_fetch_array(mysqli_query($enlace,$query));
-                        $competicion = $comp['competicion'];
-                        echo " <td class='table-dark'>{$competicion}</td>";
+                    //Escribo el nombre del alumno
+                    echo " <td>{$nombre}</td>";
+                    //echo " <td>{$idalumno}</td>";
 
-                        //averiguo kyu del alumno
-                        $query = "SELECT * from nivel where idnivel={$lista['idnivel']}";
-                        //echo $query."<br>";
-                        $nivel = mysqli_fetch_array(mysqli_query($enlace,$query));
-                        
-                        $kyu = $nivel['color'];
+                    //Pongo el boton de faltas
+                    echo " <td class='table-dark'> <a href='ponerfalta.php?falta=1&&alumno={$idalumno}&&dia={$iddia}&&hora={$idhora}&&dojo={$iddojo}&&usu={$idenuso}' class='btn btn-primary'> <i class='bi-check-circle-fill'></i> FALTAS ASISTENCIA </a> </td>";
 
-                        echo " <td class='table-dark'>{$kyu}</td>";
+                    //averiguo la competicion del alumno
+                    $query = "SELECT * from competiciones where idcompeticion={$lista['competicion']}";
+                    $comp = mysqli_fetch_array(mysqli_query($enlace,$query));
+                    $competicion = $comp['competicion'];
+                    echo " <td class='table-dark'>{$competicion}</td>";
 
-                        //averiguo categoria
-                        $fechaentera = strtotime($lista['dateborn']);
-                        $anio = date("Y",$fechaentera);                        
-                        $diferencia = $hoy-$anio;
-                        if ($diferencia < 9) $categoria = "Prebenjamín";
-                        else if ( $diferencia<11 ) $categoria = "Benjamín";
-                        else if ($diferencia<13) $categoria = "Alevín";
-                        else if ($diferencia<15) $categoría = "Infantil";
-                        else if ($diferencia<18) $categoria = "Cadete";
-                        else if ($diferencia<21) $categoria = "Junior";
-                        else $categoria = "Senior";
+                    //averiguo kyu del alumno
+                    $query = "SELECT * from nivel where idnivel={$lista['idnivel']}";
+                    //echo $query."<br>";
+                    $nivel = mysqli_fetch_array(mysqli_query($enlace,$query));
+                    
+                    $kyu = $nivel['color'];
 
-                        echo " <td class='table-dark'>{$categoria}</td>";     
+                    echo " <td class='table-dark'>{$kyu}</td>";
 
-                        echo " <td class='table-dark'>
-                                <select name='diaclase'.$i id='diaclase' class='form-select'>";
-                                    echo "<option value=".$iddia." selected>".$diaclase['diaclase']."</option>";
-                                    //Obtengo dias y horas para posibles camnios de clases
-                                    $query = "SELECT * from diasclases";
-                                    $respuesta = mysqli_query($enlace,$query);
-                                    while ($fila = mysqli_fetch_assoc($respuesta))
-                                    {
-                                        echo "<option value=".$fila['iddiaclase'].">".$fila['diaclase']."</option>";
-                                    }                                      
-                                echo "</select>";
-                
-                        echo "</td>";
-                        
-                        echo " <td class='table-dark'>
-                                <select name='horaclase'.$i id='horaclase' class='form-select'>";
-                                    echo "<option value=".$idhora." selected>".$horaclase['hora']."</option>";
-                                    //Obtengo dias y horas para posibles camnios de clases
-                                    $query = "SELECT * from horasclases";
-                                    $respuesta = mysqli_query($enlace,$query);
-                                    while ($fila = mysqli_fetch_assoc($respuesta))
-                                    {
-                                        echo "<option value=".$fila['idhoraclase'].">".$fila['hora']."</option>";
-                                    }                                      
-                                echo "</select>"; 
-                        echo "</td>";
-                        //echo " <td class='text-center' colspan='3'> <button type='submit' class='btn btn-warning' name='cambioclase'><i class='bi bi-pencil'></i>Cambiar de Clase</button> </td>";
-                    echo "</tr>";
-                $i++;
+                    //averiguo categoria
+                    $fechaentera = strtotime($lista['dateborn']);
+                    $anio = date("Y",$fechaentera);                        
+                    $diferencia = $hoy-$anio;
+                    if ($diferencia < 9) $categoria = "Prebenjamín";
+                    else if ( $diferencia<11 ) $categoria = "Benjamín";
+                    else if ($diferencia<13) $categoria = "Alevín";
+                    else if ($diferencia<15) $categoría = "Infantil";
+                    else if ($diferencia<18) $categoria = "Cadete";
+                    else if ($diferencia<21) $categoria = "Junior";
+                    else $categoria = "Senior";
+
+                    echo " <td class='table-dark'>{$categoria}</td>";     
+                echo "</tr>";
+                //$i++;
             }
-                echo "<input hidden value={$i} name='filastotal'>";
-                echo " <tr> <td class='text-center' colspan='6'> <button type='submit' class='btn btn-warning' name='cambioclase'><i class='bi bi-pencil'></i>Confirmar cambios de clase</button> </td></tr>";
+                //echo "<input hidden value={$i} name='filastotal'>";
+                //echo " <tr> <td class='text-center' colspan='6'> <button type='submit' class='btn btn-warning' name='cambioclase'><i class='bi bi-pencil'></i>Confirmar cambios de clase</button> </td></tr>";
                 echo "</tbody>";
                 echo "</table>";
             echo "</form>";
