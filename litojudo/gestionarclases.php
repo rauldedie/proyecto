@@ -235,7 +235,7 @@ if (strcmp($fila['tipo'],"administrador")!=0)
                     //echo " <td>{$idalumno}</td>";
 
                     //Pongo el boton de faltas
-                    echo " <td class='table-dark'> <a href='ponerfalta.php?falta=1&&alumno={$idalumno}&&dia={$iddia}&&hora={$idhora}&&dojo={$iddojo}&&usu={$idenuso}' class='btn btn-primary'> <i class='bi-check-circle-fill'></i> FALTAS ASISTENCIA </a> </td>";
+                    echo " <td class='table-dark'> <a href='ponerfalta.php?clase={$idclase}&&falta=1&&alumno={$idalumno}&&dia={$iddia}&&hora={$idhora}&&dojo={$iddojo}&&usu={$idenuso}' class='btn btn-primary'> <i class='bi-check-circle-fill'></i> FALTAS ASISTENCIA </a> </td>";
 
                     //averiguo la competicion del alumno
                     $query = "SELECT * from competiciones where idcompeticion={$lista['competicion']}";
