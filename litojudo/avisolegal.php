@@ -71,13 +71,15 @@
 
         </div>
     </nav>";
-    echo "<div>";
+    echo "<div class='table-dark'>";
         echo "<p> Nombre de la empresa</p>";
         echo "<p> Dirección de la empresa</p>";
         echo "<p> Telefono de la empresa</p>";
         echo "<p> Cif de la empresa</p>";
         echo "<p> Mail de la empresa</p>";
-        echo "<p> Información relevante de proteccion de datos</p>";
+        echo "<p>Ley 34/2002, de 11 de julio, de servicios de la sociedad de la información y de comercio electrónico (LSSI)</p>";
+        echo "<p>Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD)</p>";
+        echo "<p>Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo, de 27 de abril de 2016, relativo a la protección de las personas físicas en lo que respecta al tratamiento de datos personales y a la libre circulación de estos datos</p>";
     echo "</div>";
 
     include "pie.php";
