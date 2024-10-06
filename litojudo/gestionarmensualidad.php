@@ -85,13 +85,53 @@ if (isset($_GET['usuario']))
     $fila = mysqli_fetch_array(mysqli_query($enlace,$query));
     $rolenuso = $fila['tipousuario'];
 
-    $query = "SELECT nombre FROM dojo WHERE iddojo={$iddojo}";
+    /*$query = "SELECT nombre FROM dojo WHERE iddojo={$iddojo}";
     $nombredojo = mysqli_fetch_array(mysqli_query($enlace,$query));
-    $dojo = $nombredojo['nombre'];
+    $dojo = $nombredojo['nombre'];*/
+
+    echo "<nav class='navbar navbar-expand-lg navbar-light bg-dark'>
+    <p><img class='logo' src='logolitho.jpg'></p>
+    <label class='navbar-brand'><span class='text-light bg-dark'>PANEL PRINCIPAL</span></label>
+        <div class='collapse navbar-collapse' id='navbarSupportedContent'>
+            <ul class='navbar-nav mr-auto'>
+                <li class='nav-item dropdown'>
+                    <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                    <span class='text-light bg-dark'>Gestionar Escuela</span></a>
+                    <div class='dropdown-menu' aria-labelledby='navbarDropdown'>";
+                    $query = "SELECT * FROM dojo ";
+                    $respuesta = mysqli_query($enlace,$query);
+                    while ($dojo = mysqli_fetch_assoc($respuesta))
+                    {
+                        echo "<a class='dropdown-item' href='gestionardojo.php?dojo={$dojo['iddojo']}&&usuario={$idusuario}'>{$dojo['nombre']}</a>";
+                        echo "<div class='dropdown-divider'></div>";
+                    }
+                    echo "<a class='dropdown-item' href='#'>Nuevo Dojo</a>
+                    </div>
+                </li>
+                <li></li>
+                <li></li>
+                <li class='nav-item'>
+                    <a class='navbar-brand' href='panelprincipal.php?rol={$rol}&&usuario={$idenuso}'><span class='text-primary'>VOLVER</span></a>
+                </li>
+                <li class='nav-item'>
+                    <a class='navbar-brand' href='avisolegal.php'><span class='text-warning'>AVISO LEGAL</span></a>
+                </li>
+                <li class='nav-item'>
+                    <a class='navbar-brand' href='logout.php'><span class='text-warning'>SALIR</span></a>
+                </li>
+
+            </ul>
+
+        </div>
+    </nav>";
+
+
+
+
     
-    echo "<nav class='navbar navbar-expand-lg navbar-light bg-dark'>";
+    /*echo "<nav class='navbar navbar-expand-lg navbar-light bg-dark'>";
         echo"<p><img class='logo' src='logolitho.jpg'></p>";
-        echo "<label class='navbar-brand'><span class='text-light bg-dark'>GESTION DEPORTISTAS</span></label>
+        echo "<label class='navbar-brand'><span class='text-light bg-dark'>GESTION CUOTAS MENSUALES</span></label>
             <div class='collapse navbar-collapse' id='navbarSupportedContent'>
                 <ul class='navbar-nav mr-auto'>
                     <li class='nav-item dropdown'>
@@ -149,49 +189,36 @@ if (isset($_GET['usuario']))
                             </div>
                         </div>
                     </li>
-                    <li class='nav-item'>
-                        <a class='navbar-brand' href='panelprincipal.php?rol={$rol}&&usuario={$idenuso}'><span class='text-primary'>VOLVER</span></a>
-                    </li>
-                    <li class='nav-item'>
-                        <a class='navbar-brand' href='avisolegal.php'><span class='text-warning'>AVISO LEGAL</span></a>
-                    </li>
-                    <li class='nav-item'>
-                        <a class='navbar-brand' href='logout.php'><span class='text-warning'>SALIR</span></a>
-                    </li>
+                    
 
                 </ul>
 
             </div>
-        </nav>";
+        </nav>";**/
     
     echo "<div class='form-group'>";
     echo "<br>";
-    echo "<label class='nav-item'><h6>Usuario: ".$nombreusuario."</h6></label><br>";
-    echo "<label class='nav-item'><h6>Dojo: ".$dojo."</h6></label><br>";
-        //echo "<a href='cambiarpass.php?idusuario={$idenuso}' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Cambiar mi Contraseña</a><br>";
-    
-
+    echo "<label class='nav-item'><h6>Usuario: ".$nombreusuario."</h6></label><br>"; 
     
         if(strcmp($rolenuso,"administrador")==0)//añadir oficina
         {   
+            /*ESTA PARA EN EL FUTURO GESTIONAR MENSUALIDADES DE GENTE DE BAJA
             if($estado=="alta")
             {
                 echo " <a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&estado=baja' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Alumnos de baja</a>";
                 //echo "<a href='gestionarusuario.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Gestionar Clases</a>";
 
             }
+            ESTO ES PARA GESTIONAR POR DOJO LAS MENSUALIDADES AHORA SE HACEN TODOS JUNTOS
             $query = "SELECT iddojo FROM dojo where iddojo<>{$iddojo}";
             //echo $query;
             $resp = mysqli_fetch_array(mysqli_query($enlace,$query));
-            $cambiodojo = $resp['iddojo'];
+            $cambiodojo = $resp['iddojo'];*/
 
-            echo "<a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=1' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Alumnos Federados</a>";
-            echo "<a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=2' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Alumnos Judoliga</a>";
-            echo "<a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=3' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Alumnos sin Competición</a>";
-            echo "<a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mostrar Todos</a>";
-            echo "<a href='gestionardojo.php?dojo={$cambiodojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Cambiar Dojo</a>";
+            echo "<a href='cuotasmes.php?' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> AÑADIR CUOTAS DEL MES</a>";
+           
             echo "<a href='gestionbancaria.php?usuario={$rolenuso}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Comprobacion Cuentas</a>";
-            echo "<a href='gestionarmensualidad.php?usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mensualidades</a>";
+
             
             
         }
@@ -206,108 +233,104 @@ if (isset($_GET['usuario']))
         echo "<table class='table table-striped table-bordered table-hover'>";
             echo "<thead class='table table-striped'>";
                 echo "<tr>";                   
-                    echo "<th class='table-dark' scope='col'colspan='3'><a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre' class='btn btn-secondary'>Alumno</a></th>";
-                    echo "<th class='table-dark' scope='col'><a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=idnivel' class='btn btn-secondary'>Nivel (Kyu)</a></th>";
-                    echo "<th class='table-dark' scope='col'>Competición</th>";
-                    echo "<th class='table-dark' scope='col'>Telefono</th>";
-                    echo "<th class='table-dark' scope='col'> <a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=dateborn' class='btn btn-secondary'>Categoría</a></th>";
-                    echo "<th class='table-dark' scope='col'>Urgencia</th>";
+                    echo "<th class='table-dark' scope='col'colspan='3'><a href='gestionarmensualidad.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre' class='btn btn-secondary'>Alumno</a></th>";
+                    //echo "<th class='table-dark' scope='col'><a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=idnivel' class='btn btn-secondary'>Nivel (Kyu)</a></th>";
+                    echo "<th class='table-dark' scope='col'>mes cuota</th>";
+                    echo "<th class='table-dark' scope='col'>año</th>";
+                    echo "<th class='table-dark' scope='col'>estado</th>";
                     echo "<th class='table-dark' scope='col' colspan='3' class='text-center'>Operaciones</th>";
                 echo "</tr>";  
             echo "</thead>";
             echo "<tbody>";
                 echo "<tr>";
-                    //SELECT DEPORTISTAS POR CATEGORIAS. En princpio federados y no federados ordenados por edad                    
-                    if(strcmp($mostrar,"all") == 0)
-                    {
-                        $query = "SELECT idalumno,a.nombre nombre,apellido1,apellido2,dateborn,a.telefono telefono,c.competicion,color,n.idnivel idnivel,urgencias1
-                        from alumnos a,nivel n, competiciones c
-                        WHERE a.idnivel=n.idnivel and a.iddojo={$iddojo} and estado='{$estado}' and a.competicion=c.idcompeticion ORDER BY {$campo} {$ord}";
+                    //SELECT DEPORTISTAS
+                    $mesActual = date("m");
+                    $anioActual = date("Y");
 
-                    }                
-                    else
-                    {
-                        $query = "SELECT idalumno,a.nombre nombre,apellido1,apellido2,dateborn,a.telefono telefono,c.competicion,color,n.idnivel idnivel,urgencias1
-                        from alumnos a,nivel n, competiciones c 
-                        WHERE a.idnivel=n.idnivel and a.iddojo={$iddojo} and a.competicion={$mostrar} and c.idcompeticion=a.competicion and estado='{$estado}'  ORDER BY {$campo} {$ord}";
 
-                    }
+
+                    $query = "SELECT idalumno,a.nombre nombre,apellido1,apellido2, c.estado,c.mes
+                    from alumnos a, cuotas c
+                    WHERE a.idalumno=c.idlumno and c.mes={$mesActual} and c.anio={$anioActual} ORDER BY {$campo} {$ord}";
                     //echo $query;
                     $respuesta = mysqli_query($enlace,$query);
-                    $hoy = date('Y');
                     
                     while($row = mysqli_fetch_assoc($respuesta))
                     {
 
                         $id = $row['idalumno'];
                         $usuario = $row['nombre']." ".$row['apellido1']." ".$row['apellido2'];
-                        $competicion = $row['competicion'];
-                        $color = $row['color'];
-                        $telefono = $row['telefono'];     
-                        $urgencia = $row['urgencias1'];
-                        $fechaentera = strtotime($row['dateborn']);
-                        $anio = date("Y",$fechaentera);                        
-                        $diferencia = $hoy-$anio;
-                        if ($diferencia < 9) $categoria = "Prebenjamín";
-                        else if ( $diferencia<11 ) $categoria = "Benjamín";
-                        else if ($diferencia<13) $categoria = "Alevín";
-                        else if ($diferencia<15) $categoría = "Infantil";
-                        else if ($diferencia<18) $categoria = "Cadete";
-                        else if ($diferencia<21) $categoria = "Junior";
-                        else $categoria = "Senior";
+                        $mes = $row['mes'];
+                        $anio = $row['anio'];
 
+                        if ($row['estado'] == 1)
+                        {
+                            $estado = "Pagado" ;
+                        }else
+                        {
+                            $estado = "Pendiente" ;
+                        }
+                        
 
                         echo "<tr >";
                             echo " <th scope='row' colspan='3'>{$usuario}</th>";
-                            echo " <td> {$color}</td>";
-                            echo " <td class='table-dark'> {$competicion}</td>";
-                            echo " <td class='table-dark'>{$telefono} </td>";
-                            echo " <td class='table-dark'>{$categoria} </td>";
-                            echo " <td class='table-dark'>{$urgencia} </td>";
+                            echo " <td> {$mes}</td>";
+                            echo " <td class='table-dark'> {$anio}</td>";
+                            echo " <td class='table-dark'>{$estado} </td>";
                             
+                            if ($row['estado'] == 0)
+                            {
+                                echo " <td class='text-center'> <a href='pagarcuotas.php?idelemento={$id}&&idrol={$idenuso}' class='btn btn-primary'> <i class='bi bi-eye'></i> Pagar Mes </a> </td>";
+                            }
+                            echo " <td class='text-center' > <a href='historicocuotas.php?idalumno={$id}&&idrol={$idenuso}' class='btn btn-secondary' ><i class='bi bi-pencil'></i>Ver histórico coutas</a> </td>";
 
-                            if(strcmp($rolenuso,"administrador")==0)
-                            {
-                                if (strcmp($estado,"baja")==0)
-                                {
-                                    echo " <td class='text-center'> <a href='verelemento.php?dojo={$iddojo}&&idelemento={$id}&&estado=baja' class='btn btn-primary'> <i class='bi bi-eye'></i> Ver</a> </td>";
-                                    echo " <td class='text-center' > <a href='bajaalumno.php?dojo={$iddojo}&&alta={$id}' class='btn btn-danger' ><i class='bi bi-pencil'></i> Volver dar Alta</a> </td>";
-                                }else
-                                {
-                                    echo " <td class='text-center'> <a href='verelemento.php?dojo={$iddojo}&&idelemento={$id}&&estado=alta' class='btn btn-primary'> <i class='bi bi-eye'></i> Ver</a> </td>";
-                                    echo " <td class='text-center' > <a href='editaralumno.php?dojo={$iddojo}&&idalumno={$id}' class='btn btn-secondary' ><i class='bi bi-pencil'></i> Editar</a> </td>";
-                                    echo " <td class='text-center'>  <a href='bajaalumno.php?dojo={$iddojo}&&eliminar={$id}' class='btn btn-danger' > <i class='bi bi-trash'></i> Dar de Baja</a> </td>";
-                                }
-                                
-                            
-                            }/*else if(strcmp($rolenuso,"entrenador")==0)
-                            {
-                                echo " <td class='text-center' > <a href='editarincidencia.php?editar&incidencia_id={$id}' class='btn btn-secondary' ><i class='bi bi-pencil'></i> Editar</a> </td>";
-                            }*/
                             
                         echo " </tr> ";
                            
                     }
+                    
                 echo "</tr>";  
             echo "</tbody>";
         echo "</table>";
-        /*echo "<div class='form-group'>";
-
-            $query = "SELECT count(idincidencia) numero from incidencias2 WHERE fecha_resol is not null";
-            $resueltas = mysqli_fetch_array(mysqli_query($enlace,$query));
-
-            $query = "SELECT count(idincidencia) numero from incidencias2 WHERE fecha_resol is null";
-            $inresolver = mysqli_fetch_array(mysqli_query($enlace,$query));
-            $total = $inresolver['numero']+$resueltas['numero'];
-
-            echo "<p class='edicion'>Incidencias resueltas: ". $resueltas['numero']." incidencias.<br>";
-            echo "Incidencias pendientes de resolver: ".$inresolver['numero']." incidencias.<br>";
-            echo "Total Incidencias : ". $total." incidencias </p>";
-        echo "</div>";*/
     echo "</div>";
     mysqli_close($enlace);
      
 }
 
 include "pie.php";
+/* PARA GESTIONAR ROLES
+if(strcmp($rolenuso,"administrador")==0)
+{
+    /*PARA GESTIONAR ALUMNOS EN BAJA
+    if (strcmp($estado,"baja")==0)
+    {
+        echo " <td class='text-center'> <a href='verelemento.php?dojo={$iddojo}&&idelemento={$id}&&estado=baja' class='btn btn-primary'> <i class='bi bi-eye'></i> Pagar </a> </td>";
+        echo " <td class='text-center' > <a href='bajaalumno.php?dojo={$iddojo}&&alta={$id}' class='btn btn-danger' ><i class='bi bi-pencil'></i> Volver dar Alta</a> </td>";
+    }else
+    {
+        echo " <td class='text-center'> <a href='verelemento.php?dojo={$iddojo}&&idelemento={$id}&&estado=alta' class='btn btn-primary'> <i class='bi bi-eye'></i> Ver</a> </td>";
+        echo " <td class='text-center' > <a href='editaralumno.php?dojo={$iddojo}&&idalumno={$id}' class='btn btn-secondary' ><i class='bi bi-pencil'></i> Editar</a> </td>";
+        echo " <td class='text-center'>  <a href='bajaalumno.php?dojo={$iddojo}&&eliminar={$id}' class='btn btn-danger' > <i class='bi bi-trash'></i> Dar de Baja</a> </td>";
+    }*/
+    
+
+/*}else if(strcmp($rolenuso,"entrenador")==0)
+{
+    echo " <td class='text-center' > <a href='editarincidencia.php?editar&incidencia_id={$id}' class='btn btn-secondary' ><i class='bi bi-pencil'></i> Editar</a> </td>";
+}*/
+                    /* POR SI QUIERO SELECCIONA MOSTRAR POR FEDERADOS, NO FEDERADOS ETC
+if(strcmp($mostrar,"all") == 0)
+{
+    $query = "SELECT idalumno,a.nombre nombre,apellido1,apellido2, c.estado,c.mes
+    from alumnos a, cuotas c
+    WHERE a.idalumno=c.idlumno and c.mes={$mesActual} and c.anio={$anioActual} ORDER BY {$campo} {$ord}";
+
+}                
+else
+{
+    $query = "SELECT idalumno,a.nombre nombre,apellido1,apellido2,dateborn,a.telefono telefono,c.competicion,color,n.idnivel idnivel,urgencias1
+    from alumnos a,nivel n, competiciones c 
+    WHERE a.idnivel=n.idnivel and a.iddojo={$iddojo} and a.competicion={$mostrar} and c.idcompeticion=a.competicion and estado='{$estado}'  ORDER BY {$campo} {$ord}";
+
+}*/
 ?>

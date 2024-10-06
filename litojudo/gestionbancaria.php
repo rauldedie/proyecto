@@ -144,7 +144,7 @@ if (isset($_GET['usuario']))
                 <div class='col-md'>
                     <div class='mb-3'>
                         <label for='validationCustom03' class='form-label'><span class='obligado'>Número de cuenta</span></label>
-                        <input type='text' class='form-control' id='validationCustom03' name='cuenta' placeholder='Cuenta bancaria'>
+                        <input type='text' class='form-control' id='validationCustom03' name='ccc' placeholder='Cuenta bancaria'>
                         <div class='valid-feedback'>
                             ¡Correcto!
                         </div>
@@ -159,130 +159,142 @@ if (isset($_GET['usuario']))
 
         if(isset($_POST['buscacuenta'])) 
         {
+            $nombre="";
+            $apellido1="";
+            $apellido2="";
+            $cuenta="";
+
+
             $nombre = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['nombre']))));
             $apellido1 = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['apellido1']))));
             $apellido2 = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['apellido2']))));
-            $cuenta = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['cuenta']))));
+            $cuenta = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['ccc']))));
+
             //echo $cuenta;
             
             if ( empty($nombre) && empty($apellido1) && empty($apellido2) && empty($cuenta))
             {
                 echo "Demasiados campos vacíos. Al menos debe de proporcionar un dato de búsqueda.<br>";
 
-            }else
+            }
+            
+            if (empty($cuenta))
             {
-                if (!empty($cuenta))
+                if (empty($nombre) && empty($apellido1))
                 {
-                    if (verificarCadena($cuenta)) 
-                    {
-
-                        $query = "SELECT idalumno, nombre, apellido1, apellido2, cuenta FROM alumnos WHERE cuenta='{$cuenta}' ORDER BY {$campo} {$ord}";
-                        echo $query;
-
-                        /*if ($stmt = mysqli_prepare($enlace, $query)) {
-                            mysqli_stmt_bind_param($stmt, 's', $cuenta);
-                            mysqli_stmt_execute($stmt);
-                            $respuesta = mysqli_stmt_get_result($stmt);
-                            mysqli_stmt_close($stmt);
-                        } else {
-                            echo "Error en la preparación de la consulta.";
-                        }*/
-                        $respuesta = mysqli_query($enlace,$query);
-                        echo $respuesta
-
-                    } else {
-                        
-                        echo "<label for='validationCustom03' class='form-label'><span>La cuenta no es válida. Introduzca una cuenta válida con formato:</span></label><br>
-                        <label for='validationCustom03' class='form-label'><span class='obligado'>Dos letras y 22 numeros, sin espacios (ESxxxxxxxxxxxxxxxxxxxxxxxx).</span></label><br>";
-
-                    }
-
-                }else
-                {
-                    
-                    if (!empty($nombre))
-                    {
-                        if (!empty($apellido1))
-                        {
-                            if(!empty($apellido2))
-                            {
-                                $query = "SELECT idalumno,nombre,apellido1,apellido2,cuenta
-                                FROM alumnos WHERE nombre='{$nombre}' and apellido1='{$apellido1}' and apellido2='{$apellido2}' ORDER BY {$campo} {$ord}";
-                                $respuesta = mysqli_query($enlace,$query);
-
-                            }else
-                            {
-                                $query = "SELECT idalumno,nombre,apellido1,apellido2,cuenta
-                                FROM alumnos WHERE nombre='{$nombre}' and apellido1='{$apellido1}' ORDER BY {$campo} {$ord}";
-                                $respuesta = mysqli_query($enlace,$query);
-                            }
-
-                        }else
-                        {
-                            //echo "hola";
-                            $query = "SELECT idalumno,nombre,apellido1,apellido2,cuenta
-                            FROM alumnos a WHERE nombre='{$nombre}' ORDER BY {$campo} {$ord}";
-                            //echo $query;
-                            $respuesta = mysqli_query($enlace,$query);
-                            //echo $respuesta;
-                        }
-                    }else
-                    {
-                        if (!empty($apellido1))
-                        {
-                            if (!empty($apellido2))
-                            {
-                                $query = "SELECT idalumno,nombre,apellido1,apellido2,cuenta
-                                FROM alumnos WHERE apellido1='{$apellido1}' and apellido2='{$apellido2}' ORDER BY {$campo} {$ord}";
-                                $respuesta = mysqli_query($enlace,$query);
-
-                            }else
-                            {
-                                $query = "SELECT idalumno,nombre,apellido1,apellido2,cuenta
-                                FROM alumnos a WHERE  apellido1='{$apellido1}' ORDER BY {$campo} {$ord}";
-                                $respuesta = mysqli_query($enlace,$query);
-                            }
-                        }else
-                        {
-                            $query = "SELECT idalumno,nombre,apellido1,apellido2,cuenta
-                            FROM alumnos WHERE apellido2='{$apellido2}' ORDER BY {$campo} {$ord}";
-                            $respuesta = mysqli_query($enlace,$query);
-                        }
-                    }
-                    echo "<table class='table table-striped table-bordered table-hover'>";
-                    echo "<thead class='table table-striped'>";
-                        echo "<tr>";                   
-                            echo "<th class='table-dark' scope='col'><a>Alumno</a></th>";
-                            echo "<th class='table-dark' scope='col'><a>Número de Cuenta</a></th>";
-                            echo "<th class='table-dark' scope='col' colspan='3' class='text-center'>Operaciones</th>";
-                        echo "</tr>";  
-                    echo "</thead>";
-                    echo "<tbody>";
-                    
-                            while($row = mysqli_fetch_assoc($respuesta))
-                            {
-                                $id = $row['idalumno'];
-                                $alumno = $row['nombre'].' '.$row['apellido1'].' '.$row['apellido2'];
-                                $cuenta = $row['cuenta'];
-                                echo"<tr>";
-                                        echo "<td>{$alumno}</td>";
-                                        echo "<td class='obligado'>{$cuenta}</td>";
-                                        echo "<td></td>";
-                                echo "</tr>";
-                            }
-
-                    echo "</tbody>";
-                    echo "</table>";
+                    $query = "SELECT idalumno,nombre,apellido1,apellido2,cuenta
+                    FROM alumnos WHERE apellido2='{$apellido2}' ORDER BY {$campo} {$ord}";
+                    $respuesta = mysqli_query($enlace,$query);
                 }
 
+                    
+                if(empty($apellido2) && empty($apellido1))
+                {
+                    $query = "SELECT idalumno,nombre,apellido1,apellido2,cuenta
+                    FROM alumnos WHERE nombre='{$nombre}' ORDER BY {$campo} {$ord}";
+                    $respuesta = mysqli_query($enlace,$query);
+
+                }
+
+                if (empty($nombre) && empty($apellido2)) 
+                {
+                    $query = "SELECT idalumno,nombre,apellido1,apellido2,cuenta
+                    FROM alumnos WHERE apellido1='{$apellido1}' ORDER BY {$campo} {$ord}";
+                    $respuesta = mysqli_query($enlace,$query);
+
+                }
+
+                if (empty($nombre) && !empty($apellido1) && !empty($apellido2))
+                {
+                    $query = "SELECT idalumno,nombre,apellido1,apellido2,cuenta
+                    FROM alumnos WHERE apellido1='{$apellido1}' and apellido2='{$apellido2}' ORDER BY {$campo} {$ord}";
+                    $respuesta = mysqli_query($enlace,$query);
+
+                }
+
+                if (!empty($nombre) && empty($apellido1) && !empty($apellido2))
+                {
+                    $query = "SELECT idalumno,nombre,apellido1,apellido2,cuenta
+                    FROM alumnos WHERE apellido2='{$apellido2}' and nombre='{$nombre}' ORDER BY {$campo} {$ord}";
+                    $respuesta = mysqli_query($enlace,$query);
+
+                }
+
+                if (!empty($nombre) && !empty($apellido1) && empty($apellido2))
+                {
+                    $query = "SELECT idalumno,nombre,apellido1,apellido2,cuenta
+                    FROM alumnos WHERE nombre='{$nombre}' and apellido1='{$apellido1}' ORDER BY {$campo} {$ord}";
+                    $respuesta = mysqli_query($enlace,$query);
+
+                }
+
+                if (!empty($nombre) && !empty($apellido1) && !empty($apellido1))
+                {
+                    $query = "SELECT idalumno,nombre,apellido1,apellido2,cuenta
+                    FROM alumnos WHERE apellido1='{$apellido1}' and nombre='{$nombre}' and apellido2='{$apellido2}' ORDER BY {$campo} {$ord}";
+                    $respuesta = mysqli_query($enlace,$query);
+                }
+
+            }elseif (verificarCadena($cuenta)) 
+            {
+
+                $query = "SELECT idalumno, nombre, apellido1, apellido2, cuenta FROM alumnos WHERE cuenta='{$cuenta}' ORDER BY {$campo} {$ord}";
+                //echo $query;
+
+                /*if ($stmt = mysqli_prepare($enlace, $query)) {
+                    mysqli_stmt_bind_param($stmt, 's', $cuenta);
+                    mysqli_stmt_execute($stmt);
+                    $respuesta = mysqli_stmt_get_result($stmt);
+                    mysqli_stmt_close($stmt);
+                } else {
+                    echo "Error en la preparación de la consulta.";
+                }*/
+                $respuesta = mysqli_query($enlace,$query);
+                //echo $respuesta;
+
+            }else 
+            {
+                
+                echo "<label for='validationCustom03' class='form-label'><span>La cuenta no es válida. Introduzca una cuenta válida con formato:</span></label><br>
+                <label for='validationCustom03' class='form-label'><span class='obligado'>Dos letras y 22 numeros, sin espacios (ESxxxxxxxxxxxxxxxxxxxxxxxx).</span></label><br>";
+
             }
+                
+                
+            echo "<table class='table table-striped table-bordered table-hover'>";
+            echo "<thead class='table table-striped'>";
+                echo "<tr>";                   
+                    echo "<th class='table-dark' scope='col'><a>Alumno</a></th>";
+                    echo "<th class='table-dark' scope='col'><a>Número de Cuenta</a></th>";
+                    echo "<th class='table-dark' scope='col' colspan='3' class='text-center'>Operaciones</th>";
+                echo "</tr>";  
+            echo "</thead>";
+            echo "<tbody>";
+            
+                    while($row = mysqli_fetch_assoc($respuesta))
+                    {
+                        $id = $row['idalumno'];
+                        $alumno = $row['nombre'].' '.$row['apellido1'].' '.$row['apellido2'];
+                        $cuenta = $row['cuenta'];
+                        echo"<tr>";
+                                echo "<td>{$alumno}</td>";
+                                echo "<td class='table-dark'>{$cuenta}</td>";
+                                echo "<td></td>";
+                        echo "</tr>";
+                    }
+
+            echo "</tbody>";
+            echo "</table>";
+            
+
+            
 
         }
     echo "</div>";
-    mysqli_close($enlace);
+   
      
 }
-
+mysqli_close($enlace);
 include "pie.php";
 
 

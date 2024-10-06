@@ -10,7 +10,7 @@ if ($conn->connect_error) {
 }else
 {
     $sentencias = file_get_contents("creatabla.sql");
-    while ($sentencia = mysqli_fetch_array ($sentencias))
+    while ($sentencia = mysqli_fetch_array ($sentencia))
     {
         // Condicional PHP que creará la tabla
         if (mysqli_query($conn, $sentencia)) {

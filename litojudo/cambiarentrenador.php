@@ -101,7 +101,9 @@ if (strcmp($fila['tipo'],"administrador")!=0)
                     <a class='dropdown-item' href='#'>Gastos</a>
                 
                     <div class='dropdown-divider'></div>
-                        <a class='dropdown-item' href='#'>Balance</a>
+                                
+                        <a class='dropdown-item' href='gestionbancaria.php?usuario={$rolenuso}&&ord={$ord}&&campo=nombre&&mostrar=all'>Comprobacion Cuentas</a>
+                                
                     </div>
                 </div>
             </li>
