@@ -1,5 +1,6 @@
 <?php
 session_start();
+setlocale(LC_ALL, 'es_ES.UTF-8');
 $tiempo_inactivo = 10 * 60;
 if (!array_key_exists("usuario_id",$_SESSION)){
     // Si no tenia la sesion iniciada
@@ -284,6 +285,7 @@ if(isset($_GET['idelemento']))//añadir poder consultar como entrenador y como o
             while ($lista = mysqli_fetch_assoc($faltas))
             {
                 $falta = $lista['fechafalta'];
+                $falta = date('d-m-Y',strtotime($falta));
                 echo "<tr>";
                     echo "<td> {$falta} </td>";
                 echo "</tr>";

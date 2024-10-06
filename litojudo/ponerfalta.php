@@ -72,6 +72,7 @@ if (isset($_GET['falta']))
             //hoy es lunes o miercoles y ha faltado ese dia
             //echo "Falta dia: ";
             //echo date("d/m/y")."<br>";
+            $fecha = date('d-m-y',strtotime($fecha));
             $query = "INSERT INTO faltas (idalumno,idclase,fechafalta) VALUES ({$idalumno},{$idclase},'{$fecha}')";
             //echo $query."<br>";
             $resultado = mysqli_query($enlace,$query);

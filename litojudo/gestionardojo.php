@@ -188,6 +188,8 @@ if (isset($_GET['usuario']))
             echo "<a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=3' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Alumnos sin Competición</a>";
             echo "<a href='gestionardojo.php?dojo={$iddojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mostrar Todos</a>";
             echo "<a href='gestionardojo.php?dojo={$cambiodojo}&&usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Cambiar Dojo</a>";
+            echo "<a href='gestionbancaria.php?usuario={$rolenuso}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Comprobacion Cuentas</a>";
+            echo "<a href='gestionmensualidad.php?usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mensualidades</a>";
             
             
         }
