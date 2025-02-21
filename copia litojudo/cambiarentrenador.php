@@ -101,12 +101,17 @@ if (strcmp($fila['tipo'],"administrador")!=0)
                     <a class='dropdown-item' href='#'>Gastos</a>
                 
                     <div class='dropdown-divider'></div>
-                        <a class='dropdown-item' href='#'>Balance</a>
+                                
+                        <a class='dropdown-item' href='gestionbancaria.php?usuario={$rolenuso}&&ord={$ord}&&campo=nombre&&mostrar=all'>Comprobacion Cuentas</a>
+                                
                     </div>
                 </div>
             </li>
             <li class='nav-item'>
                 <a class='navbar-brand' href='gestionardojo.php?dojo={$iddojo}&&usuario={$idenuso}'><span class='text-primary'>VOLVER</span></a>
+            </li>
+            <li class='nav-item'>
+                <a class='navbar-brand' href='avisolegal.php'><span class='text-warning'>AVISO LEGAL</span></a>
             </li>
             <li class='nav-item'>
                 <a class='navbar-brand' href='logout.php'><span class='text-warning'>SALIR</span></a>

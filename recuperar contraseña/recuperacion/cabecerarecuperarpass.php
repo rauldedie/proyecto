@@ -15,7 +15,7 @@
         <label>Nombre Usuario (*): </label for="nombreusuario"><input name="nombreusuario" class="form" type="text" id="dato0" required placeholder="Nombre de usuario">
         <label class="error" id="error0" ></label><br><br>
 
-        <label >Correo electrónico (*): </label for="mail"><input name="mail" class="form" type="email" id="dato1" required placeholder="Correo electrónico">
+        <label >Correo electrónico (*): </label for="mail"><input name="mail" style="display:none" class="form" type="email" id="dato1" required placeholder="Correo electrónico">
         <label class="error" id="error1" style="display:none"></label><br><br>
             
         <label for="">Los campos marcados con (*) son obligatorios</label><br><br>

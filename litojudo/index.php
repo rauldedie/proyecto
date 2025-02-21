@@ -24,19 +24,43 @@ if (isset($_POST["login"]))
         $error .= "El campo contraseña no puede quedar vacío.";
     }else
     {
+
+        //encripto el pass y el usuario paara que se pueda comparar con la BD
+        $dato = $pass;
+        include "encriptar.php";
+        $pass = $datocry;
+
+        $dato = $usuario;
+        include "encriptar.php";
+        $usuario = $datocry;
+
+        echo $pass."<br>";
+        echo $usuario."<br>";
+
+
         $query = "SELECT * FROM usuarios WHERE usuario='{$usuario}' AND pass='{$pass}' and estado='alta'";
-        $resultado = mysqli_query($enlace, $query);
+        //$resultado = mysqli_query($enlace, $query);
 
         if (mysqli_num_rows($resultado)>0)
         {
             $row = mysqli_fetch_array($resultado);
-            $idusuario = $row['idusuario'];
-            $_SESSION['usuario_id'] = $row['idusuario'];
+
+            //desencripto datos
+            $datocry = $row['idusuario'];
+            include "desencriptar.php";
+            $idusuario = $datodcry;
+
+            $$datocry = $row['tipousuario'];
+            include "desencriptar.php";
+            $tipousuario = $datodcry;
+
+
+            $_SESSION['usuario_id'] = $idusuario;
             $_SESSION['usuario_nombre'] = $usuario;
-            $_SESSION['usuario_rol'] = $row['tipousuario'];
+            $_SESSION['usuario_rol'] = $tipousuario;
             $_SESSION['inactivo'] = time();
 
-            $query = "SELECT tipousuario FROM tipo_usuario WHERE idtipo={$row['tipousuario']}";
+            $query = "SELECT tipousuario FROM tipo_usuario WHERE idtipo={$tipousuario}";
             $fila = mysqli_fetch_array(mysqli_query($enlace,$query));
             
             if (strcmp($fila['tipousuario'],'administrador')==0)

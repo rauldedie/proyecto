@@ -194,6 +194,62 @@ $entmairena = mysqli_fetch_array(mysqli_query($enlace,$query));
 
 echo "</body>
 </table>"; 
+/*$query = "SELECT usuario,pass FROM usuarios";
+$respuesta = mysqli_query($enlace,$query);
+    //echo $query."<br>";
+while($row = mysqli_fetch_assoc($respuesta))
+{
+  $pass = $row['pass'];
+  $usuario = $row['usuario'];
+  echo $pass."<br>";
+  echo $usuario."<br>";
+
+
+  // Encriptar la contraseña usando el algoritmo bcrypt
+  $hash = password_hash($pass, PASSWORD_DEFAULT);
+  echo PASSWORD_DEFAULT."<br>";
+  // Mostrar el hash generado
+  echo $hash."<br>";
+  //$hash = "$2y$10$AJaM41TSnEgCsdp7tZqqmuSShmccHE9uEpqpipXVfOCihltd1YZd2";
+  if (password_verify($pass, $hash)) {
+    echo '¡Contraseña correcta!';
+  } else {
+      echo 'Contraseña incorrecta.';
+  }
+
+  /*$mensaje = $pass;
+  include "encriptar.php";
+  $pass = $cifrado;
+
+  echo $pass."<br>";
+
+  $cifrado = $pass;
+  //include "desencriptar.php";
+  $descifrado = sodium_crypto_secretbox_open($cifrado, $nonce, $clave);
+  $pass = $descifrado;
+
+  echo $pass."<br>";
+
+  /*$mensaje = $usuario;
+  include "encriptar.php";
+  $usuario = $cifrado;
+
+  echo $usuario."<br>";
+
+  $cifrado = $usuario;
+  include "desencriptar.php";
+  $usuario = $descifrado;
+  
+  echo $usuario."<br>";
+
+  //$query = "UPDATE usuarios set usuario='{$usuario}' where idusuario=1";
+  //$respuesta = mysqli_query($enlace,$query);
+
+  //$query = "UPDATE usuarios set pass='{$pass}' where idusuario=1";
+  //$respuesta = mysqli_query($enlace,$query);
+
+}*/
+
 
 mysqli_close($enlace);
 include "pie.php";

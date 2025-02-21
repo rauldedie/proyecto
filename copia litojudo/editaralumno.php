@@ -74,6 +74,8 @@ if (isset($_GET['idalumno']))
     $kyu = mysqli_fetch_array(mysqli_query($enlace,$query));
 
 
+
+
  //Asigno datos actuales
     $nombre = $alumno['nombre'];
     $apellido1 = $alumno['apellido1'];
@@ -95,6 +97,7 @@ if (isset($_GET['idalumno']))
     $idhoraclase = $hora_clase['idhoraclase'];
     $iddiaclase = $dia_clase['iddiaclase'];
     $idclase = $dia_clase['idclase'];
+    $cuenta = $alumno['cuenta'];
 
     //Recojo los cambios y actualizo las tablas
     if (isset($_POST['editaralumno']))
@@ -124,6 +127,18 @@ if (isset($_GET['idalumno']))
 
         $diaclasemod = htmlspecialchars(mysqli_real_escape_string($enlace,stripcslashes($_POST['diaclase'])));
         $horaclasemod =  htmlspecialchars(mysqli_real_escape_string($enlace,stripcslashes($_POST['horaclase'])));
+
+        $cuenta1 = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['ccc1']))));
+        $cuenta2 = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['ccc2']))));
+        $cuenta3 = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['ccc3']))));
+        $cuenta4 = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['ccc4']))));
+        $cuenta5 = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['ccc5']))));
+        //$cuenta = $cuenta1.$cuenta2.$cuenta3.$cuenta4.$cuenta5;
+
+        if (!empty($cuenta1) && !empty($cuenta2) && !empty($cuenta3) && !empty($cuenta4) && !empty($cuenta5))
+        {
+            $cuenta = $cuenta1.$cuenta2.$cuenta3.$cuenta4.$cuenta5;
+        }
         
         if(empty($diaclasemod))
         {
@@ -137,7 +152,7 @@ if (isset($_GET['idalumno']))
         $query = "UPDATE alumnos set nombre='{$nombremod}', apellido1='{$apellido1mod}',apellido2='{$apellido2mod}',
         dateborn='{$datebornmod}', email='{$emailmod}', telefono='{$telefonomod}',padre='{$padremod}',madre='{$madremod}',
         urgencias1='{$urgencias1mod}',urgencias2='{$urgencias2mod}',dni='{$dnimod}',idnivel={$kyumod},competicion={$competicionmod},
-        iddojo={$iddojomod} where idalumno={$idalumno}";
+        iddojo={$iddojomod}, cuenta='{$cuenta}' where idalumno={$idalumno}";
         //echo $query;
         $resp = mysqli_query($enlace,$query);
 
@@ -239,13 +254,18 @@ include "cabecera.php";
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">Ingresos</a>
                     <a class="dropdown-item" href="#">Gastos</a>
-                    <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Balance</a>
+                    <div class='dropdown-divider'></div>
+                                
+                        <a class='dropdown-item' href='gestionbancaria.php?usuario={$rolenuso}&&ord={$ord}&&campo=nombre&&mostrar=all'>Comprobacion Cuentas</a>
+                                
                     </div>
                 </div>
             </li>
             <li class='nav-item'>
                 <a class='navbar-brand' href="gestionardojo.php?dojo=<?php echo $iddojo?>&&mostrar=all&&ord=desc&&campo=nombre&&usuario=<?php echo $idusuario?>"><span class='text-primary'>VOLVER</span></a>
+            </li>
+            <li class='nav-item'>
+                <a class='navbar-brand' href='avisolegal.php'><span class='text-warning'>AVISO LEGAL</span></a>
             </li>
             <li class="nav-item">
                 <a class="navbar-brand" href="logout.php"><span class="text-warning">Salir</span></a>
@@ -484,6 +504,55 @@ include "cabecera.php";
                     ?>
                 </select>
             </div>
+        </div>
+        <div class="col-md">
+            <label for="validationCustom10" class="form-label"><span class="obligado">Cuenta Bancaria.</span></label>
+            <table>
+                <tr>
+                    <td>
+                        <div class="mb-3">                
+                            <input type="text" class="form-control" id="validationCustom10" name="ccc1" size="4ch" maxlength="4" placeholder="ESxx">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="mb-3">                
+                            <input type="text" class="form-control" id="validationCustom11" name="ccc2" size="5ch" maxlength="5" placeholder="xxxxx">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="mb-3">                
+                            <input type="text" class="form-control" id="validationCustom12" name="ccc3" size="5ch" maxlength="5" placeholder="xxxxx">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="mb-3">                
+                            <input type="text" class="form-control" id="validationCustom13" name="ccc4" size="5ch" maxlength="5" placeholder="xxxxx">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="mb-3">                
+                            <input type="text" class="form-control" id="validationCustom14" name="ccc5" size="5ch" maxlength="5" placeholder="xxxxx">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
         </div>
     </div>
 

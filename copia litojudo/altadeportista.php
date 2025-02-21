@@ -68,63 +68,74 @@ if(isset($_POST['nuevoalumno']))
     $horaclase = htmlspecialchars(mysqli_real_escape_string($enlace,stripcslashes($_POST['horaclase'])));
     $estado = "alta";
     $error = "";
-    //para comprobar que los datos estan bien
-    /*if($nombre.length()==0 || $apellidos.length()==0 )
+
+    $cuenta1 = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['ccc1']))));
+    $cuenta2 = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['ccc2']))));
+    $cuenta3 = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['ccc3']))));
+    $cuenta4 = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['ccc4']))));
+    $cuenta5 = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['ccc5']))));
+    $cuenta = $cuenta1.$cuenta2.$cuenta3.$cuenta4.$cuenta5;
+
+    /*if (!empty($cuenta))
     {
-        $error.= "Ningún campo obligatorio puede quedar vacío.<br>";
-    }else
-    {*/
-        //busco que no exista ya en la BD
-        $query = "SELECT nombre,apellido1,apellido2,estado FROM alumnos 
-        WHERE nombre = '{$nombre}' and apellido1 = '{$apellido1}' and apellido2 = '{$apellido2}'";
-        //echo $query;
-        $resultado = mysqli_query($enlace,$query);
-       
-        if(mysqli_num_rows($resultado)>0)
+        if (!checkIBAN($cuenta))
         {
-            $fila = mysqli_fetch_array($resultado);
-            if(strcmp($fila['estado'],"baja")==0)
-            {
-                echo "<script type='text/javascript'>alert('Este alumno apararece de baja, puedes pasarlo a estado activo en reactivar usuario')</script>";  
-            }else
-            {
-                echo "<script type='text/javascript'>alert('Este alumno ya esta dado de alta')</script>";  
-            } 
-            
+            $error.="cuenta incorrecta";
+        }
+    } */
+    echo $nombre;
+
+    //busco que no exista ya en la BD
+    $query = "SELECT nombre,apellido1,apellido2,estado FROM alumnos 
+    WHERE nombre = '{$nombre}' and apellido1 = '{$apellido1}' and apellido2 = '{$apellido2}'";
+    //echo $query;
+    $resultado = mysqli_query($enlace,$query);
+    
+    if(mysqli_num_rows($resultado)>0)
+    {
+        $fila = mysqli_fetch_array($resultado);
+        if(strcmp($fila['estado'],"baja")==0)
+        {
+            echo "<script type='text/javascript'>alert('Este alumno apararece de baja, puedes pasarlo a estado activo en reactivar usuario')</script>";  
         }else
         {
-            
-            //EL usuario no existe encriptamos e insertamos los datos en la tabla alumnos";
-            $query = "INSERT INTO alumnos (nombre,apellido1,apellido2,dateborn,urgencias1,urgencias2,padre,madre,idnivel,competicion,iddojo,telefono,email,dni,estado) 
-            VALUES ('{$nombre}','{$apellido1}','{$apellido2}','{$dateborn}','{$urgencias1}','{$urgencias2}','{$padre}','{$madre}',{$kyu},{$competicion},{$iddojo},'{$telefono}','{$email}','{$dni}','{$estado}')";
+            echo "<script type='text/javascript'>alert('Este alumno ya esta dado de alta')</script>";  
+        } 
+        
+    }else
+    {
+        
+        //EL usuario no existe encriptamos e insertamos los datos en la tabla alumnos";
+        $query = "INSERT INTO alumnos (nombre,apellido1,apellido2,dateborn,urgencias1,urgencias2,padre,madre,idnivel,competicion,iddojo,telefono,email,dni,estado,cuenta) 
+        VALUES ('{$nombre}','{$apellido1}','{$apellido2}','{$dateborn}','{$urgencias1}','{$urgencias2}','{$padre}','{$madre}',{$kyu},{$competicion},{$iddojo},'{$telefono}','{$email}','{$dni}','{$estado}','{$cuenta}')";
+        //echo $query."<br>";
+        $resultado = mysqli_query($enlace,$query);
+
+        $ultimo_id = mysqli_insert_id($enlace);
+        //echo $ultimo_id;
+
+        if($resultado)
+        {
+            $query = "SELECT idclase FROM clases 
+            WHERE iddiaclase = {$diaclase} and idhoraclase = {$horaclase} and iddojo = {$iddojo}";
             //echo $query."<br>";
-            $resultado = mysqli_query($enlace,$query);
+            $clase = mysqli_fetch_array(mysqli_query($enlace,$query));
 
-            $ultimo_id = mysqli_insert_id($enlace);
-            //echo $ultimo_id;
-
-            if($resultado)
+            $query = "UPDATE alumnos SET  idclase={$clase['idclase']} WHERE idalumno={$ultimo_id}";
+            //echo $query."<br>";
+            $resp = mysqli_query($enlace,$query);
+            if (!$resp)
             {
-                $query = "SELECT idclase FROM clases 
-                WHERE iddiaclase = {$diaclase} and idhoraclase = {$horaclase} and iddojo = {$iddojo}";
-                //echo $query."<br>";
-                $clase = mysqli_fetch_array(mysqli_query($enlace,$query));
+                $error.="Error al actualizar clase".mysqli_error($enlace)."<br>";
+            }
+            
 
-                $query = "UPDATE alumnos SET  idclase={$clase['idclase']} WHERE idalumno={$ultimo_id}";
-                //echo $query."<br>";
-                $resp = mysqli_query($enlace,$query);
-                if (!$resp)
-                {
-                    $error.="Error al actualizar clase".mysqli_error($enlace)."<br>";
-                }
-                
+        }else
+        {
+            $error.="Error al dar de alta alumno".mysqli_error($enlace)."<br>";
+        }         
+    }
 
-            }else
-            {
-                $error.="Error al dar de alta alumno".mysqli_error($enlace)."<br>";
-            }         
-        }
-    //}
     if($error=="")
     {
         echo "<script type='text/javascript'>alert('¡Alumno Añadido!')</script>";
@@ -183,13 +194,18 @@ include "cabecera.php";
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">Ingresos</a>
                     <a class="dropdown-item" href="#">Gastos</a>
-                    <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Balance</a>
+                    <div class='dropdown-divider'></div>
+                                
+                        <a class='dropdown-item' href='gestionbancaria.php?usuario={$rolenuso}&&ord={$ord}&&campo=nombre&&mostrar=all'>Comprobacion Cuentas</a>
+                                
                     </div>
                 </div>
             </li>
             <li class='nav-item'>
                 <a class='navbar-brand' href="gestionardojo.php?dojo=<?php echo $iddojo ?>&&mostrar=all&&ord=desc&&campo=nombre&&usuario=<?php echo $idusuario?>"><span class='text-primary'>VOLVER</span></a>
+            </li>
+            <li class='nav-item'>
+                <a class='navbar-brand' href='avisolegal.php'><span class='text-warning'>AVISO LEGAL</span></a>
             </li>
             <li class="nav-item">
                 <a class="navbar-brand" href="logout.php"><span class="text-warning">Salir</span></a>
@@ -419,12 +435,102 @@ include "cabecera.php";
                 </div>
             </div>
         </div>
+        <div class="col-md">
+            <label for="validationCustom10" class="form-label"><span class="obligado">Cuenta Bancaria.</span></label>
+            <table>
+                <tr>
+                    <td>
+                        <div class="mb-3">                
+                            <input type="text" class="form-control" id="validationCustom10" name="ccc1" size="4ch" maxlength="4" placeholder="ESxx">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="mb-3">                
+                            <input type="text" class="form-control" id="validationCustom11" name="ccc2" size="5ch" maxlength="5" placeholder="xxxxx">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="mb-3">                
+                            <input type="text" class="form-control" id="validationCustom12" name="ccc3" size="5ch" maxlength="5" placeholder="xxxxx">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="mb-3">                
+                            <input type="text" class="form-control" id="validationCustom13" name="ccc4" size="5ch" maxlength="5" placeholder="xxxxx">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="mb-3">                
+                            <input type="text" class="form-control" id="validationCustom14" name="ccc5" size="5ch" maxlength="5" placeholder="xxxxx">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
     </div>
+
 
     <div  class="container text-center mt-5">
         <button type="submit" name="nuevoalumno" class="btn btn-primary">Alta alumno</button>
     </div>
 
 </form>
-<?php include "pie.php"?>
+
+
+<?php include "pie.php";
+
+
+ // Función para verificar si una cuenta IBAN es correcta
+ // @param string $iban
+ // @return boolean
+ 
+function checkIBAN($iban) {
+    // Eliminar espacios en blanco
+    $iban = str_replace(' ', '', $iban);
+    
+    // Mover los cuatro primeros caracteres al final de la cadena
+    $iban = substr($iban, 4) . substr($iban, 0, 4);
+    
+    // Reemplazar cada letra por su valor numérico
+    $iban = str_replace(
+        range('A', 'Z'),
+        range(10, 35),
+        $iban
+    );
+    
+    // Convertir la cadena en un número entero y calcular el módulo 97
+    $modulo = intval(substr($iban, 0, 1));
+    for ($i = 1; $i < strlen($iban); $i++) {
+        $modulo = ($modulo * 10 + intval(substr($iban, $i, 1))) % 97;
+    }
+    
+    // Si el resultado es 1, el IBAN es válido
+    if ($modulo==1)
+    {
+        return 1;
+    }else
+    {
+        return 0;
+    }
+    
+}
+
+?>
 

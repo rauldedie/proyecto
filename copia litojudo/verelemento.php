@@ -1,5 +1,6 @@
 <?php
 session_start();
+setlocale(LC_ALL, 'es_ES.UTF-8');
 $tiempo_inactivo = 10 * 60;
 if (!array_key_exists("usuario_id",$_SESSION)){
     // Si no tenia la sesion iniciada
@@ -108,6 +109,9 @@ echo "<label class='navbar-brand'><span class='text-light bg-dark'>GESTION DEPOR
                 <a class='navbar-brand' href='gestionardojo.php?dojo={$iddojo}&&estado={$estado}&&mostrar=all&&ord=desc&&campo=nombre&&usuario={$idenuso}'><span class='text-primary'>VOLVER</span></a>
             </li>
             <li class='nav-item'>
+                <a class='navbar-brand' href='avisolegal.php'><span class='text-warning'>AVISO LEGAL</span></a>
+            </li>
+            <li class='nav-item'>
                 <a class='navbar-brand' href='logout.php'><span class='text-warning'>SALIR</span></a>
             </li>
         </ul>
@@ -128,8 +132,9 @@ if(isset($_GET['idelemento']))//añadir poder consultar como entrenador y como o
 //Obtengo los datos del alumno
     $query = "SELECT * FROM alumnos WHERE idalumno={$idelemento} and estado='{$estado}'";   
     $alumno = mysqli_fetch_array(mysqli_query($enlace,$query));
+    
 
-//Obtengo los datos de nivel, competicion, clase, dojo
+//Obtengo los datos de nivel, competicion, clase, dojo y faltas
     $query = "SELECT * FROM nivel where idnivel={$alumno['idnivel']}";
     $kyu = mysqli_fetch_array(mysqli_query($enlace,$query));
 
@@ -156,6 +161,7 @@ if(isset($_GET['idelemento']))//añadir poder consultar como entrenador y como o
 
 //asigno los valores a las vbles
     $nombre = $alumno['nombre']." ".$alumno['apellido1']." ".$alumno['apellido2'];
+    $idalumno = $alumno['idalumno'];
     $dateborn = $alumno['dateborn'];
     $estado = $alumno['estado'];
     $dni = $alumno['dni'];
@@ -242,7 +248,7 @@ if(isset($_GET['idelemento']))//añadir poder consultar como entrenador y como o
 
         echo "</tbody>";
     echo "</table>";
-//dibijo tabla tres para mostar la clase donde esat y su entrenador
+//dibijo tabla tres para mostar la clase donde esta y su entrenador
     echo "<table class='table table-striped table-bordered table-hover'>";
         echo "<thead class='table table-striped'>";
             echo "<tr>";
@@ -263,6 +269,29 @@ if(isset($_GET['idelemento']))//añadir poder consultar como entrenador y como o
         echo "</tbody>";
     echo "</table>";
 
+// obtenemos las faltas del alumno y dibujo tabla de faltas
+    $query = "SELECT fechafalta FROM faltas WHERE idalumno={$idalumno}";
+    //echo $query."<br>";
+    $faltas = mysqli_query($enlace,$query);
+
+
+   echo "<table class='table table-striped table-bordered table-hover'>";
+        echo "<thead class='table table-striped'>";
+            echo "<tr>";
+                echo "<th class='table-dark' scope='col'>Fechas de faltas a clase</th>";
+            echo "</tr>";
+        echo "</thead>";
+        echo "<tbody>";
+            while ($lista = mysqli_fetch_assoc($faltas))
+            {
+                $falta = $lista['fechafalta'];
+                $falta = date('d-m-Y',strtotime($falta));
+                echo "<tr>";
+                    echo "<td> {$falta} </td>";
+                echo "</tr>";
+            }
+        echo "</tbody>";
+    echo "</table>";
     
 }
 mysqli_close($enlace);

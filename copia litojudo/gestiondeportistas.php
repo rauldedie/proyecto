@@ -79,6 +79,8 @@ if (isset($_GET['usuario']))
     $fila = mysqli_fetch_array(mysqli_query($enlace,$query));
     $rolenuso = $fila['tipousuario'];
 
+    echo $rolenuso;
+
     echo "<nav class='navbar navbar-expand-lg navbar-light bg-dark'>";
         echo"<p><img class='logo' src='logolitho.jpg'></p>";
         echo "<label class='navbar-brand'><span class='text-light bg-dark'>GESTION DEPORTISTAS</span></label>
@@ -139,6 +141,9 @@ if (isset($_GET['usuario']))
                         <a class='navbar-brand' href='panellitojudo.php?usuario={$idusuarioenuso}'><span class='text-primary'>VOLVER</span></a>
                     </li>
                     <li class='nav-item'>
+                        <a class='navbar-brand' href='avisolegal.php'><span class='text-warning'>AVISO LEGAL</span></a>
+                    </li>
+                    <li class='nav-item'>
                         <a class='navbar-brand' href='logout.php'><span class='text-warning'>SALIR</span></a>
                     </li>
 
@@ -163,6 +168,8 @@ if (isset($_GET['usuario']))
                 echo "<a href='gestiondeportistas.php?usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=2' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mostrar Judoliga</a>";
                 echo "<a href='gestiondeportistas.php?usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=3' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mostrar No Competición</a>";
                 echo "<a href='gestiondeportistas.php?usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mostrar Todos</a>";
+                echo "<a href='gestiondeportistas.php?usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Conciliación Bancaria</a>";
+                echo "<a href='gestiondeportistas.php?usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mensualidades</a>";
             }else
             {
                 //echo "<a href='gestionarusuario.php' class='btn btn-outline-dark mb-2'> <i class='bi bi-person-plus'></i> Gestionar Clases</a>";
@@ -170,6 +177,8 @@ if (isset($_GET['usuario']))
                 echo "<a href='gestiondeportistas.php?usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=2' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mostrar Judoliga</a>";
                 echo "<a href='gestiondeportistas.php?usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=3' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mostrar No Competición</a>";
                 echo "<a href='gestiondeportistas.php?usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mostrar Todos</a>";
+                echo "<a href='gestiondeportistas.php?usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Conciliación Bancaria</a>";
+                echo "<a href='gestiondeportistas.php?usuario={$idusuario}&&ord={$ord}&&campo=nombre&&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Mensualidades</a>";
 
             }
             

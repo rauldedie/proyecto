@@ -67,6 +67,7 @@ if(isset($_POST['nuevoalumno']))
     $diaclase = htmlspecialchars(mysqli_real_escape_string($enlace,stripcslashes($_POST['diaclase'])));
     $horaclase = htmlspecialchars(mysqli_real_escape_string($enlace,stripcslashes($_POST['horaclase'])));
     $estado = "alta";
+    $fechadealta = date('d-m-Y');
     $error = "";
 
     $cuenta1 = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['ccc1']))));
@@ -106,8 +107,8 @@ if(isset($_POST['nuevoalumno']))
     {
         
         //EL usuario no existe encriptamos e insertamos los datos en la tabla alumnos";
-        $query = "INSERT INTO alumnos (nombre,apellido1,apellido2,dateborn,urgencias1,urgencias2,padre,madre,idnivel,competicion,iddojo,telefono,email,dni,estado,cuenta) 
-        VALUES ('{$nombre}','{$apellido1}','{$apellido2}','{$dateborn}','{$urgencias1}','{$urgencias2}','{$padre}','{$madre}',{$kyu},{$competicion},{$iddojo},'{$telefono}','{$email}','{$dni}','{$estado}','{$cuenta}')";
+        $query = "INSERT INTO alumnos (nombre,apellido1,apellido2,dateborn,urgencias1,urgencias2,padre,madre,idnivel,competicion,iddojo,telefono,email,dni,estado,cuenta,fechadealta) 
+        VALUES ('{$nombre}','{$apellido1}','{$apellido2}','{$dateborn}','{$urgencias1}','{$urgencias2}','{$padre}','{$madre}',{$kyu},{$competicion},{$iddojo},'{$telefono}','{$email}','{$dni}','{$estado}','{$cuenta}','{$fechadealta}')";
         //echo $query."<br>";
         $resultado = mysqli_query($enlace,$query);
 

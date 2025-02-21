@@ -149,6 +149,9 @@ if (isset($_GET['usuario']))
                         <a class='navbar-brand' href='panelprincipal.php?rol={$rol}&&usuario={$idenuso}'><span class='text-primary'>VOLVER</span></a>
                     </li>
                     <li class='nav-item'>
+                        <a class='navbar-brand' href='avisolegal.php'><span class='text-warning'>AVISO LEGAL</span></a>
+                    </li>
+                    <li class='nav-item'>
                         <a class='navbar-brand' href='logout.php'><span class='text-warning'>SALIR</span></a>
                     </li>
 
