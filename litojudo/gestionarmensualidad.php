@@ -88,10 +88,11 @@ include "cabecera.php";
     <label class='nav-item'><h6>Usuario: <?php echo $nombreusuario; ?></h6></label><br>
 
     <?php
-    if(strcmp($rolenuso,"administrador")==0) {
+    
+    //if($rolenuso == 1) {
         echo "<a href='cuotasmes.php?usuario={$idenuso}' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> AÑADIR CUOTAS DEL MES</a>";
         echo "<a href='gestionbancaria.php?usuario={$rolenuso}&ord=asc&campo=nombre&mostrar=all' class='btn btn-outline-dark mb-2'> <i class='bi bi-person'></i> Comprobacion Cuentas</a>";
-    }
+    //}
     ?>
 
     <table class='table table-striped table-bordered table-hover'>
@@ -123,7 +124,7 @@ include "cabecera.php";
                         $resultado2 = mysqli_stmt_get_result($stmt2);
                         $pendientes = mysqli_fetch_assoc($resultado2)['pendientes'];
                         ?>
-                        <span><?php echo $pendientes > 0 ? "Este alumno tiene cuotas pendientes, revisa el histórico" : "Este alumno no tiene cuotas pendientes"; ?></span>
+                        <span><?php echo $pendientes > 0 ? "Este alumno tiene cuotas pendientes, revisa el histórico" : "Este alumno NO tiene cuotas pendientes"; ?></span>
                     <?php endif; ?>
                     <a href='historicocuotas.php?idalumno=<?php echo $row['idalumno']; ?>&usuario=<?php echo $idenuso; ?>' class='btn btn-secondary'>Ver Histórico</a>
                 </td>

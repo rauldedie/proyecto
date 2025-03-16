@@ -46,9 +46,7 @@ if(isset($_POST['nuevoalumno']))
     $nombre = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['nombre']))));
     $apellido1 = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['apellido1']))));
     $apellido2 = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['apellido2']))));
-    $fechanac = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['dateborn']))));
-
-    $dateborn = date("Y-m-d", strtotime($fechanac));
+    $dateborn = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['dateborn']))));
 
     $email = strtolower(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['email']))));
     //$email = $_POST['email'];
@@ -69,7 +67,7 @@ if(isset($_POST['nuevoalumno']))
     $diaclase = htmlspecialchars(mysqli_real_escape_string($enlace,stripcslashes($_POST['diaclase'])));
     $horaclase = htmlspecialchars(mysqli_real_escape_string($enlace,stripcslashes($_POST['horaclase'])));
     $estado = "alta";
-    $fechadealta = date('Y-m-d');
+    $fechadealta = date('d-m-Y');
     $error = "";
 
     $cuenta1 = strtoupper(htmlspecialchars(mysqli_real_escape_string($enlace,stripslashes($_POST['ccc1']))));
@@ -490,9 +488,7 @@ include "cabecera.php";
 </form>
 
 
-<?php 
-mysqli_close($enlace);
-include "pie.php";
+<?php include "pie.php";
 
 
  // Función para verificar si una cuenta IBAN es correcta
@@ -529,6 +525,5 @@ function checkIBAN($iban) {
     }
     
 }
-
+mysqli_close($enlace);
 ?>
-
